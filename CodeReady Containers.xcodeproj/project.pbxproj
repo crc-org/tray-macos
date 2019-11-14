@@ -21,6 +21,7 @@
 		556DAAF7237AB11600885463 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		556DAAF9237AB11600885463 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		556DAAFA237AB11600885463 /* CodeReady_Containers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodeReady_Containers.entitlements; sourceTree = "<group>"; };
+		556DAB00237AB16200885463 /* CodeReady Containers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CodeReady Containers.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +54,7 @@
 		556DAAEF237AB11600885463 /* CodeReady Containers */ = {
 			isa = PBXGroup;
 			children = (
+				556DAB00237AB16200885463 /* CodeReady Containers.entitlements */,
 				556DAAF0237AB11600885463 /* AppDelegate.swift */,
 				556DAAF2237AB11600885463 /* ViewController.swift */,
 				556DAAF4237AB11600885463 /* Assets.xcassets */,
@@ -95,6 +97,11 @@
 				TargetAttributes = {
 					556DAAEC237AB11600885463 = {
 						CreatedOnToolsVersion = 10.3;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -271,9 +278,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "CodeReady Containers/CodeReady_Containers.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "CodeReady Containers/CodeReady Containers.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "CodeReady Containers/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -281,6 +290,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "redhat.CodeReady-Containers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -289,9 +299,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "CodeReady Containers/CodeReady_Containers.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "CodeReady Containers/CodeReady Containers.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "CodeReady Containers/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -299,6 +311,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "redhat.CodeReady-Containers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
