@@ -20,7 +20,6 @@
 		556DAAF4237AB11600885463 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		556DAAF7237AB11600885463 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		556DAAF9237AB11600885463 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		556DAAFA237AB11600885463 /* CodeReady_Containers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodeReady_Containers.entitlements; sourceTree = "<group>"; };
 		556DAB00237AB16200885463 /* CodeReady Containers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CodeReady Containers.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,7 +59,6 @@
 				556DAAF4237AB11600885463 /* Assets.xcassets */,
 				556DAAF6237AB11600885463 /* Main.storyboard */,
 				556DAAF9237AB11600885463 /* Info.plist */,
-				556DAAFA237AB11600885463 /* CodeReady_Containers.entitlements */,
 			);
 			path = "CodeReady Containers";
 			sourceTree = "<group>";
