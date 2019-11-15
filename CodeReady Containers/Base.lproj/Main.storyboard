@@ -83,6 +83,9 @@
                         <menuItem isSeparatorItem="YES" id="OWD-LW-qoj"/>
                         <menuItem title="About" keyEquivalent="A" id="Bzh-I2-vt6">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <segue destination="nSR-KS-iPn" kind="show" id="VBR-Ac-Gi2"/>
+                            </connections>
                         </menuItem>
                         <menuItem title="Quit" keyEquivalent="q" id="bNu-ql-bvt">
                             <connections>
@@ -97,17 +100,41 @@
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
         <!--View Controller-->
+        <scene sceneID="76L-lN-YpW">
+            <objects>
+                <viewController id="nSR-KS-iPn" sceneMemberID="viewController">
+                    <view key="view" id="gzA-fr-McP">
+                        <rect key="frame" x="0.0" y="0.0" width="356" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="ngU-hs-47M" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="489" y="361"/>
+        </scene>
+        <!--View Controller-->
         <scene sceneID="6xD-jK-i2Z">
             <objects>
                 <viewController id="Aed-9x-vsJ" sceneMemberID="viewController">
                     <view key="view" id="voe-Te-Ymr">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="295" height="249"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pKh-P1-Fjj">
+                                <rect key="frame" x="18" y="263" width="37" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="Gxc-HF-Uhz">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
                     </view>
                 </viewController>
                 <customObject id="61o-nD-F2b" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="62" y="361"/>
+            <point key="canvasLocation" x="-15.5" y="335.5"/>
         </scene>
     </scenes>
     <resources>
