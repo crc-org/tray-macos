@@ -7,20 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A7D3F19DF105FBEC06FEBC1 /* Pods_CodeReady_Containers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9ABA1486FC7CF4019A4D230 /* Pods_CodeReady_Containers.framework */; };
+		554D75EE237E74CF00296295 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D75ED237E74CF00296295 /* AboutViewController.swift */; };
 		556DAAF1237AB11600885463 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DAAF0237AB11600885463 /* AppDelegate.swift */; };
-		556DAAF3237AB11600885463 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DAAF2237AB11600885463 /* ViewController.swift */; };
+		556DAAF3237AB11600885463 /* DetailedStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DAAF2237AB11600885463 /* DetailedStatusViewController.swift */; };
 		556DAAF5237AB11600885463 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DAAF4237AB11600885463 /* Assets.xcassets */; };
 		556DAAF8237AB11600885463 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 556DAAF6237AB11600885463 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D1CFB750815F15FE49D20FD /* Pods-CodeReady Containers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeReady Containers.release.xcconfig"; path = "Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers.release.xcconfig"; sourceTree = "<group>"; };
+		554D75ED237E74CF00296295 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		556DAAED237AB11600885463 /* CodeReady Containers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CodeReady Containers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DAAF0237AB11600885463 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		556DAAF2237AB11600885463 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		556DAAF2237AB11600885463 /* DetailedStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedStatusViewController.swift; sourceTree = "<group>"; };
 		556DAAF4237AB11600885463 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		556DAAF7237AB11600885463 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		556DAAF9237AB11600885463 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		556DAB00237AB16200885463 /* CodeReady Containers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CodeReady Containers.entitlements"; sourceTree = "<group>"; };
+		940ED4CA72DD7A718EE045AC /* Pods-CodeReady Containers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeReady Containers.debug.xcconfig"; path = "Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers.debug.xcconfig"; sourceTree = "<group>"; };
+		D9ABA1486FC7CF4019A4D230 /* Pods_CodeReady_Containers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeReady_Containers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,17 +34,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A7D3F19DF105FBEC06FEBC1 /* Pods_CodeReady_Containers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AA9342FEB94722D9F065EEF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D9ABA1486FC7CF4019A4D230 /* Pods_CodeReady_Containers.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2F3922A7C642D9FD7A66D30B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				940ED4CA72DD7A718EE045AC /* Pods-CodeReady Containers.debug.xcconfig */,
+				2D1CFB750815F15FE49D20FD /* Pods-CodeReady Containers.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		556DAAE4237AB11600885463 = {
 			isa = PBXGroup;
 			children = (
 				556DAAEF237AB11600885463 /* CodeReady Containers */,
 				556DAAEE237AB11600885463 /* Products */,
+				2F3922A7C642D9FD7A66D30B /* Pods */,
+				1AA9342FEB94722D9F065EEF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,7 +82,8 @@
 			children = (
 				556DAB00237AB16200885463 /* CodeReady Containers.entitlements */,
 				556DAAF0237AB11600885463 /* AppDelegate.swift */,
-				556DAAF2237AB11600885463 /* ViewController.swift */,
+				554D75ED237E74CF00296295 /* AboutViewController.swift */,
+				556DAAF2237AB11600885463 /* DetailedStatusViewController.swift */,
 				556DAAF4237AB11600885463 /* Assets.xcassets */,
 				556DAAF6237AB11600885463 /* Main.storyboard */,
 				556DAAF9237AB11600885463 /* Info.plist */,
@@ -70,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 556DAAFD237AB11600885463 /* Build configuration list for PBXNativeTarget "CodeReady Containers" */;
 			buildPhases = (
+				5B6481426C2451A866BD4FC2 /* [CP] Check Pods Manifest.lock */,
 				556DAAE9237AB11600885463 /* Sources */,
 				556DAAEA237AB11600885463 /* Frameworks */,
 				556DAAEB237AB11600885463 /* Resources */,
+				935E688083D602A37E379B3C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,12 +163,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5B6481426C2451A866BD4FC2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CodeReady Containers-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		935E688083D602A37E379B3C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		556DAAE9237AB11600885463 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				556DAAF3237AB11600885463 /* ViewController.swift in Sources */,
+				554D75EE237E74CF00296295 /* AboutViewController.swift in Sources */,
+				556DAAF3237AB11600885463 /* DetailedStatusViewController.swift in Sources */,
 				556DAAF1237AB11600885463 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +347,7 @@
 		};
 		556DAAFE237AB11600885463 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 940ED4CA72DD7A718EE045AC /* Pods-CodeReady Containers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "CodeReady Containers/CodeReady Containers.entitlements";
@@ -295,6 +369,7 @@
 		};
 		556DAAFF237AB11600885463 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D1CFB750815F15FE49D20FD /* Pods-CodeReady Containers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "CodeReady Containers/CodeReady Containers.entitlements";

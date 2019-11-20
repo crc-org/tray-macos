@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Socket
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -18,6 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var webConsoleMenuItem: NSMenuItem!
     @IBOutlet weak var ocLoginForKubeadmin: NSMenuItem!
     @IBOutlet weak var ocLoginForDeveloper: NSMenuItem!
+    @IBOutlet weak var detailedStatusMenuItem: NSMenuItem!
+    @IBOutlet weak var copyOcLoginCommand: NSMenuItem!
     
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
 
@@ -26,8 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.image = NSImage(named:NSImage.Name("crcEye"))
         }
         statusItem.menu = self.menu
-        
-        updateStatusMenuItem()
+        populateMenuState()
 
     }
 
@@ -36,6 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func startMenuClicked(_ sender: Any) {
+        
     }
     @IBAction func stopMenuClicked(_ sender: Any) {
     }
@@ -56,5 +59,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func quitTrayMenuClicked(_ sender: Any) {
         NSApplication.shared.terminate(self)
     }
+    
+    func populateMenuState() {
+        self.copyOcLoginCommand.isEnabled = false
+        updateStatusMenuItem()
+        // check if the cluster is running
+        if clusterRunning() {
+            self.startMenuItem.isEnabled = false
+            self.deleteMenuItem.isEnabled = true
+            self.stopMenuItem.isEnabled = true
+            self.detailedStatusMenuItem.isEnabled = true
+        }
+        
+    }
+    
+    func clusterRunning() -> Bool {
+        return false
+    }
+    
 }
 

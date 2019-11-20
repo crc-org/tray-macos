@@ -16,7 +16,9 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CodeReady_Containers" customModuleProvider="target">
                     <connections>
+                        <outlet property="copyOcLoginCommand" destination="Yby-ef-Esi" id="Tdo-2p-SRd"/>
                         <outlet property="deleteMenuItem" destination="27J-kw-niK" id="h3d-uY-5ql"/>
+                        <outlet property="detailedStatusMenuItem" destination="ZUW-Jl-ItH" id="K0B-Ux-DQC"/>
                         <outlet property="menu" destination="aAU-at-WNK" id="QEf-Kd-2ZM"/>
                         <outlet property="ocLoginForDeveloper" destination="Yy3-sd-gnX" id="gZh-nH-H3q"/>
                         <outlet property="ocLoginForKubeadmin" destination="Exy-M6-PZT" id="sbP-k0-qZU"/>
@@ -26,36 +28,36 @@
                         <outlet property="webConsoleMenuItem" destination="axU-4s-PuY" id="flp-wV-A1h"/>
                     </connections>
                 </customObject>
-                <menu id="aAU-at-WNK">
+                <menu title="Copy OC Login Command" autoenablesItems="NO" id="aAU-at-WNK">
                     <items>
                         <menuItem title="Unknow" image="NSStatusNone" enabled="NO" id="5P2-4d-SKo">
                             <attributedString key="attributedTitle"/>
                             <modifierMask key="keyEquivalentModifierMask"/>
                         </menuItem>
-                        <menuItem title="Detailed Status" keyEquivalent="d" id="ZUW-Jl-ItH">
+                        <menuItem title="Detailed Status" enabled="NO" keyEquivalent="d" id="ZUW-Jl-ItH">
                             <connections>
                                 <segue destination="Aed-9x-vsJ" kind="show" id="Myf-RI-UHc"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="XrF-pE-zFv"/>
-                        <menuItem title="Start" keyEquivalent="s" id="8Pp-UF-e91">
+                        <menuItem title="Start" enabled="NO" keyEquivalent="s" id="8Pp-UF-e91">
                             <connections>
                                 <action selector="startMenuClicked:" target="Voe-Tx-rLC" id="FvU-Cl-Cja"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Stop" keyEquivalent="x" id="46u-tX-Jvd">
+                        <menuItem title="Stop" enabled="NO" keyEquivalent="x" id="46u-tX-Jvd">
                             <connections>
                                 <action selector="stopMenuClicked:" target="Voe-Tx-rLC" id="Nbz-LD-4j8"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Delete" id="27J-kw-niK">
+                        <menuItem title="Delete" enabled="NO" id="27J-kw-niK">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="deleteMenuClicked:" target="Voe-Tx-rLC" id="BHM-FP-czF"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="Brf-fx-izl"/>
-                        <menuItem title="Launch Web Console" id="axU-4s-PuY">
+                        <menuItem title="Launch Web Console" enabled="NO" id="axU-4s-PuY">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="webConsoleMenuClicked:" target="Voe-Tx-rLC" id="HfU-X6-JXD"/>
@@ -99,10 +101,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
-        <!--View Controller-->
+        <!--About View Controller-->
         <scene sceneID="76L-lN-YpW">
             <objects>
-                <viewController id="nSR-KS-iPn" sceneMemberID="viewController">
+                <viewController id="nSR-KS-iPn" customClass="AboutViewController" customModule="CodeReady_Containers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="gzA-fr-McP">
                         <rect key="frame" x="0.0" y="0.0" width="356" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -110,31 +112,62 @@
                 </viewController>
                 <customObject id="ngU-hs-47M" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="489" y="361"/>
+            <point key="canvasLocation" x="454" y="297"/>
         </scene>
-        <!--View Controller-->
+        <!--Detailed Status View Controller-->
         <scene sceneID="6xD-jK-i2Z">
             <objects>
-                <viewController id="Aed-9x-vsJ" sceneMemberID="viewController">
+                <viewController id="Aed-9x-vsJ" customClass="DetailedStatusViewController" customModule="CodeReady_Containers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="voe-Te-Ymr">
                         <rect key="frame" x="0.0" y="0.0" width="295" height="249"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pKh-P1-Fjj">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pKh-P1-Fjj">
                                 <rect key="frame" x="18" y="263" width="37" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="Gxc-HF-Uhz">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fAQ-me-QYy">
+                                <rect key="frame" x="32" y="212" width="71" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="VM Status:" id="1RX-Ma-3hc">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYu-yv-CnE">
+                                <rect key="frame" x="34" y="187" width="112" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="OpenShift Status:" id="QV0-T4-y6M">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bYX-gf-dYc">
+                                <rect key="frame" x="36" y="162" width="70" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Disk Uage:" id="39p-cw-qOy">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pKh-P1-Fjj" secondAttribute="trailing" constant="20" symbolic="YES" id="GQs-CX-pNg"/>
+                            <constraint firstItem="pKh-P1-Fjj" firstAttribute="top" secondItem="voe-Te-Ymr" secondAttribute="top" constant="-31" id="dpy-Zf-rif"/>
+                            <constraint firstItem="pKh-P1-Fjj" firstAttribute="leading" secondItem="voe-Te-Ymr" secondAttribute="leading" constant="20" symbolic="YES" id="rDN-Uc-k3b"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="61o-nD-F2b" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-15.5" y="335.5"/>
+            <point key="canvasLocation" x="-253" y="272"/>
         </scene>
     </scenes>
     <resources>
