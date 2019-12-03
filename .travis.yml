@@ -1,0 +1,5 @@
+os: osx
+osx_image: xcode10.3
+
+script:
+- xcodebuild -workspace CodeReady\ Containers.xcworkspace -scheme CodeReady\ Containers

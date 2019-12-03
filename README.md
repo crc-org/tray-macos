@@ -3,6 +3,8 @@
 This is a companion app for CodeReady Containers, it works only on macOS
 For the CRC project head over to: https://github.com/code-ready/crc
 
+[![Build Status](https://travis-ci.org/anjannath/crc-macos-tray.svg?branch=master)](https://travis-ci.org/anjannath/crc-macos-tray)
+
 ### How to use
 
 1. You need the latest CRC binary first. Download it from https://github.com/code-ready/crc/releases
