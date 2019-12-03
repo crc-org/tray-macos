@@ -5,6 +5,29 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Window Controller-->
+        <scene sceneID="io9-As-c8Q">
+            <objects>
+                <windowController id="I4M-tg-MG9" sceneMemberID="viewController">
+                    <window key="window" title="Detailed Status" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="TEj-ih-NFz">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="1235" y="713" width="350" height="200"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="350" height="200"/>
+                        <value key="maxSize" type="size" width="350" height="200"/>
+                        <connections>
+                            <outlet property="delegate" destination="I4M-tg-MG9" id="GY7-4k-FBw"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="Aed-9x-vsJ" kind="relationship" relationship="window.shadowedContentViewController" id="Xgl-w4-TJd"/>
+                    </connections>
+                </windowController>
+                <customObject id="GAx-CT-vw0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-407" y="192"/>
+        </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
@@ -14,29 +37,16 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CodeReady_Containers" customModuleProvider="target">
-                    <connections>
-                        <outlet property="copyOcLoginCommand" destination="Yby-ef-Esi" id="Tdo-2p-SRd"/>
-                        <outlet property="deleteMenuItem" destination="27J-kw-niK" id="h3d-uY-5ql"/>
-                        <outlet property="detailedStatusMenuItem" destination="ZUW-Jl-ItH" id="K0B-Ux-DQC"/>
-                        <outlet property="menu" destination="aAU-at-WNK" id="QEf-Kd-2ZM"/>
-                        <outlet property="ocLoginForDeveloper" destination="Yy3-sd-gnX" id="gZh-nH-H3q"/>
-                        <outlet property="ocLoginForKubeadmin" destination="Exy-M6-PZT" id="sbP-k0-qZU"/>
-                        <outlet property="startMenuItem" destination="8Pp-UF-e91" id="EV3-nz-21E"/>
-                        <outlet property="statusMenuItem" destination="5P2-4d-SKo" id="hby-fq-0QL"/>
-                        <outlet property="stopMenuItem" destination="46u-tX-Jvd" id="7KW-zW-bsv"/>
-                        <outlet property="webConsoleMenuItem" destination="axU-4s-PuY" id="flp-wV-A1h"/>
-                    </connections>
-                </customObject>
                 <menu title="Copy OC Login Command" autoenablesItems="NO" id="aAU-at-WNK">
                     <items>
                         <menuItem title="Unknow" image="NSStatusNone" enabled="NO" id="5P2-4d-SKo">
                             <attributedString key="attributedTitle"/>
                             <modifierMask key="keyEquivalentModifierMask"/>
                         </menuItem>
-                        <menuItem title="Detailed Status" enabled="NO" keyEquivalent="d" id="ZUW-Jl-ItH">
+                        <menuItem isSeparatorItem="YES" id="Soi-V6-JJO"/>
+                        <menuItem title="Detailed Status" keyEquivalent="d" id="ZUW-Jl-ItH">
                             <connections>
-                                <segue destination="Aed-9x-vsJ" kind="show" id="Myf-RI-UHc"/>
+                                <segue destination="I4M-tg-MG9" kind="show" id="mIR-cL-7c1"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="XrF-pE-zFv"/>
@@ -86,7 +96,7 @@
                         <menuItem title="About" keyEquivalent="A" id="Bzh-I2-vt6">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <segue destination="nSR-KS-iPn" kind="show" id="VBR-Ac-Gi2"/>
+                                <segue destination="SbK-ai-iAt" kind="show" id="wL6-5z-XHC"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Quit" keyEquivalent="q" id="bNu-ql-bvt">
@@ -98,40 +108,154 @@
                 </menu>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CodeReady_Containers" customModuleProvider="target">
+                    <connections>
+                        <outlet property="copyOcLoginCommand" destination="Yby-ef-Esi" id="Tdo-2p-SRd"/>
+                        <outlet property="deleteMenuItem" destination="27J-kw-niK" id="h3d-uY-5ql"/>
+                        <outlet property="detailedStatusMenuItem" destination="ZUW-Jl-ItH" id="K0B-Ux-DQC"/>
+                        <outlet property="menu" destination="aAU-at-WNK" id="QEf-Kd-2ZM"/>
+                        <outlet property="ocLoginForDeveloper" destination="Yy3-sd-gnX" id="gZh-nH-H3q"/>
+                        <outlet property="ocLoginForKubeadmin" destination="Exy-M6-PZT" id="sbP-k0-qZU"/>
+                        <outlet property="startMenuItem" destination="8Pp-UF-e91" id="EV3-nz-21E"/>
+                        <outlet property="statusMenuItem" destination="5P2-4d-SKo" id="hby-fq-0QL"/>
+                        <outlet property="stopMenuItem" destination="46u-tX-Jvd" id="7KW-zW-bsv"/>
+                        <outlet property="webConsoleMenuItem" destination="axU-4s-PuY" id="flp-wV-A1h"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="3Mi-dy-arc">
+            <objects>
+                <customObject id="pPd-uq-JSt" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <windowController id="SbK-ai-iAt" sceneMemberID="viewController">
+                    <window key="window" title="About" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="hVt-He-jKJ">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
+                        <rect key="contentRect" x="1106" y="655" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="480" height="270"/>
+                        <value key="maxSize" type="size" width="480" height="270"/>
+                        <connections>
+                            <outlet property="delegate" destination="SbK-ai-iAt" id="L4a-kp-Kw6"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="nSR-KS-iPn" kind="relationship" relationship="window.shadowedContentViewController" id="wTC-Vl-VmP"/>
+                    </connections>
+                </windowController>
+            </objects>
+            <point key="canvasLocation" x="590" y="132"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="76L-lN-YpW">
             <objects>
                 <viewController id="nSR-KS-iPn" customClass="AboutViewController" customModule="CodeReady_Containers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="gzA-fr-McP">
-                        <rect key="frame" x="0.0" y="0.0" width="356" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9KC-9m-CW2">
+                                <rect key="frame" x="124" y="161" width="109" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="V3k-zb-BNS"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wdl-dT-krA">
+                                <rect key="frame" x="107" y="161" width="265" height="109"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="OcpLogo" id="T4b-w7-6ud"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXI-d5-gqr">
+                                <rect key="frame" x="130" y="126" width="219" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="CodeReady Container Version: 1.2.1" id="MUr-FA-dKt">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nkf-3h-Wyn">
+                                <rect key="frame" x="158" y="101" width="164" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="OCP Bundle Version: 4.2.2" id="irM-Fc-RDg">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVp-2R-VgQ">
+                                <rect key="frame" x="176" y="76" width="128" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Crc Tray Version: 1.0" id="mxZ-A2-602">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bu4-6d-FFx">
+                                <rect key="frame" x="132" y="47" width="214" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UF7-7A-yzp" customClass="HyperLinkTextField" customModule="CodeReady_Containers" customModuleProvider="target">
+                                        <rect key="frame" x="19" y="3" width="197" height="17"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" title="https://code-ready.github.io/crc" id="lgt-lI-dqn">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="href" value="https://code-ready.github.io/crc"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4gQ-qs-Y3a">
+                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="internet" id="Arp-NV-Vsh"/>
+                                    </imageView>
+                                </subviews>
+                            </customView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bd9-0s-O0m">
+                                <rect key="frame" x="88" y="25" width="304" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4TK-OI-SII">
+                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="github" id="xWI-vz-qq1"/>
+                                    </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-uu-Dow" customClass="HyperLinkTextField" customModule="CodeReady_Containers" customModuleProvider="target">
+                                        <rect key="frame" x="18" y="3" width="288" height="17"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="https://github.com/code-ready/crc-tray-macos" id="5Qx-Yu-Fqb">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="href" value="https://github.com/code-ready/crc-tray-macos"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                </subviews>
+                            </customView>
+                        </subviews>
                     </view>
                 </viewController>
                 <customObject id="ngU-hs-47M" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="454" y="297"/>
+            <point key="canvasLocation" x="576" y="610"/>
         </scene>
         <!--Detailed Status View Controller-->
         <scene sceneID="6xD-jK-i2Z">
             <objects>
                 <viewController id="Aed-9x-vsJ" customClass="DetailedStatusViewController" customModule="CodeReady_Containers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="voe-Te-Ymr">
-                        <rect key="frame" x="0.0" y="0.0" width="295" height="249"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pKh-P1-Fjj">
-                                <rect key="frame" x="18" y="263" width="37" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="Gxc-HF-Uhz">
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fAQ-me-QYy">
-                                <rect key="frame" x="32" y="212" width="71" height="17"/>
+                                <rect key="frame" x="18" y="105" width="71" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="VM Status:" id="1RX-Ma-3hc">
                                     <font key="font" metaFont="system"/>
@@ -140,7 +264,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYu-yv-CnE">
-                                <rect key="frame" x="34" y="187" width="112" height="17"/>
+                                <rect key="frame" x="18" y="80" width="112" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="OpenShift Status:" id="QV0-T4-y6M">
                                     <font key="font" metaFont="system"/>
@@ -149,7 +273,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bYX-gf-dYc">
-                                <rect key="frame" x="36" y="162" width="70" height="17"/>
+                                <rect key="frame" x="18" y="55" width="70" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Disk Uage:" id="39p-cw-qOy">
                                     <font key="font" metaFont="system"/>
@@ -157,20 +281,69 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ncg-Z5-rzZ">
+                                <rect key="frame" x="18" y="30" width="67" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Disk Size: " id="hmW-dD-siQ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xNh-l6-o3p">
+                                <rect key="frame" x="157" y="105" width="61" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="left" title="Unknown" id="UVy-TX-3N4">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RWH-72-OCX">
+                                <rect key="frame" x="157" y="80" width="61" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Unknown" id="YQD-gQ-fOV">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pec-ZB-uFt">
+                                <rect key="frame" x="157" y="55" width="61" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Unknown" id="D6V-SI-3qh">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AML-Zo-nva">
+                                <rect key="frame" x="157" y="30" width="61" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Unknown" id="pkf-jO-4M0">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pKh-P1-Fjj" secondAttribute="trailing" constant="20" symbolic="YES" id="GQs-CX-pNg"/>
-                            <constraint firstItem="pKh-P1-Fjj" firstAttribute="top" secondItem="voe-Te-Ymr" secondAttribute="top" constant="-31" id="dpy-Zf-rif"/>
-                            <constraint firstItem="pKh-P1-Fjj" firstAttribute="leading" secondItem="voe-Te-Ymr" secondAttribute="leading" constant="20" symbolic="YES" id="rDN-Uc-k3b"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="diskSize" destination="AML-Zo-nva" id="mb3-gU-uDy"/>
+                        <outlet property="diskUsage" destination="pec-ZB-uFt" id="7hc-Tc-uWO"/>
+                        <outlet property="ocpStatus" destination="RWH-72-OCX" id="vml-vO-sRH"/>
+                        <outlet property="vmStatus" destination="xNh-l6-o3p" id="sRa-ty-Sze"/>
+                    </connections>
                 </viewController>
                 <customObject id="61o-nD-F2b" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-253" y="272"/>
+            <point key="canvasLocation" x="-401" y="559"/>
         </scene>
     </scenes>
     <resources>
         <image name="NSStatusNone" width="16" height="16"/>
+        <image name="OcpLogo" width="1382" height="496"/>
+        <image name="github" width="16" height="16"/>
+        <image name="internet" width="16" height="16"/>
     </resources>
 </document>

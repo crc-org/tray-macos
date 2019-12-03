@@ -7,7 +7,30 @@
 //
 
 import Cocoa
-import Socket
+import UserNotifications
+
+var notificationAllowed: Bool = false
+
+// MenuStates is used to update the state of the menus
+struct MenuStates {
+    let startMenuEnabled: Bool
+    let stopMenuEnabled: Bool
+    let deleteMenuEnabled: Bool
+    let webconsoleMenuEnabled: Bool
+    let ocLoginForDeveloperEnabled: Bool
+    let ocLoginForAdminEnabled: Bool
+    let copyOcLoginCommand: Bool
+}
+
+struct ClusterStatus: Decodable {
+    let Name: String
+    let CrcStatus: String
+    let OpenshiftStatus: String
+    let DiskUse: Int64
+    let DiskSize: Int64
+    let Error: String
+    let Success: Bool
+}
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -23,59 +46,123 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var copyOcLoginCommand: NSMenuItem!
     
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
-
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let button = statusItem.button {
-            button.image = NSImage(named:NSImage.Name("crcEye"))
+            let menubarIcon = NSImage(named:NSImage.Name("TrayIcon"))
+            menubarIcon?.isTemplate = true
+            button.image = menubarIcon
         }
         statusItem.menu = self.menu
-        populateMenuState()
-
+        initializeMenus()
+        
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound], completionHandler: { (granted, error) in
+            notificationAllowed = granted
+            print(error?.localizedDescription ?? "Notification Request: No Error")
+        })
+    
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+        // Maybe kill the daemon too
     }
 
     @IBAction func startMenuClicked(_ sender: Any) {
-        
-    }
-    @IBAction func stopMenuClicked(_ sender: Any) {
-    }
-    @IBAction func deleteMenuClicked(_ sender: Any) {
-    }
-    @IBAction func webConsoleMenuClicked(_ sender: Any) {
-    }
-    @IBAction func copyOcLoginForKubeadminMenuClicked(_ sender: Any) {
-    }
-    @IBAction func copyOcLoginForDeveloperMenuClicked(_ sender: Any) {
+        DispatchQueue.global(qos: .userInteractive).async {
+            HandleStart()
+        }
     }
     
-    func updateStatusMenuItem() {
-        self.statusMenuItem.title = "OpenShift Cluster is running"
-        self.statusMenuItem.image = NSImage(named:NSImage.statusAvailableName)
+    @IBAction func stopMenuClicked(_ sender: Any) {
+        DispatchQueue.global(qos: .userInteractive).async {
+            HandleStop()
+        }
+    }
+    
+    @IBAction func deleteMenuClicked(_ sender: Any) {
+        DispatchQueue.global(qos: .userInteractive).async {
+            HandleDelete()
+        }
+    }
+    
+    @IBAction func webConsoleMenuClicked(_ sender: Any) {
+        DispatchQueue.global(qos: .userInteractive).async {
+            HandleWebConsoleURL()
+        }
+    }
+    
+    @IBAction func copyOcLoginForKubeadminMenuClicked(_ sender: Any) {
+//        let pasteboard = NSPasteboard.general
+//        pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
+//        pasteboard.setString("kuch bhi", forType: NSPasteboard.PasteboardType.string)
+//        //print(pasteboard.string(forType: NSPasteboard.PasteboardType.string)!)
+    }
+    
+    @IBAction func copyOcLoginForDeveloperMenuClicked(_ sender: Any) {
     }
     
     @IBAction func quitTrayMenuClicked(_ sender: Any) {
         NSApplication.shared.terminate(self)
     }
     
-    func populateMenuState() {
-        self.copyOcLoginCommand.isEnabled = false
-        updateStatusMenuItem()
-        // check if the cluster is running
-        if clusterRunning() {
-            self.startMenuItem.isEnabled = false
-            self.deleteMenuItem.isEnabled = true
-            self.stopMenuItem.isEnabled = true
-            self.detailedStatusMenuItem.isEnabled = true
+    func updateStatusMenuItem(status: String) {
+        if status == "Stopped" {
+            self.statusMenuItem.title = "Cluster is Stopped"
+            self.statusMenuItem.image = NSImage(named:NSImage.statusUnavailableName)
         }
-        
+        if status == "Running" {
+            self.statusMenuItem.title = "Cluster is Running"
+            self.statusMenuItem.image = NSImage(named:NSImage.statusAvailableName)
+        }
     }
     
-    func clusterRunning() -> Bool {
-        return false
+    func showClusterStartingMessageOnStatusMenuItem() {
+        self.statusMenuItem.title = "Cluster is starting..."
+        self.statusMenuItem.image = nil
     }
     
+    func updateMenuStates(state: MenuStates) {
+        self.startMenuItem.isEnabled = state.startMenuEnabled
+        self.stopMenuItem.isEnabled = state.stopMenuEnabled
+        self.deleteMenuItem.isEnabled = state.deleteMenuEnabled
+        self.webConsoleMenuItem.isEnabled = state.webconsoleMenuEnabled
+        self.ocLoginForDeveloper.isEnabled = state.ocLoginForDeveloperEnabled
+        self.ocLoginForKubeadmin.isEnabled = state.ocLoginForAdminEnabled
+        self.copyOcLoginCommand.isEnabled = state.copyOcLoginCommand
+    }
+    
+    func initializeMenus() {
+        self.statusMenuItem.title = "Status Unknown"
+        self.statusMenuItem.image = NSImage(named:NSImage.statusNoneName)
+        let status = clusterStatus()
+        updateStatusMenuItem(status: status)
+        if status == "Running" {
+            self.startMenuItem.isEnabled = false
+            self.stopMenuItem.isEnabled = true
+            self.deleteMenuItem.isEnabled = true
+            self.webConsoleMenuItem.isEnabled = true
+            self.copyOcLoginCommand.isEnabled = true
+            self.ocLoginForDeveloper.isEnabled = true
+            self.ocLoginForKubeadmin.isEnabled = true
+        }
+        if status == "Stopped" {
+            self.startMenuItem.isEnabled = true
+            self.stopMenuItem.isEnabled = false
+            self.deleteMenuItem.isEnabled = true
+            self.webConsoleMenuItem.isEnabled = false
+            self.copyOcLoginCommand.isEnabled = false
+            self.ocLoginForDeveloper.isEnabled = false
+            self.ocLoginForKubeadmin.isEnabled = false
+        } else {
+            self.startMenuItem.isEnabled = true
+            self.stopMenuItem.isEnabled = false
+            self.deleteMenuItem.isEnabled = false
+            self.webConsoleMenuItem.isEnabled = false
+            self.copyOcLoginCommand.isEnabled = false
+            self.ocLoginForDeveloper.isEnabled = false
+            self.ocLoginForKubeadmin.isEnabled = false
+        }
+    }
 }
-
