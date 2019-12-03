@@ -45,6 +45,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var detailedStatusMenuItem: NSMenuItem!
     @IBOutlet weak var copyOcLoginCommand: NSMenuItem!
     
+    var kubeadminPass: String!
+    var apiEndpoint: String!
+    
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -94,13 +97,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func copyOcLoginForKubeadminMenuClicked(_ sender: Any) {
-//        let pasteboard = NSPasteboard.general
-//        pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
-//        pasteboard.setString("kuch bhi", forType: NSPasteboard.PasteboardType.string)
-//        //print(pasteboard.string(forType: NSPasteboard.PasteboardType.string)!)
+        if kubeadminPass != nil && apiEndpoint != nil {
+            let loginCommand = String(format: "oc login -u kubeadmin -p %s %s", kubeadminPass, apiEndpoint)
+            let pasteboard = NSPasteboard.general
+            pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
+            pasteboard.setString(loginCommand, forType: NSPasteboard.PasteboardType.string)
+            print(pasteboard.string(forType: NSPasteboard.PasteboardType.string)!)
+            displayNotification(title: "OC Login with kubeadmin", body: "OC Login command copied to clipboard, go ahead an login to your cluster")
+        } else {
+            displayNotification(title: "Failed to get login command", body: "Unable to find kubeadmin users credentials to login to the cluster")
+        }
     }
     
     @IBAction func copyOcLoginForDeveloperMenuClicked(_ sender: Any) {
+        if apiEndpoint != nil {
+            let loginCommand = String(format: "oc login -u developer -p developer %s", apiEndpoint)
+            let pasteboard = NSPasteboard.general
+            pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
+            pasteboard.setString(loginCommand, forType: NSPasteboard.PasteboardType.string)
+            print(pasteboard.string(forType: NSPasteboard.PasteboardType.string)!)
+            displayNotification(title: "OC Login with developer", body: "OC Login command copied to clipboard, go ahead an login to your cluster")
+        } else {
+            displayNotification(title: "Failed to get login command", body: "Unable to find api end point of the cluster")
+        }
     }
     
     @IBAction func quitTrayMenuClicked(_ sender: Any) {

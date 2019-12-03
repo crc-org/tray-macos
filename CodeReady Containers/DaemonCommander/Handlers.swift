@@ -65,6 +65,7 @@ func HandleStop() {
             DispatchQueue.main.async {
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
                 appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: true, stopMenuEnabled: false, deleteMenuEnabled: true, webconsoleMenuEnabled: false, ocLoginForDeveloperEnabled: false, ocLoginForAdminEnabled: false, copyOcLoginCommand: false))
+                appDelegate?.updateStatusMenuItem(status: "Stopped")
                 
                 displayNotification(title: "Successfully Deleted Cluster", body: "The CRC Cluster was successfully deleted")
             }

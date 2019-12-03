@@ -99,6 +99,7 @@
                                 <segue destination="SbK-ai-iAt" kind="show" id="wL6-5z-XHC"/>
                             </connections>
                         </menuItem>
+                        <menuItem isSeparatorItem="YES" id="l7P-bD-F7P"/>
                         <menuItem title="Quit" keyEquivalent="q" id="bNu-ql-bvt">
                             <connections>
                                 <action selector="quitTrayMenuClicked:" target="Voe-Tx-rLC" id="V3B-wn-tws"/>
