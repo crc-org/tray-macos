@@ -12,10 +12,9 @@
                     <window key="window" title="Detailed Status" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="TEj-ih-NFz">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="1235" y="713" width="350" height="200"/>
+                        <rect key="contentRect" x="1235" y="713" width="476" height="200"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="350" height="200"/>
-                        <value key="maxSize" type="size" width="350" height="200"/>
+                        <value key="minSize" type="size" width="465" height="200"/>
                         <connections>
                             <outlet property="delegate" destination="I4M-tg-MG9" id="GY7-4k-FBw"/>
                         </connections>
@@ -26,7 +25,7 @@
                 </windowController>
                 <customObject id="GAx-CT-vw0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-407" y="192"/>
+            <point key="canvasLocation" x="-344" y="192"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
@@ -252,75 +251,67 @@
             <objects>
                 <viewController id="Aed-9x-vsJ" customClass="DetailedStatusViewController" customModule="CodeReady_Containers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="voe-Te-Ymr">
-                        <rect key="frame" x="0.0" y="0.0" width="350" height="150"/>
+                        <rect key="frame" x="0.0" y="0.0" width="470" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fAQ-me-QYy">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fAQ-me-QYy">
                                 <rect key="frame" x="18" y="105" width="71" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="VM Status:" id="1RX-Ma-3hc">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYu-yv-CnE">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lYu-yv-CnE">
                                 <rect key="frame" x="18" y="80" width="112" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="OpenShift Status:" id="QV0-T4-y6M">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bYX-gf-dYc">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bYX-gf-dYc">
                                 <rect key="frame" x="18" y="55" width="70" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Disk Uage:" id="39p-cw-qOy">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ncg-Z5-rzZ">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ncg-Z5-rzZ">
                                 <rect key="frame" x="18" y="30" width="67" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Disk Size: " id="hmW-dD-siQ">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xNh-l6-o3p">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xNh-l6-o3p">
                                 <rect key="frame" x="157" y="105" width="61" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="left" title="Unknown" id="UVy-TX-3N4">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RWH-72-OCX">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RWH-72-OCX">
                                 <rect key="frame" x="157" y="80" width="61" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Unknown" id="YQD-gQ-fOV">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pec-ZB-uFt">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pec-ZB-uFt">
                                 <rect key="frame" x="157" y="55" width="61" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Unknown" id="D6V-SI-3qh">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AML-Zo-nva">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AML-Zo-nva">
                                 <rect key="frame" x="157" y="30" width="61" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Unknown" id="pkf-jO-4M0">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -328,6 +319,30 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="Ncg-Z5-rzZ" firstAttribute="top" secondItem="bYX-gf-dYc" secondAttribute="bottom" constant="8" id="3Hl-Jl-PoU"/>
+                            <constraint firstItem="bYX-gf-dYc" firstAttribute="leading" secondItem="voe-Te-Ymr" secondAttribute="leading" constant="20" id="4w2-IS-5CI"/>
+                            <constraint firstItem="fAQ-me-QYy" firstAttribute="top" secondItem="voe-Te-Ymr" secondAttribute="top" constant="28" id="5hr-IT-rCC"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AML-Zo-nva" secondAttribute="trailing" constant="20" id="ACr-tV-0Ax"/>
+                            <constraint firstAttribute="bottom" secondItem="Ncg-Z5-rzZ" secondAttribute="bottom" constant="30" id="Bn7-jO-Vjc"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pec-ZB-uFt" secondAttribute="trailing" constant="20" id="GLl-Iz-iri"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xNh-l6-o3p" secondAttribute="trailing" constant="20" id="KPk-5M-3fk"/>
+                            <constraint firstItem="pec-ZB-uFt" firstAttribute="top" secondItem="RWH-72-OCX" secondAttribute="bottom" constant="8" id="LuW-JG-ko0"/>
+                            <constraint firstItem="pec-ZB-uFt" firstAttribute="leading" secondItem="bYX-gf-dYc" secondAttribute="trailing" constant="73" id="MwX-Lc-agN"/>
+                            <constraint firstItem="lYu-yv-CnE" firstAttribute="leading" secondItem="voe-Te-Ymr" secondAttribute="leading" constant="20" id="PRb-up-brz"/>
+                            <constraint firstItem="fAQ-me-QYy" firstAttribute="leading" secondItem="voe-Te-Ymr" secondAttribute="leading" constant="20" id="USI-Xw-HBS"/>
+                            <constraint firstItem="AML-Zo-nva" firstAttribute="top" secondItem="pec-ZB-uFt" secondAttribute="bottom" constant="8" id="bMI-io-Vch"/>
+                            <constraint firstItem="xNh-l6-o3p" firstAttribute="top" secondItem="voe-Te-Ymr" secondAttribute="top" constant="28" id="gjc-1l-1AM"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RWH-72-OCX" secondAttribute="trailing" constant="20" id="hVH-x6-VnQ"/>
+                            <constraint firstItem="RWH-72-OCX" firstAttribute="leading" secondItem="lYu-yv-CnE" secondAttribute="trailing" constant="31" id="jqW-0Z-SK6"/>
+                            <constraint firstItem="lYu-yv-CnE" firstAttribute="top" secondItem="fAQ-me-QYy" secondAttribute="bottom" constant="8" id="kQn-YY-4ET"/>
+                            <constraint firstAttribute="bottom" secondItem="AML-Zo-nva" secondAttribute="bottom" constant="30" id="lYR-7F-ZFK"/>
+                            <constraint firstItem="bYX-gf-dYc" firstAttribute="top" secondItem="lYu-yv-CnE" secondAttribute="bottom" constant="8" id="rbI-rA-Duh"/>
+                            <constraint firstItem="xNh-l6-o3p" firstAttribute="leading" secondItem="fAQ-me-QYy" secondAttribute="trailing" constant="72" id="so1-sB-jUT"/>
+                            <constraint firstItem="Ncg-Z5-rzZ" firstAttribute="leading" secondItem="voe-Te-Ymr" secondAttribute="leading" constant="20" id="vsd-BX-XsC"/>
+                            <constraint firstItem="RWH-72-OCX" firstAttribute="top" secondItem="xNh-l6-o3p" secondAttribute="bottom" constant="8" id="vxw-ky-9Tg"/>
+                            <constraint firstItem="AML-Zo-nva" firstAttribute="leading" secondItem="Ncg-Z5-rzZ" secondAttribute="trailing" constant="76" id="xVl-iM-jur"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="diskSize" destination="AML-Zo-nva" id="mb3-gU-uDy"/>
@@ -338,7 +353,7 @@
                 </viewController>
                 <customObject id="61o-nD-F2b" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-401" y="559"/>
+            <point key="canvasLocation" x="-341" y="559"/>
         </scene>
     </scenes>
     <resources>

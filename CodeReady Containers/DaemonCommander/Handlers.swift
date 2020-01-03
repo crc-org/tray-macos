@@ -67,7 +67,7 @@ func HandleStop() {
                 appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: true, stopMenuEnabled: false, deleteMenuEnabled: true, webconsoleMenuEnabled: false, ocLoginForDeveloperEnabled: false, ocLoginForAdminEnabled: false, copyOcLoginCommand: false))
                 appDelegate?.updateStatusMenuItem(status: "Stopped")
                 
-                displayNotification(title: "Successfully Deleted Cluster", body: "The CRC Cluster was successfully deleted")
+                displayNotification(title: "Successfully Stopped Cluster", body: "The CRC Cluster was successfully stopped")
             }
         }
     } catch let jsonErr {
