@@ -11,3 +11,7 @@ For the CRC project head over to: https://github.com/code-ready/crc
 2. Download the precompiled tray app from releases page of this repository
 3. run `crc daemon`
 4. Launch the tray app you downloaded and you should see the OCP logo on the menubar
+
+### Screenshots
+
+![shot1](https://i.imgur.com/bMBqHUq.png) ![shot2](https://i.imgur.com/XFAc9OB.png) ![shot3](https://i.imgur.com/RslQlpW.png)
