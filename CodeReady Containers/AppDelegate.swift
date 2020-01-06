@@ -22,16 +22,6 @@ struct MenuStates {
     let copyOcLoginCommand: Bool
 }
 
-struct ClusterStatus: Decodable {
-    let Name: String
-    let CrcStatus: String
-    let OpenshiftStatus: String
-    let DiskUse: Int64
-    let DiskSize: Int64
-    let Error: String
-    let Success: Bool
-}
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var menu: NSMenu!
@@ -97,28 +87,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func copyOcLoginForKubeadminMenuClicked(_ sender: Any) {
-        if kubeadminPass != nil && apiEndpoint != nil {
-            let loginCommand = String(format: "oc login -u kubeadmin -p %s %s", kubeadminPass, apiEndpoint)
-            let pasteboard = NSPasteboard.general
-            pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
-            pasteboard.setString(loginCommand, forType: NSPasteboard.PasteboardType.string)
-            print(pasteboard.string(forType: NSPasteboard.PasteboardType.string)!)
-            displayNotification(title: "OC Login with kubeadmin", body: "OC Login command copied to clipboard, go ahead an login to your cluster")
-        } else {
-            displayNotification(title: "Failed to get login command", body: "Unable to find kubeadmin users credentials to login to the cluster")
+        DispatchQueue.global(qos: .userInteractive).async {
+            HandleLoginCommandForKubeadmin()
         }
     }
     
     @IBAction func copyOcLoginForDeveloperMenuClicked(_ sender: Any) {
-        if apiEndpoint != nil {
-            let loginCommand = String(format: "oc login -u developer -p developer %s", apiEndpoint)
-            let pasteboard = NSPasteboard.general
-            pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
-            pasteboard.setString(loginCommand, forType: NSPasteboard.PasteboardType.string)
-            print(pasteboard.string(forType: NSPasteboard.PasteboardType.string)!)
-            displayNotification(title: "OC Login with developer", body: "OC Login command copied to clipboard, go ahead an login to your cluster")
-        } else {
-            displayNotification(title: "Failed to get login command", body: "Unable to find api end point of the cluster")
+        DispatchQueue.global(qos: .userInteractive).async {
+            HandleLoginCommandForDeveloper()
         }
     }
     
@@ -165,8 +141,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.copyOcLoginCommand.isEnabled = true
             self.ocLoginForDeveloper.isEnabled = true
             self.ocLoginForKubeadmin.isEnabled = true
-        }
-        if status == "Stopped" {
+        } else if status == "Stopped" {
             self.startMenuItem.isEnabled = true
             self.stopMenuItem.isEnabled = false
             self.deleteMenuItem.isEnabled = true

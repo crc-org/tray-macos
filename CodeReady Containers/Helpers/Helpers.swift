@@ -48,17 +48,33 @@ func displayNotification(title: String, body: String) {
     }
 }
 
+struct ClusterStatus: Decodable {
+    let Name: String
+    let CrcStatus: String
+    let OpenshiftStatus: String
+    let DiskUse: Int64
+    let DiskSize: Int64
+    let Error: String
+    let Success: Bool
+}
+
 // Get the status of the cluster from the daemon
 func clusterStatus() -> String {
     let status = SendCommandToDaemon(command: Request(command: "status", args: nil))
     guard let data = status else { return "Unknown" }
     print(String(bytes: data, encoding: .utf8)!)
     if String(bytes: data, encoding: .utf8) == "Failed" {
+        print("In failed")
         return "Unknown"
     }
     do {
         let st = try JSONDecoder().decode(ClusterStatus.self, from: data)
-        return st.OpenshiftStatus
+        if st.OpenshiftStatus.contains("Running") {
+            return "Running"
+        }
+        if st.OpenshiftStatus == "Stopped" {
+            return "Stopped"
+        }
     } catch let jsonERR {
         print(jsonERR.localizedDescription)
     }

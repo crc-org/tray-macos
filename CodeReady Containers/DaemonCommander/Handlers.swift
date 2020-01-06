@@ -168,3 +168,64 @@ func HandleWebConsoleURL() {
         print(jsonErr.localizedDescription)
     }
 }
+
+func HandleLoginCommandForKubeadmin() {
+    let r = SendCommandToDaemon(command: Request(command: "webconsoleurl", args: nil))
+    guard let data = r else { return }
+    if String(bytes: data, encoding: .utf8) == "Failed" {
+        // Alert show error
+        DispatchQueue.main.async {
+            showAlertFailedAndCheckLogs(message: "Failed to get login command", informativeMsg: "Ensure the CRC daemon is running and a CRC cluster is running, for more information please check the logs")
+        }
+    }
+    do {
+        let webConsoleResult = try JSONDecoder().decode(WebConsoleResult.self, from: data)
+        if webConsoleResult.Success {
+            // form the login command, put in clipboard and show notification
+            let apiURL = webConsoleResult.ClusterConfig.ClusterAPI
+            let kubeadminPass = webConsoleResult.ClusterConfig.KubeAdminPass
+            
+            let loginCommand = "oc login -u kubeadmin -p \(kubeadminPass) \(apiURL)"
+            let pasteboard = NSPasteboard.general
+            pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
+            pasteboard.setString(loginCommand, forType: NSPasteboard.PasteboardType.string)
+            
+            // show notification on main thread
+            DispatchQueue.main.async {
+                displayNotification(title: "OC Login with kubeadmin", body: "OC Login command copied to clipboard, go ahead an login to your cluster")
+            }
+        }
+    } catch let jsonErr {
+        print(jsonErr.localizedDescription)
+    }
+}
+
+func HandleLoginCommandForDeveloper() {
+    let r = SendCommandToDaemon(command: Request(command: "webconsoleurl", args: nil))
+    guard let data = r else { return }
+    if String(bytes: data, encoding: .utf8) == "Failed" {
+        // Alert show error
+        DispatchQueue.main.async {
+            showAlertFailedAndCheckLogs(message: "Failed to get login command", informativeMsg: "Ensure the CRC daemon is running and a CRC cluster is running, for more information please check the logs")
+        }
+    }
+    do {
+        let webConsoleResult = try JSONDecoder().decode(WebConsoleResult.self, from: data)
+        if webConsoleResult.Success {
+            // form the login command, put in clipboard and show notification
+            let apiURL = webConsoleResult.ClusterConfig.ClusterAPI
+            
+            let loginCommand = "oc login -u developer -p developer \(apiURL)"
+            let pasteboard = NSPasteboard.general
+            pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
+            pasteboard.setString(loginCommand, forType: NSPasteboard.PasteboardType.string)
+            
+            // show notification on main thread
+            DispatchQueue.main.async {
+                displayNotification(title: "OC Login with developer", body: "OC Login command copied to clipboard, go ahead an login to your cluster")
+            }
+        }
+    } catch let jsonErr {
+        print(jsonErr.localizedDescription)
+    }
+}
