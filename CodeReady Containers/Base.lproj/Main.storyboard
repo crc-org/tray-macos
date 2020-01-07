@@ -167,27 +167,27 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="OcpLogo" id="T4b-w7-6ud"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXI-d5-gqr">
-                                <rect key="frame" x="130" y="126" width="219" height="17"/>
+                                <rect key="frame" x="130" y="126" width="189" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="CodeReady Container Version: 1.2.1" id="MUr-FA-dKt">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="CodeReady Container Version:" id="MUr-FA-dKt">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nkf-3h-Wyn">
-                                <rect key="frame" x="158" y="101" width="164" height="17"/>
+                                <rect key="frame" x="158" y="101" width="130" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="OCP Bundle Version: 4.2.2" id="irM-Fc-RDg">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="OCP Bundle Version:" id="irM-Fc-RDg">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVp-2R-VgQ">
-                                <rect key="frame" x="176" y="76" width="128" height="17"/>
+                                <rect key="frame" x="176" y="76" width="108" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Crc Tray Version: 1.0" id="mxZ-A2-602">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Crc Tray Version:" id="mxZ-A2-602">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -239,8 +239,40 @@
                                     </textField>
                                 </subviews>
                             </customView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RvR-kq-jSc">
+                                <rect key="frame" x="325" y="126" width="137" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="|||||||" id="sE8-Ln-7oD">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bxp-4f-iW9">
+                                <rect key="frame" x="294" y="101" width="168" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="|||||||" id="Ueg-D6-0GC">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KFV-5q-MVW">
+                                <rect key="frame" x="289" y="75" width="173" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="||||||||" id="Tk3-WG-QPA">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="crcVersionField" destination="RvR-kq-jSc" id="U08-bn-yIN"/>
+                        <outlet property="openshiftVersionField" destination="Bxp-4f-iW9" id="xfy-9c-7fj"/>
+                        <outlet property="trayVersionField" destination="KFV-5q-MVW" id="TdR-Ls-sOt"/>
+                    </connections>
                 </viewController>
                 <customObject id="ngU-hs-47M" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

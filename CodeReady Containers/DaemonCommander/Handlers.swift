@@ -47,6 +47,12 @@ struct WebConsoleResult: Decodable {
     let Error: String
 }
 
+struct VersionResult: Decodable {
+    let CrcVersion: String
+    let OpenshiftVersion: String
+    let Success: Bool
+}
+
 func HandleStop() {
     let r = SendCommandToDaemon(command: Request(command: "stop", args: nil))
     guard let data = r else { return }
@@ -228,4 +234,25 @@ func HandleLoginCommandForDeveloper() {
     } catch let jsonErr {
         print(jsonErr.localizedDescription)
     }
+}
+
+func FetchVersionInfoFromDaemon() -> (String, String) {
+    let r = SendCommandToDaemon(command: Request(command: "version", args: nil))
+    guard let data = r else { return ("", "") }
+    if String(bytes: data, encoding: .utf8) == "Failed" {
+        // Alert show error
+        DispatchQueue.main.async {
+            showAlertFailedAndCheckLogs(message: "Failed to fetch version", informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs")
+        }
+        return ("","")
+    }
+    do {
+        let versionResult = try JSONDecoder().decode(VersionResult.self, from: data)
+        if versionResult.Success {
+            return (versionResult.CrcVersion, versionResult.OpenshiftVersion)
+        }
+    } catch let jsonErr {
+        print(jsonErr.localizedDescription)
+    }
+    return ("","")
 }
