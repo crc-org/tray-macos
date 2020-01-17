@@ -23,4 +23,7 @@ class AboutViewController: NSViewController {
         trayVersionField.stringValue = nsObject as? String ?? ""
     }
     
+    override func viewDidAppear() {
+        view.window?.level = .floating
+    }
 }

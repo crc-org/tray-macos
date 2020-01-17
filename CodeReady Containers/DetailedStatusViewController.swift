@@ -13,18 +13,22 @@ class DetailedStatusViewController: NSViewController {
     @IBOutlet weak var vmStatus: NSTextField!
     @IBOutlet weak var ocpStatus: NSTextField!
     @IBOutlet weak var diskUsage: NSTextField!
-    @IBOutlet weak var diskSize: NSTextField!
+    @IBOutlet weak var cacheSize: NSTextField!
+    @IBOutlet weak var cacheDirectory: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViewWithClusterStatus()
     }
     
-    
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
         }
+    }
+    
+    override func viewDidAppear() {
+        view.window?.level = .floating
     }
     
     func updateViewWithClusterStatus() {
@@ -35,14 +39,20 @@ class DetailedStatusViewController: NSViewController {
             if status.Success {
                 self.vmStatus.stringValue = status.CrcStatus
                 self.ocpStatus.stringValue = status.OpenshiftStatus
-                self.diskSize.stringValue = String(status.DiskSize)
-                self.diskUsage.stringValue = String(status.DiskUse)
+                self.diskUsage.stringValue = "\(Units(bytes: status.DiskUse).getReadableUnit()) of \(Units(bytes: status.DiskSize).getReadableUnit()) (Inside the VM)"
             }
         } catch let jsonErr {
             print(jsonErr.localizedDescription)
         }
     }
-
+    
+    func getCacheSize() -> Int64 {
+        return 0
+    }
+    
+    func getCacheDirectory() -> Int64 {
+        return 0
+    }
 
 }
 

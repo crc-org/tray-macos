@@ -10,11 +10,13 @@
 		1A7D3F19DF105FBEC06FEBC1 /* Pods_CodeReady_Containers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9ABA1486FC7CF4019A4D230 /* Pods_CodeReady_Containers.framework */; };
 		55168E1723955F3F005D4232 /* HyperLinkTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55168E1623955F3F005D4232 /* HyperLinkTextField.swift */; };
 		55168E1A23962545005D4232 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55168E1923962545005D4232 /* Helpers.swift */; };
+		5527E18A23C4853600DF5297 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527E18923C4853600DF5297 /* Units.swift */; };
 		554D75EE237E74CF00296295 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D75ED237E74CF00296295 /* AboutViewController.swift */; };
 		556DAAF1237AB11600885463 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DAAF0237AB11600885463 /* AppDelegate.swift */; };
 		556DAAF3237AB11600885463 /* DetailedStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DAAF2237AB11600885463 /* DetailedStatusViewController.swift */; };
 		556DAAF5237AB11600885463 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556DAAF4237AB11600885463 /* Assets.xcassets */; };
 		556DAAF8237AB11600885463 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 556DAAF6237AB11600885463 /* Main.storyboard */; };
+		5590C40B23D18102000DFF54 /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5590C40A23D18102000DFF54 /* ExportOptions.plist */; };
 		5594643F23879B6700BC99CA /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5594643E23879B6700BC99CA /* Handlers.swift */; };
 		55946441238D332600BC99CA /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55946440238D332600BC99CA /* UserNotifications.framework */; };
 		55D67AC72385DEE600F56917 /* DaemonCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D67AC62385DEE600F56917 /* DaemonCommander.swift */; };
@@ -24,6 +26,7 @@
 		2D1CFB750815F15FE49D20FD /* Pods-CodeReady Containers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeReady Containers.release.xcconfig"; path = "Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers.release.xcconfig"; sourceTree = "<group>"; };
 		55168E1623955F3F005D4232 /* HyperLinkTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperLinkTextField.swift; sourceTree = "<group>"; };
 		55168E1923962545005D4232 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		5527E18923C4853600DF5297 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		554D75ED237E74CF00296295 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		556DAAED237AB11600885463 /* CodeReady Containers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CodeReady Containers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		556DAAF0237AB11600885463 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +35,7 @@
 		556DAAF7237AB11600885463 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		556DAAF9237AB11600885463 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		556DAB00237AB16200885463 /* CodeReady Containers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CodeReady Containers.entitlements"; sourceTree = "<group>"; };
+		5590C40A23D18102000DFF54 /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		5594643E23879B6700BC99CA /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
 		55946440238D332600BC99CA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		55D67AC62385DEE600F56917 /* DaemonCommander.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaemonCommander.swift; sourceTree = "<group>"; };
@@ -84,6 +88,7 @@
 			children = (
 				55168E1923962545005D4232 /* Helpers.swift */,
 				55168E1623955F3F005D4232 /* HyperLinkTextField.swift */,
+				5527E18923C4853600DF5297 /* Units.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				556DAB00237AB16200885463 /* CodeReady Containers.entitlements */,
+				5590C40A23D18102000DFF54 /* ExportOptions.plist */,
 				556DAAF0237AB11600885463 /* AppDelegate.swift */,
 				554D75ED237E74CF00296295 /* AboutViewController.swift */,
 				556DAAF2237AB11600885463 /* DetailedStatusViewController.swift */,
@@ -189,6 +195,7 @@
 			files = (
 				556DAAF5237AB11600885463 /* Assets.xcassets in Resources */,
 				556DAAF8237AB11600885463 /* Main.storyboard in Resources */,
+				5590C40B23D18102000DFF54 /* ExportOptions.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				554D75EE237E74CF00296295 /* AboutViewController.swift in Sources */,
+				5527E18A23C4853600DF5297 /* Units.swift in Sources */,
 				55168E1A23962545005D4232 /* Helpers.swift in Sources */,
 				5594643F23879B6700BC99CA /* Handlers.swift in Sources */,
 				556DAAF3237AB11600885463 /* DetailedStatusViewController.swift in Sources */,
