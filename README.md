@@ -14,4 +14,14 @@ For the CRC project head over to: https://github.com/code-ready/crc
 
 ### Screenshots
 
-![shot1](https://i.imgur.com/bMBqHUq.png) ![shot2](https://i.imgur.com/XFAc9OB.png) ![shot3](https://i.imgur.com/RslQlpW.png)
+<img src="https://i.imgur.com/XFAc9OB.png" alt="shot2" width="250" height="250"/>
+<img src="https://i.imgur.com/RslQlpW.png" alt="shot3" width="268" height="250"/>
+<img src="https://i.imgur.com/bMBqHUq.png" alt="shot1" width="250" height="250"/>
+
+### Steps to build
+
+**Note: CodeReady Containers tray needs minimum Xcode version 10.3. You might be able to build it with older versions of Xcode but that has not been tested.**
+
+1. Clone this repository `git clone https://github.com/code-ready/crc-macos-tray.git`.
+2. Change to the `crc-macos-tray` directory. 
+3. Run the build script `./build.sh` which will create *_CodeReady Containers.app_* inside `crc-macos-tray/out` directory.
