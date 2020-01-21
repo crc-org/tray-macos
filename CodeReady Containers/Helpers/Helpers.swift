@@ -80,3 +80,21 @@ func clusterStatus() -> String {
     }
     return "Unknown"
 }
+
+func folderSize(folderPath:URL) -> Int64 {
+    let localFileManager = FileManager()
+    
+    let resourceKeys = [URLResourceKey.fileAllocatedSizeKey]
+    let directoryEnumerator = localFileManager.enumerator(at: folderPath, includingPropertiesForKeys: resourceKeys, options: [.skipsHiddenFiles], errorHandler: nil)!
+    
+    var size:Int64 = 0
+    for case let fileURL as NSURL in directoryEnumerator {
+        guard let resourceValues = try? fileURL.resourceValues(forKeys: resourceKeys),
+            let s = resourceValues[URLResourceKey.fileAllocatedSizeKey] as? Int64
+            else {
+                continue
+        }
+        size += s
+    }
+    return size
+}

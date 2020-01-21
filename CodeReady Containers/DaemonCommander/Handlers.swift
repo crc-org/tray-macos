@@ -49,6 +49,7 @@ struct WebConsoleResult: Decodable {
 
 struct VersionResult: Decodable {
     let CrcVersion: String
+    let CommitSha: String
     let OpenshiftVersion: String
     let Success: Bool
 }
@@ -249,7 +250,8 @@ func FetchVersionInfoFromDaemon() -> (String, String) {
     do {
         let versionResult = try JSONDecoder().decode(VersionResult.self, from: data)
         if versionResult.Success {
-            return (versionResult.CrcVersion, versionResult.OpenshiftVersion)
+            let crcVersion = "\(versionResult.CrcVersion)+\(versionResult.CommitSha)"
+            return (crcVersion, versionResult.OpenshiftVersion)
         }
     } catch let jsonErr {
         print(jsonErr.localizedDescription)

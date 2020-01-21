@@ -16,6 +16,8 @@ class DetailedStatusViewController: NSViewController {
     @IBOutlet weak var cacheSize: NSTextField!
     @IBOutlet weak var cacheDirectory: NSTextField!
     
+    let cacheDirPath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("cache")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViewWithClusterStatus()
@@ -40,19 +42,12 @@ class DetailedStatusViewController: NSViewController {
                 self.vmStatus.stringValue = status.CrcStatus
                 self.ocpStatus.stringValue = status.OpenshiftStatus
                 self.diskUsage.stringValue = "\(Units(bytes: status.DiskUse).getReadableUnit()) of \(Units(bytes: status.DiskSize).getReadableUnit()) (Inside the VM)"
+                self.cacheSize.stringValue = Units(bytes: folderSize(folderPath: cacheDirPath)).getReadableUnit()
+                self.cacheDirectory.stringValue = cacheDirPath.path
             }
         } catch let jsonErr {
             print(jsonErr.localizedDescription)
         }
     }
-    
-    func getCacheSize() -> Int64 {
-        return 0
-    }
-    
-    func getCacheDirectory() -> Int64 {
-        return 0
-    }
-
 }
 
