@@ -22,7 +22,7 @@ func showAlertFailedAndCheckLogs(message: String, informativeMsg: String) {
     if alert.runModal() == .alertFirstButtonReturn {
         // Open logs file
         print("Check Logs button clicked")
-        let logFilePath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("crc").appendingPathExtension("log")
+        let logFilePath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("crcd").appendingPathExtension("log")
         NSWorkspace.shared.open(logFilePath)
     } else {
         print("Not now button clicked")
