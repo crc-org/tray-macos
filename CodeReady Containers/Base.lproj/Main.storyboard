@@ -162,53 +162,30 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="V3k-zb-BNS"/>
                             </imageView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wdl-dT-krA">
-                                <rect key="frame" x="107" y="161" width="265" height="109"/>
+                                <rect key="frame" x="107" y="151" width="265" height="109"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="OcpLogo" id="T4b-w7-6ud"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXI-d5-gqr">
-                                <rect key="frame" x="130" y="126" width="189" height="17"/>
+                                <rect key="frame" x="49" y="126" width="246" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="CodeReady Container Version:" id="MUr-FA-dKt">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Red Hat CodeReady Containers version:" id="MUr-FA-dKt">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nkf-3h-Wyn">
-                                <rect key="frame" x="130" y="101" width="130" height="17"/>
+                                <rect key="frame" x="49" y="101" width="339" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="OCP Bundle Version:" id="irM-Fc-RDg">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Red Hat OpenShift Container Platform bundled version:" id="irM-Fc-RDg">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bu4-6d-FFx">
-                                <rect key="frame" x="132" y="47" width="214" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UF7-7A-yzp" customClass="HyperLinkTextField" customModule="CodeReady_Containers" customModuleProvider="target">
-                                        <rect key="frame" x="19" y="3" width="197" height="17"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" title="https://code-ready.github.io/crc" id="lgt-lI-dqn">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="href" value="https://code-ready.github.io/crc"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4gQ-qs-Y3a">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="internet" id="Arp-NV-Vsh"/>
-                                    </imageView>
-                                </subviews>
-                            </customView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bd9-0s-O0m">
-                                <rect key="frame" x="88" y="25" width="304" height="20"/>
+                                <rect key="frame" x="263" y="20" width="158" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4TK-OI-SII">
@@ -217,21 +194,21 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="github" id="xWI-vz-qq1"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-uu-Dow" customClass="HyperLinkTextField" customModule="CodeReady_Containers" customModuleProvider="target">
-                                        <rect key="frame" x="18" y="3" width="288" height="17"/>
+                                        <rect key="frame" x="17" y="3" width="139" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="https://github.com/code-ready/crc-tray-macos" id="5Qx-Yu-Fqb">
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Tray Github repository" id="5Qx-Yu-Fqb">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="href" value="https://github.com/code-ready/crc-tray-macos"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="href" value="https://github.com/code-ready/tray-macos"/>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                 </subviews>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RvR-kq-jSc">
-                                <rect key="frame" x="324" y="126" width="130" height="17"/>
+                                <rect key="frame" x="297" y="126" width="159" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="|||||||" id="sE8-Ln-7oD">
                                     <font key="font" metaFont="system"/>
@@ -240,7 +217,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bxp-4f-iW9">
-                                <rect key="frame" x="262" y="100" width="132" height="17"/>
+                                <rect key="frame" x="389" y="101" width="67" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="|||||||" id="Ueg-D6-0GC">
                                     <font key="font" metaFont="system"/>
@@ -249,7 +226,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KFV-5q-MVW">
-                                <rect key="frame" x="242" y="75" width="152" height="17"/>
+                                <rect key="frame" x="135" y="75" width="152" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="||||||||" id="Tk3-WG-QPA">
                                     <font key="font" metaFont="system"/>
@@ -258,14 +235,37 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVp-2R-VgQ">
-                                <rect key="frame" x="130" y="75" width="108" height="17"/>
+                                <rect key="frame" x="49" y="75" width="83" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Crc Tray Version:" id="mxZ-A2-602">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Tray Version:" id="mxZ-A2-602">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bu4-6d-FFx">
+                                <rect key="frame" x="51" y="20" width="114" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4gQ-qs-Y3a">
+                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="internet" id="Arp-NV-Vsh"/>
+                                    </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UF7-7A-yzp" customClass="HyperLinkTextField" customModule="CodeReady_Containers" customModuleProvider="target">
+                                        <rect key="frame" x="18" y="3" width="97" height="17"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" title="Documentation" id="lgt-lI-dqn">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="href" value="https://access.redhat.com/documentation/en-us/red_hat_codeready_containers"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                </subviews>
+                            </customView>
                         </subviews>
                     </view>
                     <connections>
@@ -412,7 +412,7 @@
     </scenes>
     <resources>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="OcpLogo" width="1382" height="496"/>
+        <image name="OcpLogo" width="778.5" height="350"/>
         <image name="github" width="16" height="16"/>
         <image name="internet" width="16" height="16"/>
     </resources>
