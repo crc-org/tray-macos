@@ -118,6 +118,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.statusMenuItem.image = nil
     }
     
+    func showClusterStatusUnknownOnStatusMenuItem() {
+        self.statusMenuItem.title = "Status Unknown"
+        self.statusMenuItem.image = NSImage(named: NSImage.statusNoneName)
+    }
     func updateMenuStates(state: MenuStates) {
         self.startMenuItem.isEnabled = state.startMenuEnabled
         self.stopMenuItem.isEnabled = state.stopMenuEnabled
