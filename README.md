@@ -3,7 +3,7 @@
 This is a companion app for CodeReady Containers, it works only on macOS
 For the CRC project head over to: https://github.com/code-ready/crc
 
-[![Build Status](https://travis-ci.org/anjannath/crc-macos-tray.svg?branch=master)](https://travis-ci.org/anjannath/crc-macos-tray)
+[![Build Status](https://travis-ci.org/code-ready/tray-macos.svg?branch=master)](https://travis-ci.org/code-ready/tray-macos)
 
 ### How to use
 
@@ -11,6 +11,7 @@ For the CRC project head over to: https://github.com/code-ready/crc
 2. Download the precompiled tray app from releases page of this repository
 3. run `crc daemon`
 4. Launch the tray app you downloaded and you should see the OCP logo on the menubar
+5. _Pull Secret_ and _Bundle_ must be configured with `crc config set pull-secret-file` and `crc config set bundle`
 
 ### Screenshots
 
@@ -22,6 +23,6 @@ For the CRC project head over to: https://github.com/code-ready/crc
 
 **Note: CodeReady Containers tray needs minimum Xcode version 10.3. You might be able to build it with older versions of Xcode but that has not been tested.**
 
-1. Clone this repository `git clone https://github.com/code-ready/crc-macos-tray.git`.
-2. Change to the `crc-macos-tray` directory. 
-3. Run the build script `./build.sh` which will create *_CodeReady Containers.app_* inside `crc-macos-tray/out` directory.
+1. Clone this repository `git clone https://github.com/code-ready/tray-macos.git`.
+2. Change to the `tray-macos` directory.
+3. Run the build script `./build.sh` which will create *_CodeReady Containers.app_* inside `tray-macos/out` directory.
