@@ -1,4 +1,4 @@
-## CodeReady Container: OpenShift 4 on you laptop
+## CodeReady Container: OpenShift 4 on your laptop
 
 This is a companion app for CodeReady Containers, it works only on macOS
 For the CRC project head over to: https://github.com/code-ready/crc
