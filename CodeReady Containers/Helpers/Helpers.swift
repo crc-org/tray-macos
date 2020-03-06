@@ -29,6 +29,25 @@ func showAlertFailedAndCheckLogs(message: String, informativeMsg: String) {
     }
 }
 
+func promptYesOrNo(message: String, informativeMsg: String) -> Bool {
+    NSApplication.shared.activate(ignoringOtherApps: true)
+    
+    let alert: NSAlert = NSAlert()
+    alert.messageText = message
+    alert.informativeText = informativeMsg
+    alert.alertStyle = NSAlert.Style.critical
+    alert.addButton(withTitle: "No")
+    alert.addButton(withTitle: "Yes")
+    if alert.runModal() == .alertSecondButtonReturn {
+        // noop
+        print("second button clicked")
+        return true
+    } else {
+        print("first button clicked")
+        return false
+    }
+}
+
 // Displays a success notification
 func displayNotification(title: String, body: String) {
     let center = UNUserNotificationCenter.current()

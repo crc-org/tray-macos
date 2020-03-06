@@ -184,6 +184,14 @@ func HandleStart() {
 }
 
 func HandleDelete() {
+    // prompt for confirmation and bail if No
+    var yes: Bool = false
+    DispatchQueue.main.sync {
+        yes = promptYesOrNo(message: "Deleting CodeReady Containers Cluster", informativeMsg: "Are you sure you want to delete the crc instance")
+    }
+    if !yes {
+        return
+    }
     let r = SendCommandToDaemon(command: Request(command: "delete", args: nil))
     guard let data = r else { return }
     if String(bytes: data, encoding: .utf8) == "Failed" {
