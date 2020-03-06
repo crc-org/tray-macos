@@ -168,8 +168,8 @@ func HandleStart() {
                 showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "\(errMsg[0])")
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
                 appDelegate?.showClusterStatusUnknownOnStatusMenuItem()
-                appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: false,
-                                                                stopMenuEnabled: true,
+                appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: true,
+                                                                stopMenuEnabled: false,
                                                                 deleteMenuEnabled: true,
                                                                 webconsoleMenuEnabled: false,
                                                                 ocLoginForDeveloperEnabled: false,
