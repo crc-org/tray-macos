@@ -133,6 +133,7 @@ func HandleStart() {
                                                             copyOcLoginCommand: false))
             
             showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "CodeReady Containers failed to start the OpenShift cluster, ensure the CRC daemon is running or check the logs to find more information")
+                appDelegate?.showClusterStatusUnknownOnStatusMenuItem()
         }
     } else {
         displayNotification(title: "CodeReady Containers", body: "Starting OpenShift Cluster, this could take a few minutes..")
