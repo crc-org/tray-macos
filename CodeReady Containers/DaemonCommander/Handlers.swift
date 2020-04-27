@@ -273,7 +273,7 @@ func HandleLoginCommandForKubeadmin() {
             
             // show notification on main thread
             DispatchQueue.main.async {
-                displayNotification(title: "OC Login with kubeadmin", body: "OC Login command copied to clipboard, go ahead an login to your cluster")
+                displayNotification(title: "OC Login with kubeadmin", body: "OC Login command copied to clipboard, go ahead and login to your cluster")
             }
         }
     } catch let jsonErr {
@@ -303,7 +303,7 @@ func HandleLoginCommandForDeveloper() {
             
             // show notification on main thread
             DispatchQueue.main.async {
-                displayNotification(title: "OC Login with developer", body: "OC Login command copied to clipboard, go ahead an login to your cluster")
+                displayNotification(title: "OC Login with developer", body: "OC Login command copied to clipboard, go ahead and login to your cluster")
             }
         }
     } catch let jsonErr {
