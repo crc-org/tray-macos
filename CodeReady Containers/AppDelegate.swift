@@ -23,7 +23,7 @@ struct MenuStates {
 }
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBOutlet weak var menu: NSMenu!
     @IBOutlet weak var statusMenuItem: NSMenuItem!
     @IBOutlet weak var deleteMenuItem: NSMenuItem!
@@ -46,8 +46,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             menubarIcon?.isTemplate = true
             button.image = menubarIcon
         }
+        menu.delegate = self
         statusItem.menu = self.menu
-        initializeMenus()
         
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound], completionHandler: { (granted, error) in
@@ -132,10 +132,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.copyOcLoginCommand.isEnabled = state.copyOcLoginCommand
     }
     
-    func initializeMenus() {
+    func initializeMenus(status: String) {
         self.statusMenuItem.title = "Status Unknown"
         self.statusMenuItem.image = NSImage(named:NSImage.statusNoneName)
-        let status = clusterStatus()
         updateStatusMenuItem(status: status)
         if status == "Running" {
             self.startMenuItem.isEnabled = false
@@ -162,5 +161,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.ocLoginForDeveloper.isEnabled = false
             self.ocLoginForKubeadmin.isEnabled = false
         }
+    }
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        DispatchQueue.global(qos: .background).async {
+            let status = clusterStatus()
+            
+            DispatchQueue.main.async {
+                self.initializeMenus(status: status)
+            }
+        }
+        
     }
 }
