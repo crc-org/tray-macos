@@ -7,8 +7,8 @@ ARCHIVE_PATH=$BUILD_DIR/CodeReady_Containers.xcarchive
 EXPORT_OPTIONS=$BASE_DIR/CodeReady\ Containers/ExportOptions.plist
 SCHEME=CodeReady\ Containers
 
-if [ ! -f $BUILD_DIR ]; then
-	mkdir -p $BUILD_DIR
+if [ ! -f "$BUILD_DIR" ]; then
+	mkdir -p "$BUILD_DIR"
 fi
 
 # Build xcarchive
