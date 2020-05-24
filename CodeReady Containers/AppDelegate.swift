@@ -49,6 +49,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.delegate = self
         statusItem.menu = self.menu
         
+        let applications = NSWorkspace.shared.runningApplications
+        for app in applications {
+            if app == NSWorkspace.shared.self {
+                NSApplication.shared.terminate(self)
+            }
+        }
+        
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound], completionHandler: { (granted, error) in
             notificationAllowed = granted
