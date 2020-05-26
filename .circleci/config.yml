@@ -1,0 +1,28 @@
+## Circleci version
+version: 2.0
+
+## Machine specific variable
+jobs:
+  build:
+    macos:
+      xcode: 11.4.1
+
+## Build crc
+    steps:
+    - checkout
+    - run:
+        name: Build project
+        command: ./build.sh
+    - run:
+        name: create tar ball of the app
+        command: tar -czf crc-tray-macos.tar.gz ./out/CodeReady\ Containers.app
+    - store_artifacts:
+        path: ~/project/crc-tray-macos.tar.gz
+        destination: crc-tray-macos.tar.gz
+
+
+workflows:
+    version: 2
+    build:
+      jobs:
+        - build
