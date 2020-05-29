@@ -34,19 +34,24 @@ class DetailedStatusViewController: NSViewController {
     }
     
     func updateViewWithClusterStatus() {
-        let r = SendCommandToDaemon(command: Request(command: "status", args: nil))
-        guard let data = r else { return }
-        do {
-            let status = try JSONDecoder().decode(ClusterStatus.self, from: data)
-            if status.Success {
-                self.vmStatus.stringValue = status.CrcStatus
-                self.ocpStatus.stringValue = status.OpenshiftStatus
-                self.diskUsage.stringValue = "\(Units(bytes: status.DiskUse).getReadableUnit()) of \(Units(bytes: status.DiskSize).getReadableUnit()) (Inside the VM)"
-                self.cacheSize.stringValue = Units(bytes: folderSize(folderPath: cacheDirPath)).getReadableUnit()
-                self.cacheDirectory.stringValue = cacheDirPath.path
+        DispatchQueue.global(qos: .background).async {
+            let r = SendCommandToDaemon(command: Request(command: "status", args: nil))
+            
+            DispatchQueue.main.async {
+                guard let data = r else { return }
+                do {
+                    let status = try JSONDecoder().decode(ClusterStatus.self, from: data)
+                    if status.Success {
+                        self.vmStatus.stringValue = status.CrcStatus
+                        self.ocpStatus.stringValue = status.OpenshiftStatus
+                        self.diskUsage.stringValue = "\(Units(bytes: status.DiskUse).getReadableUnit()) of \(Units(bytes: status.DiskSize).getReadableUnit()) (Inside the VM)"
+                        self.cacheSize.stringValue = Units(bytes: folderSize(folderPath: self.cacheDirPath)).getReadableUnit()
+                        self.cacheDirectory.stringValue = self.cacheDirPath.path
+                    }
+                } catch let jsonErr {
+                    print(jsonErr.localizedDescription)
+                }
             }
-        } catch let jsonErr {
-            print(jsonErr.localizedDescription)
         }
     }
 }
