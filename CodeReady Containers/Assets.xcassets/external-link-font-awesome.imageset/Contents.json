@@ -1,23 +1,21 @@
 {
   "images" : [
     {
+      "filename" : "external-link-square-alt.png",
       "idiom" : "universal",
-      "filename" : "icons8-internet.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "icons8-internet-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "icons8-internet-2.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
