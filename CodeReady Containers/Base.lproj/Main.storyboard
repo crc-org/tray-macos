@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -169,7 +170,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXI-d5-gqr">
                                 <rect key="frame" x="49" y="126" width="246" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Red Hat CodeReady Containers version:" id="MUr-FA-dKt">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Red Hat CodeReady Containers version" id="MUr-FA-dKt">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -178,7 +179,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nkf-3h-Wyn">
                                 <rect key="frame" x="49" y="101" width="339" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Red Hat OpenShift Container Platform bundled version:" id="irM-Fc-RDg">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Red Hat OpenShift Container Platform bundled version" id="irM-Fc-RDg">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -194,7 +195,7 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="github" id="xWI-vz-qq1"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-uu-Dow" customClass="HyperLinkTextField" customModule="CodeReady_Containers" customModuleProvider="target">
-                                        <rect key="frame" x="17" y="3" width="139" height="17"/>
+                                        <rect key="frame" x="18" y="1" width="139" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Tray Github repository" id="5Qx-Yu-Fqb">
                                             <font key="font" metaFont="system"/>
@@ -237,7 +238,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVp-2R-VgQ">
                                 <rect key="frame" x="49" y="75" width="83" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Tray Version:" id="mxZ-A2-602">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Tray Version" id="mxZ-A2-602">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -248,12 +249,12 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4gQ-qs-Y3a">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        <rect key="frame" x="93" y="0.0" width="21" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="internet" id="Arp-NV-Vsh"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="external-link-font-awesome" id="Arp-NV-Vsh"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UF7-7A-yzp" customClass="HyperLinkTextField" customModule="CodeReady_Containers" customModuleProvider="target">
-                                        <rect key="frame" x="18" y="3" width="97" height="17"/>
+                                        <rect key="frame" x="-2" y="1" width="99" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" title="Documentation" id="lgt-lI-dqn">
                                             <font key="font" metaFont="system"/>
@@ -287,39 +288,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fAQ-me-QYy">
-                                <rect key="frame" x="18" y="112" width="71" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="VM Status:" id="1RX-Ma-3hc">
+                                <rect key="frame" x="18" y="113" width="67" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="VM Status" id="1RX-Ma-3hc">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lYu-yv-CnE">
-                                <rect key="frame" x="18" y="87" width="112" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="OpenShift Status:" id="QV0-T4-y6M">
+                                <rect key="frame" x="18" y="89" width="108" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="OpenShift Status" id="QV0-T4-y6M">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bYX-gf-dYc">
-                                <rect key="frame" x="18" y="62" width="77" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Disk Usage:" id="39p-cw-qOy">
+                                <rect key="frame" x="18" y="65" width="73" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Disk Usage" id="39p-cw-qOy">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ncg-Z5-rzZ">
-                                <rect key="frame" x="18" y="37" width="79" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Cache Size: " id="hmW-dD-siQ">
+                                <rect key="frame" x="18" y="41" width="76" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Cache Size " id="hmW-dD-siQ">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xNh-l6-o3p">
-                                <rect key="frame" x="157" y="112" width="61" height="17"/>
+                                <rect key="frame" x="153" y="113" width="61" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="left" title="Unknown" id="UVy-TX-3N4">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -327,7 +328,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RWH-72-OCX">
-                                <rect key="frame" x="157" y="87" width="61" height="17"/>
+                                <rect key="frame" x="153" y="89" width="61" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Unknown" id="YQD-gQ-fOV">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -335,7 +336,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pec-ZB-uFt">
-                                <rect key="frame" x="157" y="62" width="61" height="17"/>
+                                <rect key="frame" x="153" y="65" width="61" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Unknown" id="D6V-SI-3qh">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -343,7 +344,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AML-Zo-nva">
-                                <rect key="frame" x="157" y="37" width="61" height="17"/>
+                                <rect key="frame" x="154" y="41" width="61" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Unknown" id="pkf-jO-4M0">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -351,15 +352,15 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SPj-qC-UYQ">
-                                <rect key="frame" x="18" y="12" width="106" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Cache Directory:" id="cDj-qF-kfu">
+                                <rect key="frame" x="18" y="17" width="102" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Cache Directory" id="cDj-qF-kfu">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="m2B-Bk-rjj">
-                                <rect key="frame" x="157" y="12" width="61" height="17"/>
+                                <rect key="frame" x="153" y="17" width="61" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Unknown" id="sbf-5f-Xd4">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -413,7 +414,7 @@
     <resources>
         <image name="NSStatusNone" width="16" height="16"/>
         <image name="OcpLogo" width="778.5" height="350"/>
+        <image name="external-link-font-awesome" width="448" height="512"/>
         <image name="github" width="16" height="16"/>
-        <image name="internet" width="16" height="16"/>
     </resources>
 </document>
