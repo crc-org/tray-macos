@@ -68,6 +68,78 @@ struct VersionResult: Decodable {
     let Success: Bool
 }
 
+struct GetconfigResult: Decodable {
+    let Error: String
+    let Configs: CrcConfigs
+}
+
+struct CrcConfigs: Codable {
+    var bundle: String?
+    var cpus: Float64?
+    var disableUpdateCheck: Bool?
+    var enableExperimentalFeatures: Bool?
+    var httpProxy: String?
+    var httpsProxy: String?
+    var memory: Float64?
+    var nameserver: String?
+    var noProxy: String?
+    var proxyCaFile: String?
+    var pullSecretFile: String?
+    var skipCheckBundleCached: Bool?
+    var skipCheckHostsFilePermissions: Bool?
+    var skipCheckHyperkitDriver: Bool?
+    var skipCheckHyperkitInstalled: Bool?
+    var skipCheckPodmanCached: Bool?
+    var skipCheckRam: Bool?
+    var skipCheckResolverFilePermissions: Bool?
+    var skipCheckRootUser: Bool?
+    var warnCheckBundleCached: Bool?
+    var warnCheckHostsFilePermissions: Bool?
+    var warnCheckHyperkitDriver: Bool?
+    var warnCheckHyperkitInstalled: Bool?
+    var warnCheckPodmanCached: Bool?
+    var warnCheckRam: Bool?
+    var warnCheckResolverFilePermissions: Bool?
+    var warnCheckRootUser: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case bundle
+        case cpus
+        case memory
+        case nameserver
+        
+        case disableUpdateCheck = "disable-update-check"
+        case enableExperimentalFeatures = "enable-experimental-features"
+        case httpProxy = "http-proxy"
+        case httpsProxy = "https-proxy"
+        case noProxy = "no-proxy"
+        case proxyCaFile = "proxy-ca-file"
+        case pullSecretFile = "pull-secret-file"
+        case skipCheckBundleCached = "skip-check-bundle-cached"
+        case skipCheckHostsFilePermissions = "skip-check-hosts-file-permissions"
+        case skipCheckHyperkitDriver = "skip-check-hyperkit-driver"
+        case skipCheckHyperkitInstalled = "skip-check-hyperkit-installed"
+        case skipCheckPodmanCached = "skip-check-podman-cached"
+        case skipCheckRam = "skip-check-ram"
+        case skipCheckResolverFilePermissions = "skip-check-resolver-file-permissions"
+        case skipCheckRootUser = "skip-check-root-user"
+        case warnCheckBundleCached = "warn-check-bundle-cached"
+        case warnCheckHostsFilePermissions = "warn-check-hosts-file-permissions"
+        case warnCheckHyperkitDriver = "warn-check-hyperkit-driver"
+        case warnCheckHyperkitInstalled = "warn-check-hyperkit-installed"
+        case warnCheckPodmanCached = "warn-check-podman-cached"
+        case warnCheckRam = "warn-check-ram"
+        case warnCheckResolverFilePermissions = "warn-check-resolver-file-permissions"
+        case warnCheckRootUser = "warn-check-root-user"
+    }
+}
+
+enum DaemonError: Error {
+    case noResponse
+    case badResponse
+    case undefined
+}
+
 func HandleStop() {
     let r = SendCommandToDaemon(command: Request(command: "stop", args: nil))
     guard let data = r else { return }
@@ -347,7 +419,7 @@ func FetchVersionInfoFromDaemon() -> (String, String) {
             return (crcVersion, versionResult.OpenshiftVersion)
         }
     } catch let jsonErr {
-        print(jsonErr.localizedDescription)
+        print(jsonErr)
     }
     return ("","")
 }
@@ -368,7 +440,26 @@ func GetConfigFromDaemon(properties: [String]) -> Dictionary<String, String> {
             return configGetResult.Configs
         }
     } catch let jsonErr {
-        print(jsonErr)
+            print(jsonErr)
     }
     return ["":""]
+}
+
+func GetAllConfigFromDaemon() throws -> (CrcConfigs?) {
+    let crcConfig: CrcConfigs? = nil
+    let r = SendCommandToDaemon(command: Request(command: "getconfig", args: nil))
+    guard let data = r else { print("Unable to read response from daemon"); throw DaemonError.badResponse }
+    if String(bytes: data, encoding: .utf8) == "Failed" {
+        throw DaemonError.badResponse
+    }
+    let decoder = JSONDecoder()
+    do {
+        let configResult = try decoder.decode(GetconfigResult.self, from: data)
+        if configResult.Error == "" {
+            return configResult.Configs
+        }
+    } catch let jsonErr {
+        print(jsonErr)
+    }
+    return crcConfig
 }

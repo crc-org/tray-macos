@@ -74,7 +74,7 @@ let socketPath: URL = userHomePath.appendingPathComponent(".crc").appendingPathC
 func SendCommandToDaemon(command: Request) -> Data? {
     do {
         let req = try JSONEncoder().encode(command)
-        print(req)
+        print(String(data: req, encoding: .utf8)!)
         let daemonConnection = DaemonCommander(sockPath: socketPath.path)
         print(socketPath.path)
         daemonConnection.connectToDaemon()
@@ -83,6 +83,52 @@ func SendCommandToDaemon(command: Request) -> Data? {
         return reply
     } catch let error {
         print(error.localizedDescription)
+    }
+    return "Failed".data(using: .utf8)
+}
+
+struct ConfigsetRequest: Encodable {
+    var command: String
+    var args: configset
+}
+
+struct ConfigunsetRequest: Encodable {
+    var command: String
+    var args: configunset
+}
+
+struct configset: Encodable {
+    var properties: CrcConfigs?
+}
+
+struct configunset: Encodable {
+    var properties: [String]
+}
+
+func SendCommandToDaemon(command: ConfigsetRequest) -> Data? {
+    do {
+        let req = try JSONEncoder().encode(command)
+        let res = sendToDaemonAndReadResponse(payload: req)
+        if res?.count ?? -1 > 0 {
+            return res
+        }
+    }
+    catch let jsonErr {
+        print(jsonErr)
+    }
+    return "Failed".data(using: .utf8)
+}
+
+func SendCommandToDaemon(command: ConfigunsetRequest) -> Data? {
+    do {
+        let req = try JSONEncoder().encode(command)
+        let res = sendToDaemonAndReadResponse(payload: req)
+        if res?.count ?? -1 > 0 {
+            return res
+        }
+    }
+    catch let jsonErr {
+        print(jsonErr)
     }
     return "Failed".data(using: .utf8)
 }
@@ -96,6 +142,18 @@ func SendCommandToDaemon(command: ConfigGetRequest) -> Data? {
         return daemonConnection.readResponse()
     } catch let error {
         print(error.localizedDescription)
+    }
+    return "Failed".data(using: .utf8)
+}
+
+func sendToDaemonAndReadResponse(payload: Data) -> Data? {
+    let daemonConnection = DaemonCommander(sockPath: socketPath.path)
+    print(socketPath.path)
+    daemonConnection.connectToDaemon()
+    daemonConnection.sendCommand(command: payload)
+    let reply = daemonConnection.readResponse()
+    if reply.count > 0 {
+        return reply
     }
     return "Failed".data(using: .utf8)
 }
