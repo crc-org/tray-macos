@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A7D3F19DF105FBEC06FEBC1 /* Pods_CodeReady_Containers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9ABA1486FC7CF4019A4D230 /* Pods_CodeReady_Containers.framework */; };
 		55168E1723955F3F005D4232 /* HyperLinkTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55168E1623955F3F005D4232 /* HyperLinkTextField.swift */; };
 		55168E1A23962545005D4232 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55168E1923962545005D4232 /* Helpers.swift */; };
 		5527E18A23C4853600DF5297 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527E18923C4853600DF5297 /* Units.swift */; };
@@ -20,10 +19,10 @@
 		5594643F23879B6700BC99CA /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5594643E23879B6700BC99CA /* Handlers.swift */; };
 		55946441238D332600BC99CA /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55946440238D332600BC99CA /* UserNotifications.framework */; };
 		55D67AC72385DEE600F56917 /* DaemonCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D67AC62385DEE600F56917 /* DaemonCommander.swift */; };
+		A3390174251DF71D00415FD9 /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = A3390173251DF71D00415FD9 /* Socket */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2D1CFB750815F15FE49D20FD /* Pods-CodeReady Containers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeReady Containers.release.xcconfig"; path = "Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers.release.xcconfig"; sourceTree = "<group>"; };
 		55168E1623955F3F005D4232 /* HyperLinkTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperLinkTextField.swift; sourceTree = "<group>"; };
 		55168E1923962545005D4232 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		5527E18923C4853600DF5297 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
@@ -39,8 +38,6 @@
 		5594643E23879B6700BC99CA /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
 		55946440238D332600BC99CA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		55D67AC62385DEE600F56917 /* DaemonCommander.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaemonCommander.swift; sourceTree = "<group>"; };
-		940ED4CA72DD7A718EE045AC /* Pods-CodeReady Containers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeReady Containers.debug.xcconfig"; path = "Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers.debug.xcconfig"; sourceTree = "<group>"; };
-		D9ABA1486FC7CF4019A4D230 /* Pods_CodeReady_Containers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeReady_Containers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +46,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55946441238D332600BC99CA /* UserNotifications.framework in Frameworks */,
-				1A7D3F19DF105FBEC06FEBC1 /* Pods_CodeReady_Containers.framework in Frameworks */,
+				A3390174251DF71D00415FD9 /* Socket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,18 +57,8 @@
 			isa = PBXGroup;
 			children = (
 				55946440238D332600BC99CA /* UserNotifications.framework */,
-				D9ABA1486FC7CF4019A4D230 /* Pods_CodeReady_Containers.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		2F3922A7C642D9FD7A66D30B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				940ED4CA72DD7A718EE045AC /* Pods-CodeReady Containers.debug.xcconfig */,
-				2D1CFB750815F15FE49D20FD /* Pods-CodeReady Containers.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		55168E182396220F005D4232 /* DaemonCommander */ = {
@@ -98,7 +85,6 @@
 			children = (
 				556DAAEF237AB11600885463 /* CodeReady Containers */,
 				556DAAEE237AB11600885463 /* Products */,
-				2F3922A7C642D9FD7A66D30B /* Pods */,
 				1AA9342FEB94722D9F065EEF /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -135,17 +121,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 556DAAFD237AB11600885463 /* Build configuration list for PBXNativeTarget "CodeReady Containers" */;
 			buildPhases = (
-				5B6481426C2451A866BD4FC2 /* [CP] Check Pods Manifest.lock */,
 				556DAAE9237AB11600885463 /* Sources */,
 				556DAAEA237AB11600885463 /* Frameworks */,
 				556DAAEB237AB11600885463 /* Resources */,
-				935E688083D602A37E379B3C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "CodeReady Containers";
+			packageProductDependencies = (
+				A3390173251DF71D00415FD9 /* Socket */,
+			);
 			productName = "CodeReady Containers";
 			productReference = 556DAAED237AB11600885463 /* CodeReady Containers.app */;
 			productType = "com.apple.product-type.application";
@@ -179,6 +166,9 @@
 				Base,
 			);
 			mainGroup = 556DAAE4237AB11600885463;
+			packageReferences = (
+				A3390172251DF71D00415FD9 /* XCRemoteSwiftPackageReference "BlueSocket" */,
+			);
 			productRefGroup = 556DAAEE237AB11600885463 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -200,48 +190,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5B6481426C2451A866BD4FC2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CodeReady Containers-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		935E688083D602A37E379B3C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CodeReady Containers/Pods-CodeReady Containers-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		556DAAE9237AB11600885463 /* Sources */ = {
@@ -390,7 +338,6 @@
 		};
 		556DAAFE237AB11600885463 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 940ED4CA72DD7A718EE045AC /* Pods-CodeReady Containers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "-";
@@ -411,7 +358,6 @@
 		};
 		556DAAFF237AB11600885463 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D1CFB750815F15FE49D20FD /* Pods-CodeReady Containers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "-";
@@ -452,6 +398,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A3390172251DF71D00415FD9 /* XCRemoteSwiftPackageReference "BlueSocket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/BlueSocket";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.52;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A3390173251DF71D00415FD9 /* Socket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A3390172251DF71D00415FD9 /* XCRemoteSwiftPackageReference "BlueSocket" */;
+			productName = Socket;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 556DAAE5237AB11600885463 /* Project object */;
 }
