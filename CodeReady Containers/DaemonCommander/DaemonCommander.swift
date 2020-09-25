@@ -7,6 +7,7 @@
 //
 
 import Socket
+import Foundation
 
 class DaemonCommander {
     var daemonSocket: Socket? = nil
