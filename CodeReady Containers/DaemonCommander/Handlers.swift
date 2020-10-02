@@ -40,6 +40,20 @@ struct Request: Encodable {
     let args: Dictionary<String, String>?
 }
 
+struct ConfigGetRequest: Encodable {
+    let command: String
+    let args: PropertiesArray
+}
+
+struct PropertiesArray: Encodable {
+    let properties: [String]
+}
+
+struct ConfigGetResult: Decodable {
+    let Error: String
+    let Configs: Dictionary<String, String>
+}
+
 struct WebConsoleResult: Decodable {
     let ClusterConfig: ClusterConfigType
     let State: Int
@@ -112,13 +126,18 @@ func HandleStop() {
     
 }
 
-func HandleStart() {
+func HandleStart(pullSecretPath: String) {
     DispatchQueue.main.async {
         let appDelegate = NSApplication.shared.delegate as? AppDelegate
         appDelegate?.showClusterStartingMessageOnStatusMenuItem()
     }
-    let r = SendCommandToDaemon(command: Request(command: "start", args: nil))
-    guard let data = r else { return }
+    let response: Data?
+    if pullSecretPath == "" {
+        response = SendCommandToDaemon(command: Request(command: "start", args: nil))
+    } else {
+        response = SendCommandToDaemon(command: Request(command: "start", args: ["pullSecretFile":pullSecretPath]))
+    }
+    guard let data = response else { return }
     if String(bytes: data, encoding: .utf8) == "Failed" {
         // show notification about the failure
         // Adjust the menus
@@ -165,7 +184,7 @@ func HandleStart() {
         }
         if startResult.Error != "" {
             DispatchQueue.main.async {
-                var errMsg = startResult.Error.split(separator: "\n")
+                let errMsg = startResult.Error.split(separator: "\n")
                 showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "\(errMsg[0])")
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
                 appDelegate?.showClusterStatusUnknownOnStatusMenuItem()
@@ -331,4 +350,25 @@ func FetchVersionInfoFromDaemon() -> (String, String) {
         print(jsonErr.localizedDescription)
     }
     return ("","")
+}
+
+func GetConfigFromDaemon(properties: [String]) -> Dictionary<String, String> {
+    let r = SendCommandToDaemon(command: ConfigGetRequest(command: "getconfig", args: PropertiesArray(properties: properties)))
+    guard let data = r else { return ["":""] }
+    if String(bytes: data, encoding: .utf8) == "Failed" {
+        // Alert show error
+        DispatchQueue.main.async {
+            showAlertFailedAndCheckLogs(message: "Failed to Check if Pull Secret is configured", informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs")
+        }
+        return ["":""]
+    }
+    do {
+        let configGetResult = try JSONDecoder().decode(ConfigGetResult.self, from: data)
+        if !configGetResult.Configs.isEmpty {
+            return configGetResult.Configs
+        }
+    } catch let jsonErr {
+        print(jsonErr)
+    }
+    return ["":""]
 }

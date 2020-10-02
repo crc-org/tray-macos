@@ -86,3 +86,16 @@ func SendCommandToDaemon(command: Request) -> Data? {
     }
     return "Failed".data(using: .utf8)
 }
+
+func SendCommandToDaemon(command: ConfigGetRequest) -> Data? {
+    do {
+        let req = try JSONEncoder().encode(command)
+        let daemonConnection = DaemonCommander(sockPath: socketPath.path)
+        daemonConnection.connectToDaemon()
+        daemonConnection.sendCommand(command: req)
+        return daemonConnection.readResponse()
+    } catch let error {
+        print(error.localizedDescription)
+    }
+    return "Failed".data(using: .utf8)
+}
