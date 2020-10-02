@@ -19,6 +19,9 @@
 		5594643F23879B6700BC99CA /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5594643E23879B6700BC99CA /* Handlers.swift */; };
 		55946441238D332600BC99CA /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55946440238D332600BC99CA /* UserNotifications.framework */; };
 		55D67AC72385DEE600F56917 /* DaemonCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D67AC62385DEE600F56917 /* DaemonCommander.swift */; };
+		55F8D913252313A900B5E045 /* pullSecretStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55F8D912252313A900B5E045 /* pullSecretStoryBoard.storyboard */; };
+		55F8D9162523147F00B5E045 /* PullSecretWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F8D9152523147F00B5E045 /* PullSecretWindowController.swift */; };
+		55F8D91925231C2200B5E045 /* PullSecretViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F8D91825231C2200B5E045 /* PullSecretViewController.swift */; };
 		A3390174251DF71D00415FD9 /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = A3390173251DF71D00415FD9 /* Socket */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +41,9 @@
 		5594643E23879B6700BC99CA /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
 		55946440238D332600BC99CA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		55D67AC62385DEE600F56917 /* DaemonCommander.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaemonCommander.swift; sourceTree = "<group>"; };
+		55F8D912252313A900B5E045 /* pullSecretStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = pullSecretStoryBoard.storyboard; sourceTree = "<group>"; };
+		55F8D9152523147F00B5E045 /* PullSecretWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullSecretWindowController.swift; sourceTree = "<group>"; };
+		55F8D91825231C2200B5E045 /* PullSecretViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullSecretViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,7 @@
 		556DAAEF237AB11600885463 /* CodeReady Containers */ = {
 			isa = PBXGroup;
 			children = (
+				55F8D9112523138000B5E045 /* PullSecretPicker */,
 				556DAB00237AB16200885463 /* CodeReady Containers.entitlements */,
 				5590C40A23D18102000DFF54 /* ExportOptions.plist */,
 				556DAAF0237AB11600885463 /* AppDelegate.swift */,
@@ -112,6 +119,16 @@
 				556DAAF9237AB11600885463 /* Info.plist */,
 			);
 			path = "CodeReady Containers";
+			sourceTree = "<group>";
+		};
+		55F8D9112523138000B5E045 /* PullSecretPicker */ = {
+			isa = PBXGroup;
+			children = (
+				55F8D912252313A900B5E045 /* pullSecretStoryBoard.storyboard */,
+				55F8D9152523147F00B5E045 /* PullSecretWindowController.swift */,
+				55F8D91825231C2200B5E045 /* PullSecretViewController.swift */,
+			);
+			path = PullSecretPicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +202,7 @@
 			files = (
 				556DAAF5237AB11600885463 /* Assets.xcassets in Resources */,
 				556DAAF8237AB11600885463 /* Main.storyboard in Resources */,
+				55F8D913252313A900B5E045 /* pullSecretStoryBoard.storyboard in Resources */,
 				5590C40B23D18102000DFF54 /* ExportOptions.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,9 +219,11 @@
 				55168E1A23962545005D4232 /* Helpers.swift in Sources */,
 				5594643F23879B6700BC99CA /* Handlers.swift in Sources */,
 				556DAAF3237AB11600885463 /* DetailedStatusViewController.swift in Sources */,
+				55F8D91925231C2200B5E045 /* PullSecretViewController.swift in Sources */,
 				55D67AC72385DEE600F56917 /* DaemonCommander.swift in Sources */,
 				55168E1723955F3F005D4232 /* HyperLinkTextField.swift in Sources */,
 				556DAAF1237AB11600885463 /* AppDelegate.swift in Sources */,
+				55F8D9162523147F00B5E045 /* PullSecretWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

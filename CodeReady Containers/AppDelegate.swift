@@ -37,6 +37,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
     var kubeadminPass: String!
     var apiEndpoint: String!
+    var status: String = ""
+    
+    weak var pullSecretWindowController: PullSecretWindowController?
     
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
     
@@ -70,8 +73,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     @IBAction func startMenuClicked(_ sender: Any) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            HandleStart()
+        // check if pull-secret-file is configured
+        // if yes call HadleStart("")
+        // otherwise invoke the pullSecretPicker view
+        let response = GetConfigFromDaemon(properties: ["pull-secret-file"])
+        if self.status == "Stopped" {
+            DispatchQueue.global(qos: .userInteractive).async {
+                HandleStart(pullSecretPath: "")
+            }
+        }
+        else if response["pull-secret-file"] == "" {
+            if pullSecretWindowController == nil {
+                pullSecretWindowController = PullSecretWindowController.loadFromStoryBoard()
+            }
+            pullSecretWindowController?.showWindow(self)
+        } else {
+            DispatchQueue.global(qos: .userInteractive).async {
+                HandleStart(pullSecretPath: "")
+            }
         }
     }
     
@@ -173,6 +192,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         DispatchQueue.global(qos: .background).async {
             let status = clusterStatus()
+            self.status = status
             
             DispatchQueue.main.async {
                 self.initializeMenus(status: status)
