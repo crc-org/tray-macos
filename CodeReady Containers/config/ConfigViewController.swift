@@ -31,6 +31,7 @@ class ConfigViewController: NSViewController {
     @IBOutlet weak var pullSecretFilePathTextField: NSTextField!
     @IBOutlet weak var proxyCaFile: NSTextField!
     @IBOutlet weak var useProxy: NSButton!
+    @IBOutlet weak var proxyCAFileButton: NSButton!
     
     // change trackers
     var textFiedlChangeTracker: [NSTextField : NSTextField]? = [:]
@@ -99,6 +100,7 @@ class ConfigViewController: NSViewController {
                     self.enableExperimentalFeatures?.state = (configs?.enableExperimentalFeatures)! ? .on : .off
                 }
                 
+                // check if
                 self.httpProxy?.stringValue = configs?.httpProxy ?? "Unset"
                 self.httpsProxy?.stringValue = configs?.httpsProxy ?? "Unset"
                 self.proxyCaFile?.stringValue = configs?.proxyCaFile ?? "Unset"
@@ -352,6 +354,13 @@ class ConfigViewController: NSViewController {
     func trackButtonClicks(_ sender: Any) {
         guard let button = sender as? NSButton else { return }
         self.buttonChangeTracker?[button] = button
+    }
+    @IBAction func useProxyClicked(_ sender: Any) {
+        self.httpProxy.isEnabled = self.useProxy.state == .on ? true : false
+        self.httpsProxy.isEnabled = self.useProxy.state == .on ? true : false
+        self.proxyCaFile.isEnabled = self.useProxy.state == .on ? true : false
+        self.noProxy.isEnabled = self.useProxy.state == .on ? true : false
+        self.proxyCAFileButton.isEnabled = self.useProxy.state == .on ? true : false
     }
 }
 
