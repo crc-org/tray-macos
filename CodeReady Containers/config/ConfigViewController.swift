@@ -19,6 +19,8 @@ class ConfigViewController: NSViewController {
     @IBOutlet weak var checkHostsFilePermissions: NSPopUpButton!
     @IBOutlet weak var disableUpdateCheck: NSButton!
     @IBOutlet weak var nameservers: NSTextField!
+    @IBOutlet weak var checkOcCached: NSPopUpButton!
+    @IBOutlet weak var checkGoodhostsCached: NSPopUpButton!
     
     // preferences->properties controls
     @IBOutlet weak var bundlePathField: NSTextField!
@@ -100,13 +102,25 @@ class ConfigViewController: NSViewController {
                     self.enableExperimentalFeatures?.state = (configs?.enableExperimentalFeatures)! ? .on : .off
                 }
                 
-                // check if
+                // check if proxy configs are set and display them in the preferences window
                 self.httpProxy?.stringValue = configs?.httpProxy ?? "Unset"
                 self.httpsProxy?.stringValue = configs?.httpsProxy ?? "Unset"
                 self.proxyCaFile?.stringValue = configs?.proxyCaFile ?? "Unset"
+                self.noProxy?.stringValue = configs?.noProxy ?? "Unset"
+                if configs?.httpProxy != "" || configs?.httpsProxy != "" {
+                    self.httpProxy?.isEnabled = true
+                    self.httpsProxy?.isEnabled = true
+                    self.noProxy?.isEnabled = true
+                    self.proxyCaFile?.isEnabled = true
+                    self.proxyCAFileButton?.isEnabled = true
+                    self.useProxy?.state = .on
+                } else {
+                    self.useProxy?.state = .off
+                    self.useProxyClicked(self)
+                }
+                
                 self.memory?.intValue = Int32(configs?.memory ?? 0)
                 self.nameservers?.stringValue = configs?.nameserver ?? "Unset"
-                self.noProxy?.stringValue = configs?.noProxy ?? "Unset"
                 self.pullSecretFilePathTextField?.stringValue = configs?.pullSecretFile ?? "Unset"
             }
         }
@@ -120,7 +134,9 @@ class ConfigViewController: NSViewController {
             (self.checkResolverFilePermission, configs?.skipCheckResolverFilePermissions, configs?.warnCheckResolverFilePermissions),
             (self.checkRunningAsRoot, configs?.skipCheckRootUser, configs?.warnCheckRootUser),
             (self.checkRamSize, configs?.skipCheckRam, configs?.warnCheckRam),
-            (self.checkHostsFilePermissions, configs?.skipCheckHostsFilePermissions, configs?.warnCheckHostsFilePermissions)
+            (self.checkHostsFilePermissions, configs?.skipCheckHostsFilePermissions, configs?.warnCheckHostsFilePermissions),
+            (self.checkGoodhostsCached, configs?.skipCheckGoodhostsCached, configs?.warnCheckGoodhostsCached),
+            (self.checkOcCached, configs?.skipCheckOcCached, configs?.warnCheckOcCached)
         ]
 
         for c in viewsAndConfigs {
@@ -142,41 +158,19 @@ class ConfigViewController: NSViewController {
         }
     }
     
-    func showFilePicker(msg: String, txtField: NSTextField) {
-        let dialog = NSOpenPanel();
-        
-        dialog.title                   = msg
-        dialog.showsResizeIndicator    = false
-        dialog.showsHiddenFiles        = false
-        dialog.canChooseDirectories    = false
-        dialog.canCreateDirectories    = false
-        dialog.allowsMultipleSelection = false
-        dialog.allowedFileTypes        = ["json", "txt", "crcbundle"];
-        
-        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-            let filePath = dialog.url // Pathname of the file
-            
-            if (filePath != nil) {
-                txtField.setValue(filePath?.path, forKey: "stringValue")
-                return
-            }
-        }
-        // User clicked cancel
-        return
-    }
-    
     @IBAction func bundlePathButtonClicked(_ sender: Any) {
-        self.showFilePicker(msg: "Select CodeReady Containers Bundle", txtField: self.bundlePathField)
+        showFilePicker(msg: "Select CodeReady Containers Bundle", txtField: self.bundlePathField, fileTypes: ["crcbundle"])
         self.textFiedlChangeTracker?[self.bundlePathField] = self.bundlePathField
     }
     
     @IBAction func pullSecretFileButtonClicked(_ sender: Any) {
-        self.showFilePicker(msg: "Select the Pull Secret file", txtField: self.pullSecretFilePathTextField)
+        showFilePicker(msg: "Select the Pull Secret file", txtField: self.pullSecretFilePathTextField, fileTypes: [])
         self.textFiedlChangeTracker?[self.pullSecretFilePathTextField] = self.pullSecretFilePathTextField
     }
     
     @IBAction func proxyCaFileButtonClicked(_ sender: Any) {
-    
+        showFilePicker(msg: "Select CA file for your proxy", txtField: self.proxyCaFile, fileTypes: [])
+        self.textFiedlChangeTracker?[self.proxyCaFile] = self.proxyCaFile
     }
     
     @IBAction func propertiesRefreshClicked(_ sender: Any) {
@@ -196,21 +190,68 @@ class ConfigViewController: NSViewController {
             for c in self.textFiedlChangeTracker! {
                 switch c.value.identifier {
                 case self.bundlePathField?.identifier:
-                    self.changedConfigs?.bundle = c.value.stringValue
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["bundle"])
+                    } else {
+                        self.changedConfigs?.bundle = c.value.stringValue
+                    }
                 case self.pullSecretFilePathTextField?.identifier:
-                    self.changedConfigs?.pullSecretFile = c.value.stringValue
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["pull-secret-file"])
+                    } else {
+                        self.changedConfigs?.pullSecretFile = c.value.stringValue
+                    }
                 case self.cpusTextField?.identifier:
-                    self.changedConfigs?.cpus = c.value.doubleValue
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["cpus"])
+                    } else {
+                        self.changedConfigs?.cpus = c.value.doubleValue
+                    }
                 case self.httpProxy?.identifier:
-                    self.changedConfigs?.httpProxy = c.value.stringValue
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["http-proxy"])
+                    } else {
+                        self.changedConfigs?.httpProxy = c.value.stringValue
+                    }
                 case self.httpsProxy?.identifier:
-                    self.changedConfigs?.httpsProxy = c.value.stringValue
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["https-proxy"])
+                    } else {
+                        self.changedConfigs?.httpsProxy = c.value.stringValue
+                    }
                 case self.memory?.identifier:
-                    self.changedConfigs?.memory = c.value.doubleValue
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["memory"])
+                    } else {
+                        self.changedConfigs?.memory = c.value.doubleValue
+                    }
                 case self.nameservers?.identifier:
-                    self.changedConfigs?.nameserver = c.value.stringValue
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["nameserver"])
+                    } else {
+                        self.changedConfigs?.nameserver = c.value.stringValue
+                    }
                 case self.noProxy?.identifier:
-                    self.changedConfigs?.noProxy = c.value.stringValue
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["no-proxy"])
+                    } else {
+                        self.changedConfigs?.noProxy = c.value.stringValue
+                    }
+                case self.proxyCaFile?.identifier:
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["proxy-ca-file"])
+                    } else {
+                        self.changedConfigs?.proxyCaFile = c.value.stringValue
+                    }
                 default:
                     print("Should not reach here: TextField")
                 }
@@ -239,6 +280,11 @@ class ConfigViewController: NSViewController {
                 let configsJson = configset(properties: self.changedConfigs ?? CrcConfigs())
                 guard let res = SendCommandToDaemon(command: ConfigsetRequest(command: "setconfig", args: configsJson)) else { return }
                 print(String(data: res, encoding: .utf8) ?? "Nothing")
+                if self.configsNeedingUnset.count > 0 {
+                    print(self.configsNeedingUnset)
+                    guard let res = SendCommandToDaemon(command: ConfigunsetRequest(command: "unsetconfig", args: configunset(properties: self.configsNeedingUnset))) else { return }
+                    print(String(data: res, encoding: .utf8) ?? "Nothing")
+                }
             }
         }
     }
@@ -259,41 +305,130 @@ class ConfigViewController: NSViewController {
         for c in preflightChecksInitialConfig {
             switch c.key {
             case self.checkResolverFilePermission:
-                if c.value != self.checkResolverFilePermission?.indexOfSelectedItem {
-                    self.changedConfigs?.skipCheckResolverFilePermissions = (self.checkResolverFilePermission?.indexOfSelectedItem == 1)
+                switch self.checkResolverFilePermission.indexOfSelectedItem {
+                case 0:
+                    self.needsUnset = true
+                    configsNeedingUnset.append(contentsOf: ["skip-check-resolver-file-permissions", "warn-check-resolver-file-permissions"])
+                case 1:
+                    self.changedConfigs?.skipCheckResolverFilePermissions = true
+                    self.changedConfigs?.warnCheckResolverFilePermissions = false
+                case 2:
+                    self.changedConfigs?.warnCheckResolverFilePermissions = true
+                    self.changedConfigs?.skipCheckResolverFilePermissions = false
+                default:
+                    print("should not reach here")
                 }
             case self.checkBundleCached:
-                if c.value != self.checkBundleCached?.indexOfSelectedItem {
-                    switch self.checkBundleCached?.indexOfSelectedItem {
-                    case 0:
-                        print("Getting there")
-                        self.needsUnset = true
-                        configsNeedingUnset.append(contentsOf: ["skip-check-bundle-cached", "warn-check-bundle-cached"])
-                    case 1,2:
-                        self.changedConfigs?.skipCheckBundleCached = (self.checkBundleCached?.indexOfSelectedItem == 1)
-                    default:
-                        print("should not reach here")
-                    }
+                switch self.checkBundleCached?.indexOfSelectedItem {
+                case 0:
+                    self.needsUnset = true
+                    configsNeedingUnset.append(contentsOf: ["skip-check-bundle-cached", "warn-check-bundle-cached"])
+                case 1:
+                    self.changedConfigs?.skipCheckBundleCached = true
+                    self.changedConfigs?.warnCheckBundleCached = false
+                case 2:
+                    self.changedConfigs?.warnCheckBundleCached = true
+                    self.changedConfigs?.skipCheckBundleCached = false
+                default:
+                    print("should not reach here")
                 }
             case self.checkHyperkitDriverCached:
-                if c.value != self.checkHyperkitDriverCached?.indexOfSelectedItem {
-                    self.changedConfigs?.skipCheckHyperkitDriver = (self.checkHyperkitDriverCached?.indexOfSelectedItem == 1)
+                switch self.checkHyperkitDriverCached?.indexOfSelectedItem {
+                case 0:
+                    self.needsUnset = true
+                    configsNeedingUnset.append(contentsOf: ["skip-check-hyperkit-driver", "warn-check-hyperkit-driver"])
+                case 1:
+                    self.changedConfigs?.skipCheckHyperkitDriver = true
+                    self.changedConfigs?.warnCheckHyperkitDriver = false
+                case 2:
+                    self.changedConfigs?.warnCheckHyperkitDriver = true
+                    self.changedConfigs?.skipCheckHyperkitDriver = false
+                default:
+                    print("should not reach here")
                 }
             case self.checkPodmanCached:
-                if c.value != self.checkPodmanCached?.indexOfSelectedItem {
-                    self.changedConfigs?.skipCheckPodmanCached = (self.checkPodmanCached?.indexOfSelectedItem == 1)
+                switch self.checkPodmanCached?.indexOfSelectedItem {
+                case 0:
+                    self.needsUnset = true
+                    configsNeedingUnset.append(contentsOf: ["skip-check-podman-cached", "warn-check-podman-cached"])
+                case 1:
+                    self.changedConfigs?.skipCheckPodmanCached = true
+                    self.changedConfigs?.warnCheckPodmanCached = false
+                case 2:
+                    self.changedConfigs?.warnCheckPodmanCached = true
+                    self.changedConfigs?.skipCheckPodmanCached = false
+                default:
+                    print("should not reach here")
                 }
             case self.checkRunningAsRoot:
-                if c.value != self.checkRunningAsRoot?.indexOfSelectedItem {
-                    self.changedConfigs?.skipCheckRootUser = (self.checkRunningAsRoot?.indexOfSelectedItem == 1)
+                switch self.checkRunningAsRoot.indexOfSelectedItem {
+                case 0:
+                    self.needsUnset = true
+                    configsNeedingUnset.append(contentsOf: ["skip-check-root-user", "warn-check-root-user"])
+                case 1:
+                    self.changedConfigs?.skipCheckRootUser = true
+                    self.changedConfigs?.warnCheckRootUser = false
+                case 2:
+                    self.changedConfigs?.warnCheckRootUser = true
+                    self.changedConfigs?.skipCheckRootUser = false
+                default:
+                    print("should not reach here")
                 }
             case self.checkRamSize:
-                if c.value != self.checkRamSize?.indexOfSelectedItem {
-                    self.changedConfigs?.skipCheckRam = (self.checkRamSize?.indexOfSelectedItem == 1)
+                switch self.checkRamSize.indexOfSelectedItem {
+                case 0:
+                    self.needsUnset = true
+                    configsNeedingUnset.append(contentsOf: ["skip-check-ram", "warn-check-ram"])
+                case 1:
+                    self.changedConfigs?.skipCheckRam = true
+                    self.changedConfigs?.warnCheckRam = false
+                case 2:
+                    self.changedConfigs?.warnCheckRam = true
+                    self.changedConfigs?.skipCheckRam = false
+                default:
+                    print("should not reach here")
                 }
             case self.checkHostsFilePermissions:
-                if c.value != self.checkHostsFilePermissions?.indexOfSelectedItem {
-                    self.changedConfigs?.skipCheckHostsFilePermissions = (self.checkHostsFilePermissions?.indexOfSelectedItem == 1)
+                switch self.checkHostsFilePermissions.indexOfSelectedItem {
+                case 0:
+                    self.needsUnset = true
+                    configsNeedingUnset.append(contentsOf: ["skip-check-hosts-file-permissions", "warn-check-hosts-file-permissions"])
+                case 1:
+                    self.changedConfigs?.skipCheckHostsFilePermissions = true
+                    self.changedConfigs?.warnCheckHostsFilePermissions = false
+                case 2:
+                    self.changedConfigs?.warnCheckHostsFilePermissions = true
+                    self.changedConfigs?.skipCheckHostsFilePermissions = false
+                default:
+                    print("should not reach here")
+                }
+            case self.checkOcCached:
+                switch self.checkOcCached.indexOfSelectedItem {
+                case 0:
+                    self.needsUnset = true
+                    configsNeedingUnset.append(contentsOf: ["skip-check-oc-cached", "warn-check-oc-cached"])
+                case 1:
+                    self.changedConfigs?.skipCheckOcCached = true
+                    self.changedConfigs?.warnCheckOcCached = false
+                case 2:
+                    self.changedConfigs?.warnCheckOcCached = true
+                    self.changedConfigs?.skipCheckOcCached = false
+                default:
+                    print("should not reach here")
+                }
+            case self.checkGoodhostsCached:
+                switch self.checkGoodhostsCached.indexOfSelectedItem {
+                case 0:
+                    self.needsUnset = true
+                    configsNeedingUnset.append(contentsOf: ["skip-check-goodhosts-cached", "warn-check-goodhosts-cached"])
+                case 1:
+                    self.changedConfigs?.skipCheckGoodhostsCached = true
+                    self.changedConfigs?.warnCheckGoodhostsCached = false
+                case 2:
+                    self.changedConfigs?.warnCheckGoodhostsCached = true
+                    self.changedConfigs?.skipCheckGoodhostsCached = false
+                default:
+                    print("should not reach here")
                 }
             default:
                 print("Should not reach here")
@@ -313,11 +448,16 @@ class ConfigViewController: NSViewController {
         
         if self.textFiedlChangeTracker != nil {
             for c in self.textFiedlChangeTracker! {
-                switch c.value {
-                case self.nameservers:
-                    self.changedConfigs?.nameserver = c.value.stringValue
+                switch c.value.identifier {
+                case self.nameservers?.identifier:
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["nameserver"])
+                    } else {
+                        self.changedConfigs?.nameserver = c.value.stringValue
+                    }
                 default:
-                    print("should not reach here")
+                    print("txtfield: should not reach here")
                 }
             }
         }
@@ -356,17 +496,18 @@ class ConfigViewController: NSViewController {
         self.buttonChangeTracker?[button] = button
     }
     @IBAction func useProxyClicked(_ sender: Any) {
-        self.httpProxy.isEnabled = self.useProxy.state == .on ? true : false
-        self.httpsProxy.isEnabled = self.useProxy.state == .on ? true : false
-        self.proxyCaFile.isEnabled = self.useProxy.state == .on ? true : false
-        self.noProxy.isEnabled = self.useProxy.state == .on ? true : false
-        self.proxyCAFileButton.isEnabled = self.useProxy.state == .on ? true : false
+        self.httpProxy?.isEnabled = self.useProxy.state == .on ? true : false
+        self.httpsProxy?.isEnabled = self.useProxy.state == .on ? true : false
+        self.proxyCaFile?.isEnabled = self.useProxy.state == .on ? true : false
+        self.noProxy?.isEnabled = self.useProxy.state == .on ? true : false
+        self.proxyCAFileButton?.isEnabled = self.useProxy.state == .on ? true : false
     }
 }
 
 extension ConfigViewController: NSTextFieldDelegate {
     func controlTextDidChange(_ obj: Notification) {
         guard let textField = obj.object else { print("False notification, nothing changed"); return }
+        print((textField as! NSTextField).stringValue)
         self.textFiedlChangeTracker?[textField as! NSTextField] = textField as? NSTextField
     }
 }

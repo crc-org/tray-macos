@@ -93,6 +93,8 @@ struct CrcConfigs: Codable {
     var skipCheckRam: Bool?
     var skipCheckResolverFilePermissions: Bool?
     var skipCheckRootUser: Bool?
+    var skipCheckOcCached: Bool?
+    var skipCheckGoodhostsCached: Bool?
     var warnCheckBundleCached: Bool?
     var warnCheckHostsFilePermissions: Bool?
     var warnCheckHyperkitDriver: Bool?
@@ -101,6 +103,8 @@ struct CrcConfigs: Codable {
     var warnCheckRam: Bool?
     var warnCheckResolverFilePermissions: Bool?
     var warnCheckRootUser: Bool?
+    var warnCheckOcCached: Bool?
+    var warnCheckGoodhostsCached: Bool?
 
     enum CodingKeys: String, CodingKey {
         case bundle
@@ -123,6 +127,8 @@ struct CrcConfigs: Codable {
         case skipCheckRam = "skip-check-ram"
         case skipCheckResolverFilePermissions = "skip-check-resolver-file-permissions"
         case skipCheckRootUser = "skip-check-root-user"
+        case skipCheckOcCached = "skip-check-oc-cached"
+        case skipCheckGoodhostsCached = "skip-check-goodhosts-cached"
         case warnCheckBundleCached = "warn-check-bundle-cached"
         case warnCheckHostsFilePermissions = "warn-check-hosts-file-permissions"
         case warnCheckHyperkitDriver = "warn-check-hyperkit-driver"
@@ -131,6 +137,8 @@ struct CrcConfigs: Codable {
         case warnCheckRam = "warn-check-ram"
         case warnCheckResolverFilePermissions = "warn-check-resolver-file-permissions"
         case warnCheckRootUser = "warn-check-root-user"
+        case warnCheckOcCached = "warn-check-oc-cached"
+        case warnCheckGoodhostsCached = "warn-check-goodhosts-cached"
     }
 }
 

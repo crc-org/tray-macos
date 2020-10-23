@@ -118,7 +118,7 @@ func folderSize(folderPath:URL) -> Int64 {
     return size
 }
 
-func showFilePicker(msg: String, txtField: NSTextField) {
+func showFilePicker(msg: String, txtField: NSTextField, fileTypes: [String]) {
     let dialog = NSOpenPanel()
 
     dialog.title                   = msg
@@ -127,6 +127,10 @@ func showFilePicker(msg: String, txtField: NSTextField) {
     dialog.canChooseDirectories    = false
     dialog.canCreateDirectories    = false
     dialog.allowsMultipleSelection = false
+    
+    if fileTypes.count > 0 {
+        dialog.allowedFileTypes = fileTypes
+    }
 
     if (dialog.runModal() == NSApplication.ModalResponse.OK) {
         let filePath = dialog.url // Pathname of the file
