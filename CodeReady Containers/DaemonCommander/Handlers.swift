@@ -27,12 +27,19 @@ struct DeleteResult: Decodable {
     let Success: Bool
     let Error: String
 }
+struct ProxyConfigType: Decodable {
+    let HTTPProxy: String
+    let HTTPSProxy: String
+    let ProxyCACert: String
+}
 
 struct ClusterConfigType: Decodable {
+    let ClusterCACert: String
     let KubeConfig: String
     let KubeAdminPass: String
     let WebConsoleURL: String
     let ClusterAPI: String
+    let ProxyConfig: ProxyConfigType
 }
 
 struct Request: Encodable {
@@ -56,7 +63,6 @@ struct ConfigGetResult: Decodable {
 
 struct WebConsoleResult: Decodable {
     let ClusterConfig: ClusterConfigType
-    let State: Int
     let Success: Bool
     let Error: String
 }
@@ -345,7 +351,7 @@ func HandleWebConsoleURL() {
             NSWorkspace.shared.open(URL(string: webConsoleResult.ClusterConfig.WebConsoleURL)!)
         }
     } catch let jsonErr {
-        print(jsonErr.localizedDescription)
+        print(jsonErr)
     }
 }
 
