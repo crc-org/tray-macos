@@ -64,7 +64,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             notificationAllowed = granted
             print(error?.localizedDescription ?? "Notification Request: No Error")
         })
-    
+        DispatchQueue.global(qos: .background).async {
+            let status = clusterStatus()
+            self.status = status
+            DispatchQueue.main.async {
+                self.initializeMenus(status: status)
+            }
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -80,6 +86,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if self.status == "Stopped" {
             DispatchQueue.global(qos: .userInteractive).async {
                 HandleStart(pullSecretPath: "")
+                DispatchQueue.main.sync {
+                    self.statusItem.button?.appearsDisabled = false
+                }
             }
         }
         else if response["pull-secret-file"] == "" {
@@ -90,6 +99,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         } else {
             DispatchQueue.global(qos: .userInteractive).async {
                 HandleStart(pullSecretPath: "")
+                DispatchQueue.main.sync {
+                    self.statusItem.button?.appearsDisabled = false
+                }
             }
         }
     }
@@ -97,12 +109,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBAction func stopMenuClicked(_ sender: Any) {
         DispatchQueue.global(qos: .userInteractive).async {
             HandleStop()
+            DispatchQueue.main.sync {
+                self.statusItem.button?.appearsDisabled = true
+            }
         }
     }
     
     @IBAction func deleteMenuClicked(_ sender: Any) {
         DispatchQueue.global(qos: .userInteractive).async {
             HandleDelete()
+            DispatchQueue.main.sync {
+                self.statusItem.button?.appearsDisabled = true
+            }
         }
     }
     
@@ -170,6 +188,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             self.copyOcLoginCommand.isEnabled = true
             self.ocLoginForDeveloper.isEnabled = true
             self.ocLoginForKubeadmin.isEnabled = true
+            self.statusItem.button?.appearsDisabled = false
         } else if status == "Stopped" {
             self.startMenuItem.isEnabled = true
             self.stopMenuItem.isEnabled = false
@@ -178,6 +197,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             self.copyOcLoginCommand.isEnabled = false
             self.ocLoginForDeveloper.isEnabled = false
             self.ocLoginForKubeadmin.isEnabled = false
+            self.statusItem.button?.appearsDisabled = true
         } else {
             self.startMenuItem.isEnabled = true
             self.stopMenuItem.isEnabled = false
@@ -186,6 +206,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             self.copyOcLoginCommand.isEnabled = false
             self.ocLoginForDeveloper.isEnabled = false
             self.ocLoginForKubeadmin.isEnabled = false
+            self.statusItem.button?.appearsDisabled = true
         }
     }
     
