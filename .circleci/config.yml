@@ -18,7 +18,7 @@ jobs:
         command: ./build.sh
     - run:
         name: create tar ball of the app
-        command: tar -czf crc-tray-macos.tar.gz ./out/Build/Products/Release/CodeReady\ Containers.app
+        command: cd ./out/Build/Products/Release && tar -czf crc-tray-macos.tar.gz ./CodeReady\ Containers.app
     - store_artifacts:
         path: ~/project/crc-tray-macos.tar.gz
         destination: crc-tray-macos.tar.gz
