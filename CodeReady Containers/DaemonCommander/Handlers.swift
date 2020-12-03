@@ -87,6 +87,7 @@ struct CrcConfigs: Codable {
     var httpProxy: String?
     var httpsProxy: String?
     var memory: Float64?
+    var diskSize: Float64?
     var nameserver: String?
     var noProxy: String?
     var proxyCaFile: String?
@@ -125,6 +126,7 @@ struct CrcConfigs: Codable {
         case noProxy = "no-proxy"
         case proxyCaFile = "proxy-ca-file"
         case pullSecretFile = "pull-secret-file"
+        case diskSize = "disk-size"
         case skipCheckBundleCached = "skip-check-bundle-cached"
         case skipCheckHostsFilePermissions = "skip-check-hosts-file-permissions"
         case skipCheckHyperkitDriver = "skip-check-hyperkit-driver"

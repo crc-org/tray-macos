@@ -34,6 +34,7 @@ class ConfigViewController: NSViewController {
     @IBOutlet weak var proxyCaFile: NSTextField!
     @IBOutlet weak var useProxy: NSButton!
     @IBOutlet weak var proxyCAFileButton: NSButton!
+    @IBOutlet weak var diskSize: NSTextField!
     
     // change trackers
     var textFiedlChangeTracker: [NSTextField : NSTextField]? = [:]
@@ -119,8 +120,9 @@ class ConfigViewController: NSViewController {
                     self.useProxyClicked(self)
                 }
                 
-                self.memory?.intValue = Int32(configs?.memory ?? 0)
+                self.memory?.doubleValue = Float64(configs?.memory ?? 0)
                 self.nameservers?.stringValue = configs?.nameserver ?? "Unset"
+                self.diskSize?.doubleValue = Float64(configs?.diskSize ?? 0)
                 self.pullSecretFilePathTextField?.stringValue = configs?.pullSecretFile ?? "Unset"
             }
         }
@@ -230,6 +232,13 @@ class ConfigViewController: NSViewController {
                         configsNeedingUnset.append(contentsOf: ["memory"])
                     } else {
                         self.changedConfigs?.memory = c.value.doubleValue
+                    }
+                case self.diskSize?.identifier:
+                    if c.value.stringValue == "" {
+                        needsUnset = true
+                        configsNeedingUnset.append(contentsOf: ["disk-size"])
+                    } else {
+                        self.changedConfigs?.diskSize = c.value.doubleValue
                     }
                 case self.nameservers?.identifier:
                     if c.value.stringValue == "" {
