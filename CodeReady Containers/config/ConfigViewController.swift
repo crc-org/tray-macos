@@ -8,6 +8,11 @@
 
 import Cocoa
 
+struct configResult: Decodable {
+    let Error: String
+    let Properties: [String]?
+}
+
 class ConfigViewController: NSViewController {
     // preferences->Advaced controls
     @IBOutlet weak var checkBundleCached: NSPopUpButton!
@@ -288,7 +293,18 @@ class ConfigViewController: NSViewController {
                 // encode the json for configset and send it to the daemon
                 let configsJson = configset(properties: self.changedConfigs ?? CrcConfigs())
                 guard let res = SendCommandToDaemon(command: ConfigsetRequest(command: "setconfig", args: configsJson)) else { return }
-                print(String(data: res, encoding: .utf8) ?? "Nothing")
+                do {
+                    let result = try JSONDecoder().decode(configResult.self, from: res)
+                    if !result.Error.isEmpty {
+                        let alert = NSAlert()
+                        alert.informativeText = "\(result.Error)"
+                        alert.messageText = "Error"
+                        alert.alertStyle = .warning
+                        alert.runModal()
+                    }
+                } catch let jsonErr {
+                    print(jsonErr)
+                }
                 if self.configsNeedingUnset.count > 0 {
                     print(self.configsNeedingUnset)
                     guard let res = SendCommandToDaemon(command: ConfigunsetRequest(command: "unsetconfig", args: configunset(properties: self.configsNeedingUnset))) else { return }
@@ -482,7 +498,18 @@ class ConfigViewController: NSViewController {
                 // encode the json for configset and send it to the daemon
                 let configsJson = configset(properties: self.changedConfigs ?? CrcConfigs())
                 guard let res = SendCommandToDaemon(command: ConfigsetRequest(command: "setconfig", args: configsJson)) else { return }
-                print(String(data: res, encoding: .utf8) ?? "Nothing")
+                do {
+                    let result = try JSONDecoder().decode(configResult.self, from: res)
+                    if !result.Error.isEmpty {
+                        let alert = NSAlert()
+                        alert.informativeText = "\(result.Error)"
+                        alert.messageText = "Error"
+                        alert.alertStyle = .warning
+                        alert.runModal()
+                    }
+                } catch let jsonErr {
+                    print(jsonErr)
+                }
                 if self.configsNeedingUnset.count > 0 {
                     print(self.configsNeedingUnset)
                     guard let res = SendCommandToDaemon(command: ConfigunsetRequest(command: "unsetconfig", args: configunset(properties: self.configsNeedingUnset))) else { return }
