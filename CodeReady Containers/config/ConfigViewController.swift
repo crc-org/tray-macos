@@ -15,17 +15,18 @@ struct configResult: Decodable {
 
 class ConfigViewController: NSViewController {
     // preferences->Advaced controls
-    @IBOutlet weak var checkBundleCached: NSPopUpButton!
-    @IBOutlet weak var checkHyperkitDriverCached: NSPopUpButton!
-    @IBOutlet weak var checkPodmanCached: NSPopUpButton!
-    @IBOutlet weak var checkResolverFilePermission: NSPopUpButton!
-    @IBOutlet weak var checkRunningAsRoot: NSPopUpButton!
-    @IBOutlet weak var checkRamSize: NSPopUpButton!
-    @IBOutlet weak var checkHostsFilePermissions: NSPopUpButton!
+    
+    @IBOutlet weak var skipCheckBundleCached: NSButton!
+    @IBOutlet weak var skipCheckHyperkitDriverCached: NSButton!
+    @IBOutlet weak var skipCheckPodmanCached: NSButton!
+    @IBOutlet weak var skipCheckResolverFilePermission: NSButton!
+    @IBOutlet weak var skipCheckRunningAsRoot: NSButton!
+    @IBOutlet weak var skipCheckRAMSize: NSButton!
+    @IBOutlet weak var skipCheckHostsFilePermission: NSButton!
+    @IBOutlet weak var skipCheckOCCached: NSButton!
+    @IBOutlet weak var skipCheckAdminHelperCached: NSButton!
     @IBOutlet weak var disableUpdateCheck: NSButton!
     @IBOutlet weak var nameservers: NSTextField!
-    @IBOutlet weak var checkOcCached: NSPopUpButton!
-    @IBOutlet weak var checkGoodhostsCached: NSPopUpButton!
     
     // preferences->properties controls
     @IBOutlet weak var bundlePathField: NSTextField!
@@ -134,22 +135,22 @@ class ConfigViewController: NSViewController {
     }
     
     func loadPreflightCheckConfigs(configs: CrcConfigs?) {
-        let viewsAndConfigs: [(NSPopUpButton?, Bool?, Bool?)] = [
-            (self.checkBundleCached, configs?.skipCheckBundleCached, configs?.warnCheckBundleCached),
-            (self.checkHyperkitDriverCached, configs?.skipCheckHyperkitDriver, configs?.warnCheckHyperkitDriver),
-            (self.checkPodmanCached, configs?.skipCheckPodmanCached, configs?.warnCheckPodmanCached),
-            (self.checkResolverFilePermission, configs?.skipCheckResolverFilePermissions, configs?.warnCheckResolverFilePermissions),
-            (self.checkRunningAsRoot, configs?.skipCheckRootUser, configs?.warnCheckRootUser),
-            (self.checkRamSize, configs?.skipCheckRam, configs?.warnCheckRam),
-            (self.checkHostsFilePermissions, configs?.skipCheckHostsFilePermissions, configs?.warnCheckHostsFilePermissions),
-            (self.checkGoodhostsCached, configs?.skipCheckGoodhostsCached, configs?.warnCheckGoodhostsCached),
-            (self.checkOcCached, configs?.skipCheckOcCached, configs?.warnCheckOcCached)
+        let preflightCheckBoxes: [(NSButton?, Bool?)] = [
+            (self.skipCheckBundleCached, configs?.skipCheckBundleExtracted),
+            (self.skipCheckHyperkitDriverCached, configs?.skipCheckHyperkitDriver),
+            (self.skipCheckPodmanCached, configs?.skipCheckPodmanCached),
+            (self.skipCheckResolverFilePermission, configs?.skipCheckResolverFilePermissions),
+            (self.skipCheckRunningAsRoot, configs?.skipCheckRootUser),
+            (self.skipCheckRAMSize, configs?.skipCheckRam),
+            (self.skipCheckHostsFilePermission, configs?.skipCheckHostsFilePermissions),
+            (self.skipCheckOCCached, configs?.skipCheckOcCached),
+            (self.skipCheckAdminHelperCached, configs?.skipCheckGoodhostsCached)
         ]
-
-        for c in viewsAndConfigs {
-            guard  let popbuttonControl = c.0 else { return }
-            preflightChecksInitialConfig[popbuttonControl] = c.0?.indexOfSelectedItem
-            setPopupButtonViewFromConfig(button: c.0, skip: c.1, warn: c.2)
+        
+        for index in 0...(preflightCheckBoxes.count - 1) {
+            guard let checkBox = preflightCheckBoxes[index].0 else { print("Not found in \(index)"); return }
+            let config = preflightCheckBoxes[index].1 ?? false
+            checkBox.state = config ? .on : .off
         }
     }
     
@@ -327,144 +328,28 @@ class ConfigViewController: NSViewController {
     
     @IBAction func preflightApplyClicked(_ sender: Any) {
         changedConfigs = CrcConfigs()
-        for c in preflightChecksInitialConfig {
-            switch c.key {
-            case self.checkResolverFilePermission:
-                switch self.checkResolverFilePermission.indexOfSelectedItem {
-                case 0:
-                    self.needsUnset = true
-                    configsNeedingUnset.append(contentsOf: ["skip-check-resolver-file-permissions", "warn-check-resolver-file-permissions"])
-                case 1:
-                    self.changedConfigs?.skipCheckResolverFilePermissions = true
-                    self.changedConfigs?.warnCheckResolverFilePermissions = false
-                case 2:
-                    self.changedConfigs?.warnCheckResolverFilePermissions = true
-                    self.changedConfigs?.skipCheckResolverFilePermissions = false
-                default:
-                    print("should not reach here")
-                }
-            case self.checkBundleCached:
-                switch self.checkBundleCached?.indexOfSelectedItem {
-                case 0:
-                    self.needsUnset = true
-                    configsNeedingUnset.append(contentsOf: ["skip-check-bundle-cached", "warn-check-bundle-cached"])
-                case 1:
-                    self.changedConfigs?.skipCheckBundleCached = true
-                    self.changedConfigs?.warnCheckBundleCached = false
-                case 2:
-                    self.changedConfigs?.warnCheckBundleCached = true
-                    self.changedConfigs?.skipCheckBundleCached = false
-                default:
-                    print("should not reach here")
-                }
-            case self.checkHyperkitDriverCached:
-                switch self.checkHyperkitDriverCached?.indexOfSelectedItem {
-                case 0:
-                    self.needsUnset = true
-                    configsNeedingUnset.append(contentsOf: ["skip-check-hyperkit-driver", "warn-check-hyperkit-driver"])
-                case 1:
-                    self.changedConfigs?.skipCheckHyperkitDriver = true
-                    self.changedConfigs?.warnCheckHyperkitDriver = false
-                case 2:
-                    self.changedConfigs?.warnCheckHyperkitDriver = true
-                    self.changedConfigs?.skipCheckHyperkitDriver = false
-                default:
-                    print("should not reach here")
-                }
-            case self.checkPodmanCached:
-                switch self.checkPodmanCached?.indexOfSelectedItem {
-                case 0:
-                    self.needsUnset = true
-                    configsNeedingUnset.append(contentsOf: ["skip-check-podman-cached", "warn-check-podman-cached"])
-                case 1:
-                    self.changedConfigs?.skipCheckPodmanCached = true
-                    self.changedConfigs?.warnCheckPodmanCached = false
-                case 2:
-                    self.changedConfigs?.warnCheckPodmanCached = true
-                    self.changedConfigs?.skipCheckPodmanCached = false
-                default:
-                    print("should not reach here")
-                }
-            case self.checkRunningAsRoot:
-                switch self.checkRunningAsRoot.indexOfSelectedItem {
-                case 0:
-                    self.needsUnset = true
-                    configsNeedingUnset.append(contentsOf: ["skip-check-root-user", "warn-check-root-user"])
-                case 1:
-                    self.changedConfigs?.skipCheckRootUser = true
-                    self.changedConfigs?.warnCheckRootUser = false
-                case 2:
-                    self.changedConfigs?.warnCheckRootUser = true
-                    self.changedConfigs?.skipCheckRootUser = false
-                default:
-                    print("should not reach here")
-                }
-            case self.checkRamSize:
-                switch self.checkRamSize.indexOfSelectedItem {
-                case 0:
-                    self.needsUnset = true
-                    configsNeedingUnset.append(contentsOf: ["skip-check-ram", "warn-check-ram"])
-                case 1:
-                    self.changedConfigs?.skipCheckRam = true
-                    self.changedConfigs?.warnCheckRam = false
-                case 2:
-                    self.changedConfigs?.warnCheckRam = true
-                    self.changedConfigs?.skipCheckRam = false
-                default:
-                    print("should not reach here")
-                }
-            case self.checkHostsFilePermissions:
-                switch self.checkHostsFilePermissions.indexOfSelectedItem {
-                case 0:
-                    self.needsUnset = true
-                    configsNeedingUnset.append(contentsOf: ["skip-check-hosts-file-permissions", "warn-check-hosts-file-permissions"])
-                case 1:
-                    self.changedConfigs?.skipCheckHostsFilePermissions = true
-                    self.changedConfigs?.warnCheckHostsFilePermissions = false
-                case 2:
-                    self.changedConfigs?.warnCheckHostsFilePermissions = true
-                    self.changedConfigs?.skipCheckHostsFilePermissions = false
-                default:
-                    print("should not reach here")
-                }
-            case self.checkOcCached:
-                switch self.checkOcCached.indexOfSelectedItem {
-                case 0:
-                    self.needsUnset = true
-                    configsNeedingUnset.append(contentsOf: ["skip-check-oc-cached", "warn-check-oc-cached"])
-                case 1:
-                    self.changedConfigs?.skipCheckOcCached = true
-                    self.changedConfigs?.warnCheckOcCached = false
-                case 2:
-                    self.changedConfigs?.warnCheckOcCached = true
-                    self.changedConfigs?.skipCheckOcCached = false
-                default:
-                    print("should not reach here")
-                }
-            case self.checkGoodhostsCached:
-                switch self.checkGoodhostsCached.indexOfSelectedItem {
-                case 0:
-                    self.needsUnset = true
-                    configsNeedingUnset.append(contentsOf: ["skip-check-goodhosts-cached", "warn-check-goodhosts-cached"])
-                case 1:
-                    self.changedConfigs?.skipCheckGoodhostsCached = true
-                    self.changedConfigs?.warnCheckGoodhostsCached = false
-                case 2:
-                    self.changedConfigs?.warnCheckGoodhostsCached = true
-                    self.changedConfigs?.skipCheckGoodhostsCached = false
-                default:
-                    print("should not reach here")
-                }
-            default:
-                print("Should not reach here")
-            }
-        }
         
         if self.buttonChangeTracker != nil {
             for c in self.buttonChangeTracker! {
                 switch c.value {
                 case self.disableUpdateCheck:
                     self.changedConfigs?.disableUpdateCheck = Bool(exactly: NSNumber(value: c.value.state.rawValue))
+                case self.skipCheckBundleCached:
+                    self.changedConfigs?.skipCheckBundleExtracted = (self.skipCheckBundleCached?.state == .on)
+                case self.skipCheckOCCached:
+                    self.changedConfigs?.skipCheckOcCached = (self.skipCheckOCCached?.state == .on)
+                case self.skipCheckPodmanCached:
+                    self.changedConfigs?.skipCheckPodmanCached = (self.skipCheckPodmanCached?.state == .on)
+                case self.skipCheckHyperkitDriverCached:
+                    self.changedConfigs?.skipCheckHyperkitDriver = (self.skipCheckHyperkitDriverCached?.state == .on)
+                case self.skipCheckRAMSize:
+                    self.changedConfigs?.skipCheckRam = (self.skipCheckRAMSize?.state == .on)
+                case self.skipCheckHostsFilePermission:
+                    self.changedConfigs?.skipCheckHostsFilePermissions = (self.skipCheckHostsFilePermission?.state == .on)
+                case self.skipCheckRunningAsRoot:
+                    self.changedConfigs?.skipCheckRootUser = (self.skipCheckRunningAsRoot?.state == .on)
+                case self.skipCheckAdminHelperCached:
+                    self.changedConfigs?.skipCheckGoodhostsCached = (self.skipCheckAdminHelperCached?.state == .on)
                 default:
                     print("should not reach here")
                 }
@@ -531,6 +416,36 @@ class ConfigViewController: NSViewController {
         guard let button = sender as? NSButton else { return }
         self.buttonChangeTracker?[button] = button
     }
+    
+    // Preflight checkbox button handlers
+    @IBAction func checkBundleExtractedClicked(_ sender: Any) {
+        trackButtonClicks(sender)
+    }
+    @IBAction func checkHyperkitDriverClicked(_ sender: Any) {
+        trackButtonClicks(sender)
+    }
+    @IBAction func checkPodmanCachedClicked(_ sender: Any) {
+        trackButtonClicks(sender)
+    }
+    @IBAction func checkResolverPermissionClicked(_ sender: Any) {
+        trackButtonClicks(sender)
+    }
+    @IBAction func checkRunningAsRootClicked(_ sender: Any) {
+        trackButtonClicks(sender)
+    }
+    @IBAction func checkRAMSizeClicked(_ sender: Any) {
+        trackButtonClicks(sender)
+    }
+    @IBAction func checkHostsFilePermissionsClicked(_ sender: Any) {
+        trackButtonClicks(sender)
+    }
+    @IBAction func checkOCCachedClicked(_ sender: Any) {
+        trackButtonClicks(sender)
+    }
+    @IBAction func checkAdminHelperCached(_ sender: Any) {
+        trackButtonClicks(sender)
+    }
+    
     @IBAction func useProxyClicked(_ sender: Any) {
         self.httpProxy?.isEnabled = self.useProxy.state == .on ? true : false
         self.httpsProxy?.isEnabled = self.useProxy.state == .on ? true : false

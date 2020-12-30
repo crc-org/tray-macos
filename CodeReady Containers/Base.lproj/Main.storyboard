@@ -472,152 +472,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="438" height="496"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cjC-Lo-3EW">
-                                <rect key="frame" x="271" y="452" width="107" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Unset" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="tjf-Iz-W7Z" id="oIy-mv-xz2">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="Obp-e0-7aW">
-                                        <items>
-                                            <menuItem title="Unset" state="on" enabled="NO" id="tjf-Iz-W7Z">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Skip Check" id="0em-AW-UAh">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Show Warning" id="O0m-jI-BQ5">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qdb-Fn-dZi">
-                                <rect key="frame" x="271" y="419" width="107" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Unset" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="mey-7A-jye" id="zj8-9U-GTw">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="ZyR-Hc-v05">
-                                        <items>
-                                            <menuItem title="Unset" state="on" enabled="NO" id="mey-7A-jye">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Skip Check" id="5zO-xV-y5b">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Show Warning" id="Ie5-md-AEr">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SlE-Je-xn7">
-                                <rect key="frame" x="271" y="386" width="107" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Unset" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="yri-Zp-12w" id="Dsf-Tl-h2L">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="Eg2-4t-gwj">
-                                        <items>
-                                            <menuItem title="Unset" state="on" enabled="NO" id="yri-Zp-12w">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Skip Check" id="qJ4-uX-fr4">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Show Warning" id="3de-8q-Fps"/>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4BM-0O-bj2">
-                                <rect key="frame" x="271" y="351" width="107" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Unset" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="6fz-kQ-3H7" id="wIH-bw-bLU">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="n1t-3i-nRV">
-                                        <items>
-                                            <menuItem title="Unset" state="on" enabled="NO" id="6fz-kQ-3H7">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Skip Check" id="OvL-cq-fwG">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Show Warning" id="aC7-TJ-Raw"/>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3eZ-rU-zhC">
-                                <rect key="frame" x="271" y="315" width="107" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Unset" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="E4X-TL-VAc" id="q27-4y-TBj">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="929-Q8-fPN">
-                                        <items>
-                                            <menuItem title="Unset" state="on" enabled="NO" id="E4X-TL-VAc">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Skip Check" id="o89-At-YwI">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Show Warning" id="GMs-ee-B8i">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gLO-kl-H7i">
-                                <rect key="frame" x="61" y="458" width="200" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Check bundle cached" id="URL-pX-gVb">
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Jn-D7-6nC">
-                                <rect key="frame" x="61" y="425" width="200" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Check hyperkit driver cached" id="bKb-tD-ugD">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jt6-5Q-a35">
-                                <rect key="frame" x="61" y="392" width="201" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Check podman cached" id="YFR-mt-2tK">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bhe-rA-i1I">
-                                <rect key="frame" x="61" y="357" width="200" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Check Resolver File Permissions" id="FTN-7C-Lhz">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Twy-OM-Vup">
-                                <rect key="frame" x="61" y="321" width="200" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Check Running as Root" id="Hqs-nJ-6yb">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xiF-lY-NsR">
                                 <rect key="frame" x="306" y="13" width="75" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -629,126 +483,6 @@
                                     <action selector="preflightApplyClicked:" target="V0P-Gq-7lO" id="wCu-3e-FIU"/>
                                 </connections>
                             </button>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFH-15-SeH">
-                                <rect key="frame" x="271" y="277" width="107" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Unset" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="hwU-sq-eZu" id="cAk-cy-26Z">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="Ha5-rR-994">
-                                        <items>
-                                            <menuItem title="Unset" state="on" enabled="NO" id="hwU-sq-eZu">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Skip Check" id="nSE-5Q-cQp">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Show Warning" id="Vbx-Ln-Ldv">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lxV-qZ-UtR">
-                                <rect key="frame" x="61" y="283" width="201" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Check RAM Size" id="vM2-mn-b7g">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EIA-iw-df5">
-                                <rect key="frame" x="271" y="239" width="107" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Unset" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="8Kw-aJ-gYh" id="hVB-Dy-omA">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="X47-fs-YAd">
-                                        <items>
-                                            <menuItem title="Unset" state="on" enabled="NO" id="8Kw-aJ-gYh">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Skip Check" id="88y-We-CtX">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Show Warning" id="0xe-YR-GAX">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U5C-jq-yz3">
-                                <rect key="frame" x="61" y="245" width="201" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Check Hosts File Permission" id="VIr-At-qqB">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pvA-UD-2Ne">
-                                <rect key="frame" x="271" y="204" width="107" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Unset" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="3jz-7d-OZ6" id="3oC-kt-6L3">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="f7E-uY-WF6">
-                                        <items>
-                                            <menuItem title="Unset" state="on" enabled="NO" id="3jz-7d-OZ6">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Skip Check" id="Te8-oa-7MW">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Show Warning" id="biw-6B-sN8">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pDu-nO-pxV">
-                                <rect key="frame" x="61" y="210" width="201" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Check OC Cached" id="IAZ-SK-j6h">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xUc-hF-Vx6">
-                                <rect key="frame" x="271" y="168" width="107" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Unset" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="11t-Ib-Zfd" id="Pfw-bR-biw">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="kpq-ru-gQ3">
-                                        <items>
-                                            <menuItem title="Unset" state="on" enabled="NO" id="11t-Ib-Zfd">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Skip Check" id="U4o-ma-Ek4">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Show Warning" id="I3c-mo-3yG">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0d-FA-iu3">
-                                <rect key="frame" x="61" y="174" width="201" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Check goodhosts Cached" id="tbC-ab-evw">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="0QX-kF-Kif">
                                 <rect key="frame" x="20" y="153" width="398" height="5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -796,20 +530,119 @@
                                     <action selector="preflightRefreshClicked:" target="V0P-Gq-7lO" id="4sD-Tq-ClT"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fFI-MX-D1W">
+                                <rect key="frame" x="61" y="456" width="216" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Skip check for Bundle Extracted" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="MFa-bt-8e5">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkBundleExtractedClicked:" target="V0P-Gq-7lO" id="lP5-Ln-oaL"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OLW-Ii-Qe3">
+                                <rect key="frame" x="61" y="423" width="252" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Skip check for Hyperkit driver Cached" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="nAR-K3-OtA">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkHyperkitDriverClicked:" target="V0P-Gq-7lO" id="Aqs-ee-Mb4"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NGk-dB-dcf">
+                                <rect key="frame" x="61" y="390" width="212" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Skip check for Podman Cached" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xUV-ae-kI9">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkPodmanCachedClicked:" target="V0P-Gq-7lO" id="7uQ-c4-Zs0"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p6Q-l0-17b">
+                                <rect key="frame" x="61" y="356" width="259" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Skip check for Resolver File Permission" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="q1q-lp-CPm">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkResolverPermissionClicked:" target="V0P-Gq-7lO" id="tV0-Dd-vV1"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m3S-Xh-jpY">
+                                <rect key="frame" x="61" y="319" width="202" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Skip check if Running as Root" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="eAq-PM-zJ1">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkRunningAsRootClicked:" target="V0P-Gq-7lO" id="DeX-oa-zzo"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5GN-Yi-Mfg">
+                                <rect key="frame" x="61" y="281" width="170" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Skip check for RAM Size" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="pqc-Uy-2w4">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkRAMSizeClicked:" target="V0P-Gq-7lO" id="lnN-Rv-WVX"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S0m-S8-4tT">
+                                <rect key="frame" x="61" y="243" width="242" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Skip check for Hosts File Permission" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Rpk-2m-Gmk">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkHostsFilePermissionsClicked:" target="V0P-Gq-7lO" id="4lK-uH-HkG"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5Q-Kx-kZj">
+                                <rect key="frame" x="61" y="208" width="182" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Skip check for OC Cached" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7FU-sJ-Uhq">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkOCCachedClicked:" target="V0P-Gq-7lO" id="ZSp-2a-AMF"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dDA-ju-Aa3">
+                                <rect key="frame" x="61" y="172" width="244" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Skip check for admin-helper Cached" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="P8J-fN-2Jy">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkAdminHelperCached:" target="V0P-Gq-7lO" id="nvx-0N-OzB"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="checkBundleCached" destination="cjC-Lo-3EW" id="dca-Qd-MCd"/>
-                        <outlet property="checkGoodhostsCached" destination="xUc-hF-Vx6" id="0je-9b-raS"/>
-                        <outlet property="checkHostsFilePermissions" destination="EIA-iw-df5" id="bCh-pj-rxo"/>
-                        <outlet property="checkHyperkitDriverCached" destination="Qdb-Fn-dZi" id="U5O-EY-qCd"/>
-                        <outlet property="checkOcCached" destination="pvA-UD-2Ne" id="Iog-01-dyw"/>
-                        <outlet property="checkPodmanCached" destination="SlE-Je-xn7" id="R0a-zF-toi"/>
-                        <outlet property="checkRamSize" destination="TFH-15-SeH" id="9zC-03-99O"/>
-                        <outlet property="checkResolverFilePermission" destination="4BM-0O-bj2" id="JJg-kB-3bL"/>
-                        <outlet property="checkRunningAsRoot" destination="3eZ-rU-zhC" id="Z1M-Ia-77s"/>
                         <outlet property="disableUpdateCheck" destination="qgi-Lu-ZbZ" id="YOC-Hi-oPm"/>
                         <outlet property="nameservers" destination="Ati-fb-pro" id="UNM-Hd-9QX"/>
+                        <outlet property="skipCheckAdminHelperCached" destination="dDA-ju-Aa3" id="g0N-Rw-BSQ"/>
+                        <outlet property="skipCheckBundleCached" destination="fFI-MX-D1W" id="3of-d1-sYL"/>
+                        <outlet property="skipCheckHostsFilePermission" destination="S0m-S8-4tT" id="FPc-xH-mkj"/>
+                        <outlet property="skipCheckHyperkitDriverCached" destination="OLW-Ii-Qe3" id="yz4-rY-oIs"/>
+                        <outlet property="skipCheckOCCached" destination="d5Q-Kx-kZj" id="je1-l0-XZN"/>
+                        <outlet property="skipCheckPodmanCached" destination="NGk-dB-dcf" id="Jne-j9-Ef9"/>
+                        <outlet property="skipCheckRAMSize" destination="5GN-Yi-Mfg" id="JeE-Ga-p2Y"/>
+                        <outlet property="skipCheckResolverFilePermission" destination="p6Q-l0-17b" id="u08-Cb-VdI"/>
+                        <outlet property="skipCheckRunningAsRoot" destination="m3S-Xh-jpY" id="Odx-pO-md7"/>
                     </connections>
                 </viewController>
                 <customObject id="46n-bb-6qq" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1139,8 +972,8 @@
         <image name="NSAdvanced" width="32" height="32"/>
         <image name="NSNetwork" width="32" height="32"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="OcpLogo" width="778.5" height="350"/>
+        <image name="OcpLogo" width="1557" height="700"/>
         <image name="external-link-font-awesome" width="448" height="512"/>
-        <image name="github" width="16" height="16"/>
+        <image name="github" width="25" height="25"/>
     </resources>
 </document>

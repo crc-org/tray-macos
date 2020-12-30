@@ -92,7 +92,7 @@ struct CrcConfigs: Codable {
     var noProxy: String?
     var proxyCaFile: String?
     var pullSecretFile: String?
-    var skipCheckBundleCached: Bool?
+    var skipCheckBundleExtracted: Bool?
     var skipCheckHostsFilePermissions: Bool?
     var skipCheckHyperkitDriver: Bool?
     var skipCheckHyperkitInstalled: Bool?
@@ -102,16 +102,6 @@ struct CrcConfigs: Codable {
     var skipCheckRootUser: Bool?
     var skipCheckOcCached: Bool?
     var skipCheckGoodhostsCached: Bool?
-    var warnCheckBundleCached: Bool?
-    var warnCheckHostsFilePermissions: Bool?
-    var warnCheckHyperkitDriver: Bool?
-    var warnCheckHyperkitInstalled: Bool?
-    var warnCheckPodmanCached: Bool?
-    var warnCheckRam: Bool?
-    var warnCheckResolverFilePermissions: Bool?
-    var warnCheckRootUser: Bool?
-    var warnCheckOcCached: Bool?
-    var warnCheckGoodhostsCached: Bool?
 
     enum CodingKeys: String, CodingKey {
         case bundle
@@ -127,7 +117,7 @@ struct CrcConfigs: Codable {
         case proxyCaFile = "proxy-ca-file"
         case pullSecretFile = "pull-secret-file"
         case diskSize = "disk-size"
-        case skipCheckBundleCached = "skip-check-bundle-cached"
+        case skipCheckBundleExtracted = "skip-check-bundle-extracted"
         case skipCheckHostsFilePermissions = "skip-check-hosts-file-permissions"
         case skipCheckHyperkitDriver = "skip-check-hyperkit-driver"
         case skipCheckHyperkitInstalled = "skip-check-hyperkit-installed"
@@ -137,16 +127,6 @@ struct CrcConfigs: Codable {
         case skipCheckRootUser = "skip-check-root-user"
         case skipCheckOcCached = "skip-check-oc-cached"
         case skipCheckGoodhostsCached = "skip-check-goodhosts-cached"
-        case warnCheckBundleCached = "warn-check-bundle-cached"
-        case warnCheckHostsFilePermissions = "warn-check-hosts-file-permissions"
-        case warnCheckHyperkitDriver = "warn-check-hyperkit-driver"
-        case warnCheckHyperkitInstalled = "warn-check-hyperkit-installed"
-        case warnCheckPodmanCached = "warn-check-podman-cached"
-        case warnCheckRam = "warn-check-ram"
-        case warnCheckResolverFilePermissions = "warn-check-resolver-file-permissions"
-        case warnCheckRootUser = "warn-check-root-user"
-        case warnCheckOcCached = "warn-check-oc-cached"
-        case warnCheckGoodhostsCached = "warn-check-goodhosts-cached"
     }
 }
 
