@@ -92,6 +92,8 @@ struct CrcConfigs: Codable {
     var noProxy: String?
     var proxyCaFile: String?
     var pullSecretFile: String?
+    var networkMode: String?
+    var consentTelemetry: Bool?
     var skipCheckBundleExtracted: Bool?
     var skipCheckHostsFilePermissions: Bool?
     var skipCheckHyperkitDriver: Bool?
@@ -117,6 +119,8 @@ struct CrcConfigs: Codable {
         case proxyCaFile = "proxy-ca-file"
         case pullSecretFile = "pull-secret-file"
         case diskSize = "disk-size"
+        case networkMode = "network-mode"
+        case consentTelemetry = "consent-telemetry"
         case skipCheckBundleExtracted = "skip-check-bundle-extracted"
         case skipCheckHostsFilePermissions = "skip-check-hosts-file-permissions"
         case skipCheckHyperkitDriver = "skip-check-hyperkit-driver"
