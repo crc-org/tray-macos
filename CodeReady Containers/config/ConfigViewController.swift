@@ -41,6 +41,9 @@ class ConfigViewController: NSViewController {
     @IBOutlet weak var useProxy: NSButton!
     @IBOutlet weak var proxyCAFileButton: NSButton!
     @IBOutlet weak var diskSize: NSTextField!
+    @IBOutlet weak var networkModeDefaultRadio: NSButton!
+    @IBOutlet weak var networkModeVsockRadio: NSButton!
+    @IBOutlet weak var consentTelemetry: NSButton!
     
     // change trackers
     var textFiedlChangeTracker: [NSTextField : NSTextField]? = [:]
@@ -48,6 +51,7 @@ class ConfigViewController: NSViewController {
     var popupButtonChangeTracker: [NSPopUpButton : NSPopUpButton]? = [:]
     var changedConfigs: CrcConfigs?
     var configsNeedingUnset: [String] = []
+    var networkMode: String = ""
     
     var preflightChecksInitialConfig: [NSPopUpButton : Int] = [:]
     var needsUnset: Bool = false
@@ -130,6 +134,17 @@ class ConfigViewController: NSViewController {
                 self.nameservers?.stringValue = configs?.nameserver ?? "Unset"
                 self.diskSize?.doubleValue = Float64(configs?.diskSize ?? 0)
                 self.pullSecretFilePathTextField?.stringValue = configs?.pullSecretFile ?? "Unset"
+                if configs?.networkMode == "vsock" {
+                    self.networkModeVsockRadio?.state = .on
+                } else {
+                    self.networkModeDefaultRadio?.state = .on
+                }
+                
+                if configs?.consentTelemetry == nil {
+                    self.consentTelemetry?.state = .off
+                } else {
+                    self.consentTelemetry?.state = (configs?.consentTelemetry)! ? .on : .off
+                }
             }
         }
     }
@@ -189,6 +204,7 @@ class ConfigViewController: NSViewController {
         preflightChecksInitialConfig = [:]
         changedConfigs = CrcConfigs()
         configsNeedingUnset = []
+        networkMode = ""
         self.LoadConfigs()
     }
     
@@ -278,11 +294,18 @@ class ConfigViewController: NSViewController {
                 switch c.value {
                 case self.enableExperimentalFeatures:
                     self.changedConfigs?.enableExperimentalFeatures = Bool(exactly: NSNumber(value: c.value.state.rawValue))
+                case self.consentTelemetry:
+                    self.changedConfigs?.consentTelemetry = Bool(exactly: NSNumber(value: c.value.state.rawValue))
                 default:
                     print("should not reach here: button change tracker")
                 }
             }
         }
+        
+        if self.networkMode != "" {
+            self.changedConfigs?.networkMode = self.networkMode
+        }
+        print(self.changedConfigs!)
         // present action sheet alert and ask for confirmation
         let alert = NSAlert()
         alert.addButton(withTitle: "Yes")
@@ -452,6 +475,20 @@ class ConfigViewController: NSViewController {
         self.proxyCaFile?.isEnabled = self.useProxy.state == .on ? true : false
         self.noProxy?.isEnabled = self.useProxy.state == .on ? true : false
         self.proxyCAFileButton?.isEnabled = self.useProxy.state == .on ? true : false
+    }
+    
+    @IBAction func networkModeRadioClicked(_ sender: Any) {
+        let s = sender as? NSButton
+        if s?.tag == 1 {
+            self.networkMode = "default"
+        }
+        if s?.tag == 2 {
+            self.networkMode = "vsock"
+        }
+    }
+    
+    @IBAction func consentTelemetryClicked(_ sender: Any) {
+        trackButtonClicks(sender)
     }
 }
 
