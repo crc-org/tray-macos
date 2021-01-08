@@ -81,19 +81,19 @@ struct GetconfigResult: Decodable {
 
 struct CrcConfigs: Codable {
     var bundle: String?
-    var cpus: Float64?
+    var cpus: Int?
     var disableUpdateCheck: Bool?
     var enableExperimentalFeatures: Bool?
     var httpProxy: String?
     var httpsProxy: String?
-    var memory: Float64?
-    var diskSize: Float64?
+    var memory: Int?
+    var diskSize: Int?
     var nameserver: String?
     var noProxy: String?
     var proxyCaFile: String?
     var pullSecretFile: String?
     var networkMode: String?
-    var consentTelemetry: Bool?
+    var consentTelemetry: String?
     var skipCheckBundleExtracted: Bool?
     var skipCheckHostsFilePermissions: Bool?
     var skipCheckHyperkitDriver: Bool?
