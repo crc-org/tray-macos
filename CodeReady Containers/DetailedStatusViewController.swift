@@ -31,6 +31,7 @@ class DetailedStatusViewController: NSViewController {
     
     override func viewDidAppear() {
         view.window?.level = .floating
+        view.window?.center()
     }
     
     func updateViewWithClusterStatus() {

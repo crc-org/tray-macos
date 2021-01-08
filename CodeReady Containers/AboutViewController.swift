@@ -25,5 +25,6 @@ class AboutViewController: NSViewController {
     
     override func viewDidAppear() {
         view.window?.level = .floating
+        view.window?.center()
     }
 }
