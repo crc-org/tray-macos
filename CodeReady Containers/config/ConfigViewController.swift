@@ -31,6 +31,7 @@ class ConfigViewController: NSViewController {
     @IBOutlet weak var noProxy: NSTextField!
     @IBOutlet weak var proxyCaFile: NSTextField!
     @IBOutlet weak var proxyCAFileButton: NSButton!
+    @IBOutlet weak var autostartAtLoginButton: NSSwitch!
     
     @IBOutlet weak var newVersionDownloadButton: NSButton!
     
@@ -46,6 +47,7 @@ class ConfigViewController: NSViewController {
     var changedConfigs: CrcConfigs?
     var configsNeedingUnset: [String] = []
     var consentTelemetry: String = ""
+    var autostart: Bool?
     var numCpus: Int?
     var memory: Int?
     var diskSize: Int?
@@ -127,6 +129,8 @@ class ConfigViewController: NSViewController {
                 } else {
                     self.enableTelemetrySwitch?.state = (configs?.consentTelemetry?.lowercased()) == "yes" ? .on : .off
                 }
+                guard let autoStartValue = configs?.autostartTray else { return }
+                self.autostartAtLoginButton?.state = (autoStartValue) ? .on : .off
                 
                 self.view.display()
             }
@@ -221,6 +225,10 @@ class ConfigViewController: NSViewController {
             }
         }
         
+        if self.autostart != nil {
+            self.changedConfigs?.autostartTray = self.autostart
+        }
+        
         ShowActionSheetAndApplyConfig()
     }
     
@@ -269,6 +277,11 @@ class ConfigViewController: NSViewController {
         }
     }
     
+    @IBAction func autostartSwitchClicked(_ sender: Any) {
+        let s = sender as? NSSwitch
+        self.autostart = (s?.state == .on) ? true : false
+    }
+    
     @IBAction func cpuSliderChanged(_ sender: NSSlider) {
         self.cpusLabel.intValue = sender.intValue
         self.numCpus = Int(sender.intValue)
@@ -287,6 +300,7 @@ class ConfigViewController: NSViewController {
     
     func clearChangeTrackers() {
         self.consentTelemetry = ""
+        self.autostart = nil
         self.textFiedlChangeTracker = [:]
         self.changedConfigs = CrcConfigs()
     }
