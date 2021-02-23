@@ -94,6 +94,7 @@ struct CrcConfigs: Codable {
     var pullSecretFile: String?
     var networkMode: String?
     var consentTelemetry: String?
+    var autostartTray: Bool?
     var skipCheckBundleExtracted: Bool?
     var skipCheckHostsFilePermissions: Bool?
     var skipCheckHyperkitDriver: Bool?
@@ -121,6 +122,7 @@ struct CrcConfigs: Codable {
         case diskSize = "disk-size"
         case networkMode = "network-mode"
         case consentTelemetry = "consent-telemetry"
+        case autostartTray = "auto-start-tray"
         case skipCheckBundleExtracted = "skip-check-bundle-extracted"
         case skipCheckHostsFilePermissions = "skip-check-hosts-file-permissions"
         case skipCheckHyperkitDriver = "skip-check-hyperkit-driver"
