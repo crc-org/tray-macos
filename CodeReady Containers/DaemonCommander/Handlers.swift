@@ -39,7 +39,7 @@ struct ClusterConfigType: Decodable {
     let KubeAdminPass: String
     let WebConsoleURL: String
     let ClusterAPI: String
-    let ProxyConfig: ProxyConfigType
+    let ProxyConfig: ProxyConfigType?
 }
 
 struct Request: Encodable {
