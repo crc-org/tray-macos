@@ -29,7 +29,7 @@ class PullSecretViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func browseButtonClicked(_ sender: Any) {
         // show the filepicker
         // set the path of the file as filepath in the textfield
-        showFilePicker(msg: "Select Pull Secret File", txtField: self.pullSecretFilePath, fileTypes: ["txt", "json"])
+        showFilePicker(msg: "Select Pull Secret File", txtField: self.pullSecretFilePath, fileTypes: [])
     }
     
     @IBAction func okButtonClicked(_ sender: Any) {
