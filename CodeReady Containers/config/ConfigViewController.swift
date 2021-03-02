@@ -22,7 +22,7 @@ class ConfigViewController: NSViewController {
     @IBOutlet weak var memoryLabel: NSTextField!
     @IBOutlet weak var diskSizeTextField: NSTextField!
     @IBOutlet weak var diskSizeStepper: NSStepper!
-    @IBOutlet weak var enableTelemetrySwitch: NSSwitch!
+    @IBOutlet weak var enableTelemetrySwitch: NSButton!
     @IBOutlet weak var nameservers: NSTextField!
     
     // proxy configuration
@@ -31,7 +31,7 @@ class ConfigViewController: NSViewController {
     @IBOutlet weak var noProxy: NSTextField!
     @IBOutlet weak var proxyCaFile: NSTextField!
     @IBOutlet weak var proxyCAFileButton: NSButton!
-    @IBOutlet weak var autostartAtLoginButton: NSSwitch!
+    @IBOutlet weak var autostartAtLoginButton: NSButton!
     
     @IBOutlet weak var newVersionDownloadButton: NSButton!
     
@@ -268,7 +268,7 @@ class ConfigViewController: NSViewController {
     }
     
     @IBAction func consentTelemetryClicked(_ sender: Any) {
-        let s = sender as? NSSwitch
+        let s = sender as? NSButton
         if s?.state == .on {
             self.consentTelemetry = "yes"
         }
@@ -278,7 +278,7 @@ class ConfigViewController: NSViewController {
     }
     
     @IBAction func autostartSwitchClicked(_ sender: Any) {
-        let s = sender as? NSSwitch
+        let s = sender as? NSButton
         self.autostart = (s?.state == .on) ? true : false
     }
     
