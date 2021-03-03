@@ -211,9 +211,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
     
     func menuWillOpen(_ menu: NSMenu) {
-        DispatchQueue.global(qos: .background).async {
-            self.refreshStatusAndMenu()
-        }
     }
     
     @objc func refreshStatusAndMenu() {
