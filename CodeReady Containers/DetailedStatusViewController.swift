@@ -36,22 +36,22 @@ class DetailedStatusViewController: NSViewController {
     
     func updateViewWithClusterStatus() {
         DispatchQueue.global(qos: .background).async {
-            let r = SendCommandToDaemon(command: Request(command: "status", args: nil))
-            
-            DispatchQueue.main.async {
-                guard let data = r else { return }
-                do {
-                    let status = try JSONDecoder().decode(ClusterStatus.self, from: data)
-                    if status.Success {
+            do {
+                let data = try SendCommandToDaemon(command: Request(command: "status", args: nil))
+                let status = try JSONDecoder().decode(ClusterStatus.self, from: data)
+                if status.Success {
+                    DispatchQueue.main.async {
                         self.vmStatus.stringValue = status.CrcStatus
                         self.ocpStatus.stringValue = status.OpenshiftStatus
                         self.diskUsage.stringValue = "\(Units(bytes: status.DiskUse).getReadableUnit()) of \(Units(bytes: status.DiskSize).getReadableUnit()) (Inside the VM)"
                         self.cacheSize.stringValue = Units(bytes: folderSize(folderPath: self.cacheDirPath)).getReadableUnit()
                         self.cacheDirectory.stringValue = self.cacheDirPath.path
                     }
-                } catch let jsonErr {
-                    print(jsonErr.localizedDescription)
+                } else {
+                    showAlertFailedAndCheckLogs(message: "Failed to get status", informativeMsg: status.Error)
                 }
+            } catch {
+                showAlertFailedAndCheckLogs(message: "Failed to get status", informativeMsg: error.localizedDescription)
             }
         }
     }

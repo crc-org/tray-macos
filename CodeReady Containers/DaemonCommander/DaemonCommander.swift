@@ -44,16 +44,11 @@ class DaemonCommander {
 let userHomePath: URL = FileManager.default.homeDirectoryForCurrentUser
 let socketPath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("crc.sock")
 
-func SendCommandToDaemon(command: Request) -> Data? {
-    do {
-        let req = try JSONEncoder().encode(command)
-        print(String(data: req, encoding: .utf8)!)
-        let daemonConnection = DaemonCommander(sockPath: socketPath.path)
-        return try daemonConnection.sendCommand(command: req)
-    } catch let error {
-        print(error.localizedDescription)
-    }
-    return "Failed".data(using: .utf8)
+func SendCommandToDaemon(command: Request) throws -> Data {
+    let req = try JSONEncoder().encode(command)
+    print(String(data: req, encoding: .utf8)!)
+    let daemonConnection = DaemonCommander(sockPath: socketPath.path)
+    return try daemonConnection.sendCommand(command: req)
 }
 
 struct ConfigsetRequest: Encodable {
