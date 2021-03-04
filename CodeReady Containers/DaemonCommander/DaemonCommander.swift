@@ -74,32 +74,14 @@ struct configunset: Encodable {
     var properties: [String]
 }
 
-func SendCommandToDaemon(command: ConfigsetRequest) -> Data? {
-    do {
-        let req = try JSONEncoder().encode(command)
-        let res = try sendToDaemonAndReadResponse(payload: req)
-        if res?.count ?? -1 > 0 {
-            return res
-        }
-    }
-    catch let jsonErr {
-        print(jsonErr)
-    }
-    return "Failed".data(using: .utf8)
+func SendCommandToDaemon(command: ConfigsetRequest) throws -> Data {
+    let req = try JSONEncoder().encode(command)
+    return try sendToDaemonAndReadResponse(payload: req)
 }
 
-func SendCommandToDaemon(command: ConfigunsetRequest) -> Data? {
-    do {
-        let req = try JSONEncoder().encode(command)
-        let res = try sendToDaemonAndReadResponse(payload: req)
-        if res?.count ?? -1 > 0 {
-            return res
-        }
-    }
-    catch let jsonErr {
-        print(jsonErr)
-    }
-    return "Failed".data(using: .utf8)
+func SendCommandToDaemon(command: ConfigunsetRequest) throws -> Data {
+    let req = try JSONEncoder().encode(command)
+    return try sendToDaemonAndReadResponse(payload: req)
 }
 
 func SendCommandToDaemon(command: ConfigGetRequest) -> Data? {
@@ -113,11 +95,11 @@ func SendCommandToDaemon(command: ConfigGetRequest) -> Data? {
     return "Failed".data(using: .utf8)
 }
 
-func sendToDaemonAndReadResponse(payload: Data) throws -> Data? {
+func sendToDaemonAndReadResponse(payload: Data) throws -> Data {
     let daemonConnection = DaemonCommander(sockPath: socketPath.path)
     let reply = try daemonConnection.sendCommand(command: payload)
     if reply.count > 0 {
         return reply
     }
-    return "Failed".data(using: .utf8)
+    throw DaemonError.badResponse
 }

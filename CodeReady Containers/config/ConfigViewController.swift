@@ -241,9 +241,9 @@ class ConfigViewController: NSViewController {
         alert.beginSheetModal(for: self.view.window!) { (response) in
             if response == .alertFirstButtonReturn {
                 // encode the json for configset and send it to the daemon
-                let configsJson = configset(properties: self.changedConfigs ?? CrcConfigs())
-                guard let res = SendCommandToDaemon(command: ConfigsetRequest(command: "setconfig", args: configsJson)) else { return }
                 do {
+                    let configsJson = configset(properties: self.changedConfigs ?? CrcConfigs())
+                    let res = try SendCommandToDaemon(command: ConfigsetRequest(command: "setconfig", args: configsJson))
                     let result = try JSONDecoder().decode(configResult.self, from: res)
                     if !result.Error.isEmpty {
                         let alert = NSAlert()
@@ -252,17 +252,17 @@ class ConfigViewController: NSViewController {
                         alert.alertStyle = .warning
                         alert.runModal()
                     }
-                } catch let jsonErr {
-                    print(jsonErr)
+                    if self.configsNeedingUnset.count > 0 {
+                        print(self.configsNeedingUnset)
+                        let res = try SendCommandToDaemon(command: ConfigunsetRequest(command: "unsetconfig", args: configunset(properties: self.configsNeedingUnset)))
+                        print(String(data: res, encoding: .utf8) ?? "Nothing")
+                        self.configsNeedingUnset = []
+                    }
+                    self.LoadConfigs()
+                    self.clearChangeTrackers()
+                } catch let error {
+                    showAlertFailedAndCheckLogs(message: "Failed to apply configuration", informativeMsg: error.localizedDescription)
                 }
-                if self.configsNeedingUnset.count > 0 {
-                    print(self.configsNeedingUnset)
-                    guard let res = SendCommandToDaemon(command: ConfigunsetRequest(command: "unsetconfig", args: configunset(properties: self.configsNeedingUnset))) else { return }
-                    print(String(data: res, encoding: .utf8) ?? "Nothing")
-                    self.configsNeedingUnset = []
-                }
-                self.LoadConfigs()
-                self.clearChangeTrackers()
             }
         }
     }
