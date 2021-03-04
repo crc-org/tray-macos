@@ -221,10 +221,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
     
     @objc func refreshStatusAndMenu() {
-        let status = clusterStatus()
-        self.status = status
-        DispatchQueue.main.async {
-            self.initializeMenus(status: status)
+        DispatchQueue.global(qos: .background).async {
+            let status = clusterStatus()
+            self.status = status
+            DispatchQueue.main.async {
+                self.initializeMenus(status: status)
+            }
         }
     }
 }
