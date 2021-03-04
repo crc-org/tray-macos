@@ -22,36 +22,32 @@ class DaemonCommander {
         self.daemonSocket?.close()
     }
     // connect sets up the socket and connects to the daemon sokcet
-    public func connectToDaemon() {
+    public func sendCommand(command: Data) -> Data {
         do {
             // Create an Unix socket...
             try self.daemonSocket = Socket.create(family: .unix, type: .stream, proto: .unix)
             guard let socket = self.daemonSocket else {
                 print("Unable to unwrap socket...")
-                return
+                return "Failed".data(using: .utf8)!
             }
             self.daemonSocket = socket
             try socket.connect(to: self.socketPath)
         } catch let error {
             guard error is Socket.Error else {
                 print(error.localizedDescription)
-                return
+                return "Failed".data(using: .utf8)!
             }
         }
-    }
-    
-    public func sendCommand(command: Data) {
+
         do {
             try self.daemonSocket?.write(from: command)
         } catch let error {
             guard error is Socket.Error else {
                 print(error.localizedDescription)
-                return
+                return "Failed".data(using: .utf8)!
             }
         }
-    }
-    
-    public func readResponse() -> Data {
+
         do {
             var readData = Data(capacity: DaemonCommander.bufferSize)
             let bytesRead = try self.daemonSocket?.read(into: &readData)
@@ -77,9 +73,7 @@ func SendCommandToDaemon(command: Request) -> Data? {
         print(String(data: req, encoding: .utf8)!)
         let daemonConnection = DaemonCommander(sockPath: socketPath.path)
         print(socketPath.path)
-        daemonConnection.connectToDaemon()
-        daemonConnection.sendCommand(command: req)
-        let reply = daemonConnection.readResponse()
+        let reply = daemonConnection.sendCommand(command: req)
         return reply
     } catch let error {
         print(error.localizedDescription)
@@ -137,9 +131,7 @@ func SendCommandToDaemon(command: ConfigGetRequest) -> Data? {
     do {
         let req = try JSONEncoder().encode(command)
         let daemonConnection = DaemonCommander(sockPath: socketPath.path)
-        daemonConnection.connectToDaemon()
-        daemonConnection.sendCommand(command: req)
-        return daemonConnection.readResponse()
+        return daemonConnection.sendCommand(command: req)
     } catch let error {
         print(error.localizedDescription)
     }
@@ -149,9 +141,7 @@ func SendCommandToDaemon(command: ConfigGetRequest) -> Data? {
 func sendToDaemonAndReadResponse(payload: Data) -> Data? {
     let daemonConnection = DaemonCommander(sockPath: socketPath.path)
     print(socketPath.path)
-    daemonConnection.connectToDaemon()
-    daemonConnection.sendCommand(command: payload)
-    let reply = daemonConnection.readResponse()
+    let reply = daemonConnection.sendCommand(command: payload)
     if reply.count > 0 {
         return reply
     }
