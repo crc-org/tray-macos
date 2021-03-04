@@ -144,39 +144,23 @@ enum DaemonError: Error {
 }
 
 func HandleStop() {
-    let r = SendCommandToDaemon(command: Request(command: "stop", args: nil))
-    guard let data = r else { return }
-    if String(bytes: data, encoding: .utf8) == "Failed" {
+    var data: Data
+    do {
+        data = try SendCommandToDaemon(command: Request(command: "stop", args: nil))
+    } catch let error {
         DispatchQueue.main.async {
             let appDelegate = NSApplication.shared.delegate as? AppDelegate
-            appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: true,
-                                                            stopMenuEnabled: false,
-                                                            deleteMenuEnabled: true,
-                                                            webconsoleMenuEnabled: true,
-                                                            ocLoginForDeveloperEnabled: true,
-                                                            ocLoginForAdminEnabled: true,
-                                                            copyOcLoginCommand: true)
-            )
-            
-            showAlertFailedAndCheckLogs(message: "Failed deleting the CRC cluster", informativeMsg: "Make sure the CRC daemon is running, or check the logs to get more information")
+            appDelegate?.refreshStatusAndMenu()
+            showAlertFailedAndCheckLogs(message: "Failed deleting the CRC cluster", informativeMsg: "Make sure the CRC daemon is running, or check the logs to get more information. Error: \(error)")
         }
         return
     }
     do {
-        let stopResult = try JSONDecoder().decode(StopResult.self, from: r!)
+        let stopResult = try JSONDecoder().decode(StopResult.self, from: data)
         if stopResult.Success {
             DispatchQueue.main.async {
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: true,
-                                                                stopMenuEnabled: false,
-                                                                deleteMenuEnabled: true,
-                                                                webconsoleMenuEnabled: false,
-                                                                ocLoginForDeveloperEnabled: false,
-                                                                ocLoginForAdminEnabled: false,
-                                                                copyOcLoginCommand: false)
-                )
-                appDelegate?.updateStatusMenuItem(status: "Stopped")
-                
+                appDelegate?.refreshStatusAndMenu()
                 displayNotification(title: "Successfully Stopped Cluster", body: "The CRC Cluster was successfully stopped")
             }
         }
@@ -184,15 +168,7 @@ func HandleStop() {
             DispatchQueue.main.async {
                 showAlertFailedAndCheckLogs(message: "Failed to stop OpenShift cluster", informativeMsg: "\(stopResult.Error)")
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.showClusterStatusUnknownOnStatusMenuItem()
-                appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: false,
-                                                                stopMenuEnabled: true,
-                                                                deleteMenuEnabled: true,
-                                                                webconsoleMenuEnabled: true,
-                                                                ocLoginForDeveloperEnabled: true,
-                                                                ocLoginForAdminEnabled: true,
-                                                                copyOcLoginCommand: true)
-                )
+                appDelegate?.refreshStatusAndMenu()
             }
         }
     } catch let jsonErr {
@@ -204,57 +180,33 @@ func HandleStop() {
 func HandleStart(pullSecretPath: String) {
     DispatchQueue.main.async {
         let appDelegate = NSApplication.shared.delegate as? AppDelegate
-        appDelegate?.showClusterStartingMessageOnStatusMenuItem()
+        appDelegate?.initializeMenus(status: "Starting")
     }
-    let response: Data?
-    if pullSecretPath == "" {
-        response = SendCommandToDaemon(command: Request(command: "start", args: nil))
-    } else {
-        response = SendCommandToDaemon(command: Request(command: "start", args: ["pullSecretFile":pullSecretPath]))
-    }
-    guard let data = response else { return }
-    if String(bytes: data, encoding: .utf8) == "Failed" {
+    var response: Data
+    do {
+        if pullSecretPath == "" {
+            response = try SendCommandToDaemon(command: Request(command: "start", args: nil))
+        } else {
+            response = try SendCommandToDaemon(command: Request(command: "start", args: ["pullSecretFile":pullSecretPath]))
+        }
+        displayNotification(title: "CodeReady Containers", body: "Starting OpenShift Cluster, this could take a few minutes..")
+    } catch let error {
         // show notification about the failure
         // Adjust the menus
         DispatchQueue.main.async {
             let appDelegate = NSApplication.shared.delegate as? AppDelegate
-            appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: true,
-                                                            stopMenuEnabled: false,
-                                                            deleteMenuEnabled: true,
-                                                            webconsoleMenuEnabled: false,
-                                                            ocLoginForDeveloperEnabled: false,
-                                                            ocLoginForAdminEnabled: false,
-                                                            copyOcLoginCommand: false))
-            
-            showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "CodeReady Containers failed to start the OpenShift cluster, ensure the CRC daemon is running or check the logs to find more information")
-                appDelegate?.showClusterStatusUnknownOnStatusMenuItem()
+            appDelegate?.refreshStatusAndMenu()
+            showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "CodeReady Containers failed to start the OpenShift cluster, ensure the CRC daemon is running or check the logs to find more information. Error: \(error)")
         }
-    } else {
-        displayNotification(title: "CodeReady Containers", body: "Starting OpenShift Cluster, this could take a few minutes..")
+        return
     }
     do {
-        let startResult = try JSONDecoder().decode(StartResult.self, from: data)
+        let startResult = try JSONDecoder().decode(StartResult.self, from: response)
         if startResult.Status == "Running" {
             DispatchQueue.main.async {
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.showClusterStartingMessageOnStatusMenuItem()
-                appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: false, stopMenuEnabled: true, deleteMenuEnabled: true, webconsoleMenuEnabled: false, ocLoginForDeveloperEnabled: false, ocLoginForAdminEnabled: false, copyOcLoginCommand: false))
-            }
-            // if vm is running but kubelet not yet started
-            if !startResult.KubeletStarted {
-                DispatchQueue.main.async {
-                    let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                    appDelegate?.showClusterStatusUnknownOnStatusMenuItem()
-                    displayNotification(title: "CodeReady Containers", body: "CodeReady Containers OpenShift Cluster is taking longer to start")
-                }
-            } else {
-                DispatchQueue.main.async {
-                    let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                    appDelegate?.updateStatusMenuItem(status: startResult.Status)
-                    appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: false, stopMenuEnabled: true, deleteMenuEnabled: true, webconsoleMenuEnabled: true, ocLoginForDeveloperEnabled: true, ocLoginForAdminEnabled: true, copyOcLoginCommand: true))
-                    
-                    displayNotification(title: "CodeReady Containers", body: "OpenShift Cluster is running")
-                }
+                appDelegate?.refreshStatusAndMenu()
+                displayNotification(title: "CodeReady Containers", body: "OpenShift Cluster is running")
             }
         }
         if startResult.Error != "" {
@@ -262,15 +214,7 @@ func HandleStart(pullSecretPath: String) {
                 let errMsg = startResult.Error.split(separator: "\n")
                 showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "\(errMsg[0])")
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.showClusterStatusUnknownOnStatusMenuItem()
-                appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: true,
-                                                                stopMenuEnabled: false,
-                                                                deleteMenuEnabled: true,
-                                                                webconsoleMenuEnabled: false,
-                                                                ocLoginForDeveloperEnabled: false,
-                                                                ocLoginForAdminEnabled: false,
-                                                                copyOcLoginCommand: false)
-                )
+                appDelegate?.refreshStatusAndMenu()
             }
         }
     } catch let jsonErr {
@@ -287,28 +231,16 @@ func HandleDelete() {
     if !yes {
         return
     }
-    let r = SendCommandToDaemon(command: Request(command: "delete", args: nil))
-    guard let data = r else { return }
-    if String(bytes: data, encoding: .utf8) == "Failed" {
-        // handle failure to delete
-        // send alert that delete failed
-        // rearrange menu states
-        DispatchQueue.main.async {
-            let appDelegate = NSApplication.shared.delegate as? AppDelegate
-            appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: true, stopMenuEnabled: false, deleteMenuEnabled: true, webconsoleMenuEnabled: false, ocLoginForDeveloperEnabled: false, ocLoginForAdminEnabled: false, copyOcLoginCommand: false))
-            
-            showAlertFailedAndCheckLogs(message: "Failed to delete cluster", informativeMsg: "CRC failed to delete the OCP cluster, make sure the CRC daemom is running or check the logs to find more information")
-        }
-    }
+    
     do {
+        let data = try SendCommandToDaemon(command: Request(command: "delete", args: nil))
         let deleteResult = try JSONDecoder().decode(DeleteResult.self, from: data)
         if deleteResult.Success {
             // send notification that delete succeeded
             // rearrage menus
             DispatchQueue.main.async {
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.updateMenuStates(state: MenuStates(startMenuEnabled: true, stopMenuEnabled: false, deleteMenuEnabled: false, webconsoleMenuEnabled: false, ocLoginForDeveloperEnabled: false, ocLoginForAdminEnabled: false, copyOcLoginCommand: false))
-                appDelegate?.showClusterStatusUnknownOnStatusMenuItem()
+                appDelegate?.refreshStatusAndMenu()
                 displayNotification(title: "Cluster Deleted", body: "The CRC Cluster is successfully deleted")
             }
         }
@@ -316,44 +248,35 @@ func HandleDelete() {
             DispatchQueue.main.async {
                 showAlertFailedAndCheckLogs(message: "Failed to delete OpenShift cluster", informativeMsg: "\(deleteResult.Error)")
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.showClusterStatusUnknownOnStatusMenuItem()
+                appDelegate?.refreshStatusAndMenu()
             }
         }
-    } catch let jsonErr {
-        print(jsonErr.localizedDescription)
+    } catch let error {
+        DispatchQueue.main.async {
+            let appDelegate = NSApplication.shared.delegate as? AppDelegate
+            appDelegate?.refreshStatusAndMenu()
+            showAlertFailedAndCheckLogs(message: "Failed to delete cluster", informativeMsg: "CRC failed to delete the OCP cluster, make sure the CRC daemom is running or check the logs to find more information. Error: \(error)")
+        }
     }
 }
 
 func HandleWebConsoleURL() {
-    let r = SendCommandToDaemon(command: Request(command: "webconsoleurl", args: nil))
-    guard let data = r else { return }
-    if String(bytes: data, encoding: .utf8) == "Failed" {
-        // Alert show error
-        DispatchQueue.main.async {
-            showAlertFailedAndCheckLogs(message: "Failed to launch web console", informativeMsg: "Ensure the CRC daemon is running and a CRC cluster is running, for more information please check the logs")
-        }        
-    }
     do {
+        let data = try SendCommandToDaemon(command: Request(command: "webconsoleurl", args: nil))
         let webConsoleResult = try JSONDecoder().decode(WebConsoleResult.self, from: data)
         if webConsoleResult.Success {
             // open the webconsoleURL
             NSWorkspace.shared.open(URL(string: webConsoleResult.ClusterConfig.WebConsoleURL)!)
         }
-    } catch let jsonErr {
-        print(jsonErr)
+    } catch let error {
+        showAlertFailedAndCheckLogs(message: "Failed to launch web console",
+                                    informativeMsg: "Ensure the CRC daemon is running and a CRC cluster is running, for more information please check the logs. Error: \(error)")
     }
 }
 
 func HandleLoginCommandForKubeadmin() {
-    let r = SendCommandToDaemon(command: Request(command: "webconsoleurl", args: nil))
-    guard let data = r else { return }
-    if String(bytes: data, encoding: .utf8) == "Failed" {
-        // Alert show error
-        DispatchQueue.main.async {
-            showAlertFailedAndCheckLogs(message: "Failed to get login command", informativeMsg: "Ensure the CRC daemon is running and a CRC cluster is running, for more information please check the logs")
-        }
-    }
     do {
+        let data = try SendCommandToDaemon(command: Request(command: "webconsoleurl", args: nil))
         let webConsoleResult = try JSONDecoder().decode(WebConsoleResult.self, from: data)
         if webConsoleResult.Success {
             // form the login command, put in clipboard and show notification
@@ -370,21 +293,14 @@ func HandleLoginCommandForKubeadmin() {
                 displayNotification(title: "OC Login with kubeadmin", body: "OC Login command copied to clipboard, go ahead and login to your cluster")
             }
         }
-    } catch let jsonErr {
-        print(jsonErr.localizedDescription)
+    } catch let error {
+        showAlertFailedAndCheckLogs(message: "Failed to get login command", informativeMsg: "Ensure the CRC daemon is running and a CRC cluster is running, for more information please check the logs. Error: \(error)")
     }
 }
 
 func HandleLoginCommandForDeveloper() {
-    let r = SendCommandToDaemon(command: Request(command: "webconsoleurl", args: nil))
-    guard let data = r else { return }
-    if String(bytes: data, encoding: .utf8) == "Failed" {
-        // Alert show error
-        DispatchQueue.main.async {
-            showAlertFailedAndCheckLogs(message: "Failed to get login command", informativeMsg: "Ensure the CRC daemon is running and a CRC cluster is running, for more information please check the logs")
-        }
-    }
     do {
+        let data = try SendCommandToDaemon(command: Request(command: "webconsoleurl", args: nil))
         let webConsoleResult = try JSONDecoder().decode(WebConsoleResult.self, from: data)
         if webConsoleResult.Success {
             // form the login command, put in clipboard and show notification
@@ -400,29 +316,22 @@ func HandleLoginCommandForDeveloper() {
                 displayNotification(title: "OC Login with developer", body: "OC Login command copied to clipboard, go ahead and login to your cluster")
             }
         }
-    } catch let jsonErr {
-        print(jsonErr.localizedDescription)
+    } catch let error {
+        showAlertFailedAndCheckLogs(message: "Failed to get login command", informativeMsg: "Ensure the CRC daemon is running and a CRC cluster is running, for more information please check the logs. Error: \(error)")
     }
 }
 
 func FetchVersionInfoFromDaemon() -> (String, String) {
-    let r = SendCommandToDaemon(command: Request(command: "version", args: nil))
-    guard let data = r else { return ("", "") }
-    if String(bytes: data, encoding: .utf8) == "Failed" {
-        // Alert show error
-        DispatchQueue.main.async {
-            showAlertFailedAndCheckLogs(message: "Failed to fetch version", informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs")
-        }
-        return ("","")
-    }
     do {
+        let data = try SendCommandToDaemon(command: Request(command: "version", args: nil))
         let versionResult = try JSONDecoder().decode(VersionResult.self, from: data)
         if versionResult.Success {
             let crcVersion = "\(versionResult.CrcVersion)+\(versionResult.CommitSha)"
             return (crcVersion, versionResult.OpenshiftVersion)
         }
-    } catch let jsonErr {
-        print(jsonErr)
+    } catch let error {
+        showAlertFailedAndCheckLogs(message: "Failed to fetch version", informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs. Error: \(error)")
+        return ("","")
     }
     return ("","")
 }
@@ -433,21 +342,12 @@ func GetConfigFromDaemon(properties: [String]) throws -> Dictionary<String, Stri
     return configGetResult.Configs
 }
 
-func GetAllConfigFromDaemon() throws -> (CrcConfigs?) {
-    let crcConfig: CrcConfigs? = nil
-    let r = SendCommandToDaemon(command: Request(command: "getconfig", args: nil))
-    guard let data = r else { print("Unable to read response from daemon"); throw DaemonError.badResponse }
-    if String(bytes: data, encoding: .utf8) == "Failed" {
-        throw DaemonError.badResponse
-    }
+func GetAllConfigFromDaemon() throws -> CrcConfigs {
+    let data = try SendCommandToDaemon(command: Request(command: "getconfig", args: nil))
     let decoder = JSONDecoder()
-    do {
-        let configResult = try decoder.decode(GetconfigResult.self, from: data)
-        if configResult.Error == "" {
-            return configResult.Configs
-        }
-    } catch let jsonErr {
-        print(jsonErr)
+    let configResult = try decoder.decode(GetconfigResult.self, from: data)
+    if configResult.Error == "" {
+        return configResult.Configs
     }
-    return crcConfig
+    throw DaemonError.badResponse
 }

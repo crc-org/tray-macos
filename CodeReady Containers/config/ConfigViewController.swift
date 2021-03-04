@@ -89,47 +89,43 @@ class ConfigViewController: NSViewController {
     }
     
     func LoadConfigs() {
-        var configs: CrcConfigs? = nil
         DispatchQueue.global(qos: .background).async {
-            do{
-                if (try GetAllConfigFromDaemon()) != nil {
-                    configs = try GetAllConfigFromDaemon()!
-                }
+            var configs: CrcConfigs
+            do {
+                configs = try GetAllConfigFromDaemon()
             }
             catch DaemonError.noResponse {
-                DispatchQueue.main.async {
-                    showAlertFailedAndCheckLogs(message: "Did not receive any response from the daemon", informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs")
-                }
+                showAlertFailedAndCheckLogs(message: "Did not receive any response from the daemon", informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs")
+                return
             }
             catch {
-                DispatchQueue.main.async {
-                    showAlertFailedAndCheckLogs(message: "Bad response", informativeMsg: "Undefined error")
-                }
+                showAlertFailedAndCheckLogs(message: "Bad response", informativeMsg: "Undefined error")
+                return
             }
             
             DispatchQueue.main.async {
                 // Load config property values
-                self.cpusLabel?.intValue = Int32((configs?.cpus ?? 0))
-                self.cpuSlider?.intValue = Int32((configs?.cpus ?? 0))
+                self.cpusLabel?.intValue = Int32((configs.cpus ?? 0))
+                self.cpuSlider?.intValue = Int32((configs.cpus ?? 0))
                 
-                self.httpProxy?.stringValue = configs?.httpProxy ?? "Unset"
-                self.httpsProxy?.stringValue = configs?.httpsProxy ?? "Unset"
-                self.proxyCaFile?.stringValue = configs?.proxyCaFile ?? "Unset"
-                self.noProxy?.stringValue = configs?.noProxy ?? "Unset"
+                self.httpProxy?.stringValue = configs.httpProxy ?? "Unset"
+                self.httpsProxy?.stringValue = configs.httpsProxy ?? "Unset"
+                self.proxyCaFile?.stringValue = configs.proxyCaFile ?? "Unset"
+                self.noProxy?.stringValue = configs.noProxy ?? "Unset"
                 
-                self.memorySlider?.doubleValue = Float64(configs?.memory ?? 0)
-                self.memoryLabel?.doubleValue = Float64(configs?.memory ?? 0)
-                self.nameservers?.stringValue = configs?.nameserver ?? "Unset"
-                self.diskSizeTextField?.doubleValue = Float64(configs?.diskSize ?? 0)
-                self.diskSizeStepper?.intValue = Int32(configs?.diskSize ?? 0)
-                self.pullSecretFilePathTextField?.stringValue = configs?.pullSecretFile ?? "Unset"
+                self.memorySlider?.doubleValue = Float64(configs.memory ?? 0)
+                self.memoryLabel?.doubleValue = Float64(configs.memory ?? 0)
+                self.nameservers?.stringValue = configs.nameserver ?? "Unset"
+                self.diskSizeTextField?.doubleValue = Float64(configs.diskSize ?? 0)
+                self.diskSizeStepper?.intValue = Int32(configs.diskSize ?? 0)
+                self.pullSecretFilePathTextField?.stringValue = configs.pullSecretFile ?? "Unset"
 
-                if configs?.consentTelemetry == "" {
+                if configs.consentTelemetry == "" {
                     self.enableTelemetrySwitch?.state = .off
                 } else {
-                    self.enableTelemetrySwitch?.state = (configs?.consentTelemetry?.lowercased()) == "yes" ? .on : .off
+                    self.enableTelemetrySwitch?.state = (configs.consentTelemetry?.lowercased()) == "yes" ? .on : .off
                 }
-                guard let autoStartValue = configs?.autostartTray else { return }
+                guard let autoStartValue = configs.autostartTray else { return }
                 self.autostartAtLoginButton?.state = (autoStartValue) ? .on : .off
                 
                 self.view.display()

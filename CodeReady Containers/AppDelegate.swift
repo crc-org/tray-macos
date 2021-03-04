@@ -153,41 +153,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         NSApplication.shared.terminate(self)
     }
     
-    func updateStatusMenuItem(status: String) {
-        if status == "Stopped" {
-            self.statusMenuItem.title = "Cluster is Stopped"
-            self.statusMenuItem.image = NSImage(named:NSImage.statusUnavailableName)
-        }
-        if status == "Running" {
-            self.statusMenuItem.title = "Cluster is Running"
-            self.statusMenuItem.image = NSImage(named:NSImage.statusAvailableName)
-        }
-    }
-    
-    func showClusterStartingMessageOnStatusMenuItem() {
-        self.statusMenuItem.title = "Cluster is starting..."
-        self.statusMenuItem.image = nil
-    }
-    
-    func showClusterStatusUnknownOnStatusMenuItem() {
-        self.statusMenuItem.title = "Status Unknown"
-        self.statusMenuItem.image = NSImage(named: NSImage.statusNoneName)
-    }
-    func updateMenuStates(state: MenuStates) {
-        self.startMenuItem.isEnabled = state.startMenuEnabled
-        self.stopMenuItem.isEnabled = state.stopMenuEnabled
-        self.deleteMenuItem.isEnabled = state.deleteMenuEnabled
-        self.webConsoleMenuItem.isEnabled = state.webconsoleMenuEnabled
-        self.ocLoginForDeveloper.isEnabled = state.ocLoginForDeveloperEnabled
-        self.ocLoginForKubeadmin.isEnabled = state.ocLoginForAdminEnabled
-        self.copyOcLoginCommand.isEnabled = state.copyOcLoginCommand
-    }
-    
     func initializeMenus(status: String) {
-        self.statusMenuItem.title = "Status Unknown"
-        self.statusMenuItem.image = NSImage(named:NSImage.statusNoneName)
-        updateStatusMenuItem(status: status)
+        self.statusMenuItem.title = status
         if status == "Running" {
+            self.statusMenuItem.image = NSImage(named:NSImage.statusAvailableName)
             self.startMenuItem.isEnabled = false
             self.stopMenuItem.isEnabled = true
             self.deleteMenuItem.isEnabled = true
@@ -197,6 +166,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             self.ocLoginForKubeadmin.isEnabled = true
             self.statusItem.button?.appearsDisabled = false
         } else if status == "Stopped" {
+            self.statusMenuItem.image = NSImage(named:NSImage.statusUnavailableName)
             self.startMenuItem.isEnabled = true
             self.stopMenuItem.isEnabled = false
             self.deleteMenuItem.isEnabled = true
@@ -206,6 +176,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             self.ocLoginForKubeadmin.isEnabled = false
             self.statusItem.button?.appearsDisabled = true
         } else {
+            self.statusMenuItem.image = NSImage(named:NSImage.statusNoneName)
             self.startMenuItem.isEnabled = true
             self.stopMenuItem.isEnabled = false
             self.deleteMenuItem.isEnabled = false
