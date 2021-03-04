@@ -427,25 +427,10 @@ func FetchVersionInfoFromDaemon() -> (String, String) {
     return ("","")
 }
 
-func GetConfigFromDaemon(properties: [String]) -> Dictionary<String, String> {
-    let r = SendCommandToDaemon(command: ConfigGetRequest(command: "getconfig", args: PropertiesArray(properties: properties)))
-    guard let data = r else { return ["":""] }
-    if String(bytes: data, encoding: .utf8) == "Failed" {
-        // Alert show error
-        DispatchQueue.main.async {
-            showAlertFailedAndCheckLogs(message: "Failed to Check if Pull Secret is configured", informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs")
-        }
-        return ["":""]
-    }
-    do {
-        let configGetResult = try JSONDecoder().decode(ConfigGetResult.self, from: data)
-        if !configGetResult.Configs.isEmpty {
-            return configGetResult.Configs
-        }
-    } catch let jsonErr {
-            print(jsonErr)
-    }
-    return ["":""]
+func GetConfigFromDaemon(properties: [String]) throws -> Dictionary<String, String> {
+    let data = try SendCommandToDaemon(command: ConfigGetRequest(command: "getconfig", args: PropertiesArray(properties: properties)))
+    let configGetResult = try JSONDecoder().decode(ConfigGetResult.self, from: data)
+    return configGetResult.Configs
 }
 
 func GetAllConfigFromDaemon() throws -> (CrcConfigs?) {
