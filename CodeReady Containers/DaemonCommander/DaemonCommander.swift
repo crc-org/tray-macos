@@ -10,57 +10,34 @@ import Socket
 import Foundation
 
 class DaemonCommander {
-    var daemonSocket: Socket? = nil
-    var socketPath: String
-    static var bufferSize = 1024
+    let socketPath: String
+    static let bufferSize = 1024
     
     init(sockPath: String) {
         self.socketPath = sockPath
     }
     
-    deinit {
-        self.daemonSocket?.close()
-    }
-    // connect sets up the socket and connects to the daemon sokcet
-    public func sendCommand(command: Data) -> Data {
+    public func sendCommand(command: Data) throws -> Data {
         do {
-            // Create an Unix socket...
-            try self.daemonSocket = Socket.create(family: .unix, type: .stream, proto: .unix)
-            guard let socket = self.daemonSocket else {
-                print("Unable to unwrap socket...")
-                return "Failed".data(using: .utf8)!
+            let daemonSocket = try Socket.create(family: .unix, type: .stream, proto: .unix)
+            defer {
+                daemonSocket.close()
             }
-            self.daemonSocket = socket
-            try socket.connect(to: self.socketPath)
-        } catch let error {
-            guard error is Socket.Error else {
-                print(error.localizedDescription)
-                return "Failed".data(using: .utf8)!
-            }
-        }
-
-        do {
-            try self.daemonSocket?.write(from: command)
-        } catch let error {
-            guard error is Socket.Error else {
-                print(error.localizedDescription)
-                return "Failed".data(using: .utf8)!
-            }
-        }
-
-        do {
+            try daemonSocket.connect(to: self.socketPath)
+            try daemonSocket.write(from: command)
             var readData = Data(capacity: DaemonCommander.bufferSize)
-            let bytesRead = try self.daemonSocket?.read(into: &readData)
-            if bytesRead! > 1 {
+            let bytesRead = try daemonSocket.read(into: &readData)
+            if bytesRead > 1 {
                 return readData
             }
+            throw DaemonError.badResponse
         } catch let error {
             guard error is Socket.Error else {
                 print(error.localizedDescription)
-                return "Failed".data(using: .utf8)!
+                throw DaemonError.io
             }
+            throw error
         }
-        return "Failed".data(using: .utf8)!
     }
 }
 
@@ -72,9 +49,7 @@ func SendCommandToDaemon(command: Request) -> Data? {
         let req = try JSONEncoder().encode(command)
         print(String(data: req, encoding: .utf8)!)
         let daemonConnection = DaemonCommander(sockPath: socketPath.path)
-        print(socketPath.path)
-        let reply = daemonConnection.sendCommand(command: req)
-        return reply
+        return try daemonConnection.sendCommand(command: req)
     } catch let error {
         print(error.localizedDescription)
     }
@@ -102,7 +77,7 @@ struct configunset: Encodable {
 func SendCommandToDaemon(command: ConfigsetRequest) -> Data? {
     do {
         let req = try JSONEncoder().encode(command)
-        let res = sendToDaemonAndReadResponse(payload: req)
+        let res = try sendToDaemonAndReadResponse(payload: req)
         if res?.count ?? -1 > 0 {
             return res
         }
@@ -116,7 +91,7 @@ func SendCommandToDaemon(command: ConfigsetRequest) -> Data? {
 func SendCommandToDaemon(command: ConfigunsetRequest) -> Data? {
     do {
         let req = try JSONEncoder().encode(command)
-        let res = sendToDaemonAndReadResponse(payload: req)
+        let res = try sendToDaemonAndReadResponse(payload: req)
         if res?.count ?? -1 > 0 {
             return res
         }
@@ -131,17 +106,16 @@ func SendCommandToDaemon(command: ConfigGetRequest) -> Data? {
     do {
         let req = try JSONEncoder().encode(command)
         let daemonConnection = DaemonCommander(sockPath: socketPath.path)
-        return daemonConnection.sendCommand(command: req)
+        return try daemonConnection.sendCommand(command: req)
     } catch let error {
         print(error.localizedDescription)
     }
     return "Failed".data(using: .utf8)
 }
 
-func sendToDaemonAndReadResponse(payload: Data) -> Data? {
+func sendToDaemonAndReadResponse(payload: Data) throws -> Data? {
     let daemonConnection = DaemonCommander(sockPath: socketPath.path)
-    print(socketPath.path)
-    let reply = daemonConnection.sendCommand(command: payload)
+    let reply = try daemonConnection.sendCommand(command: payload)
     if reply.count > 0 {
         return reply
     }

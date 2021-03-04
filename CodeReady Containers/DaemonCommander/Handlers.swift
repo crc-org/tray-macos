@@ -137,6 +137,7 @@ struct CrcConfigs: Codable {
 }
 
 enum DaemonError: Error {
+    case io // input/output error
     case noResponse
     case badResponse
     case undefined
