@@ -82,7 +82,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         // check if pull-secret-file is configured
         // if yes call HadleStart("")
         // otherwise invoke the pullSecretPicker view
-        let response = GetConfigFromDaemon(properties: ["pull-secret-file"])
+        var response: Dictionary<String, String>
+        do {
+            response = try GetConfigFromDaemon(properties: ["pull-secret-file"])
+        } catch let error {
+            showAlertFailedAndCheckLogs(message: "Failed to Check if Pull Secret is configured",
+                                        informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs.\nError: \(error)")
+            return
+        }
         if self.status == "Stopped" {
             DispatchQueue.global(qos: .userInteractive).async {
                 HandleStart(pullSecretPath: "")

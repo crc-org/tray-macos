@@ -84,15 +84,10 @@ func SendCommandToDaemon(command: ConfigunsetRequest) throws -> Data {
     return try sendToDaemonAndReadResponse(payload: req)
 }
 
-func SendCommandToDaemon(command: ConfigGetRequest) -> Data? {
-    do {
-        let req = try JSONEncoder().encode(command)
-        let daemonConnection = DaemonCommander(sockPath: socketPath.path)
-        return try daemonConnection.sendCommand(command: req)
-    } catch let error {
-        print(error.localizedDescription)
-    }
-    return "Failed".data(using: .utf8)
+func SendCommandToDaemon(command: ConfigGetRequest) throws -> Data {
+    let req = try JSONEncoder().encode(command)
+    let daemonConnection = DaemonCommander(sockPath: socketPath.path)
+    return try daemonConnection.sendCommand(command: req)
 }
 
 func sendToDaemonAndReadResponse(payload: Data) throws -> Data {
