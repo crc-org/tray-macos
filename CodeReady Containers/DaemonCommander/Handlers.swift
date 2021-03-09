@@ -10,16 +10,16 @@ import Cocoa
 struct StopResult: Decodable {
     let Name: String
     let Success: Bool
-    let State: Int
+    let State: Int?
     let Error: String
 }
 
 struct StartResult: Decodable {
-    let Name: String
-    let Status: String
+    let Name: String?
+    let Status: String?
     let Error: String
-    let ClusterConfig: ClusterConfigType
-    let KubeletStarted: Bool
+    let ClusterConfig: ClusterConfigType?
+    let KubeletStarted: Bool?
 }
 
 struct DeleteResult: Decodable {
@@ -172,9 +172,8 @@ func HandleStop() {
             }
         }
     } catch let jsonErr {
-        print(jsonErr.localizedDescription)
+        displayNotification(title: "Cannot parse daemon answer", body: jsonErr.localizedDescription)
     }
-    
 }
 
 func HandleStart(pullSecretPath: String) {
@@ -218,7 +217,7 @@ func HandleStart(pullSecretPath: String) {
             }
         }
     } catch let jsonErr {
-        print(jsonErr.localizedDescription)
+        displayNotification(title: "Cannot parse daemon answer", body: jsonErr.localizedDescription)
     }
 }
 
