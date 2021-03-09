@@ -42,26 +42,31 @@
                         <menuItem title="Unknow" image="NSStatusNone" enabled="NO" id="5P2-4d-SKo">
                             <attributedString key="attributedTitle"/>
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <accessibility description="cluster status" identifier="cluster_status"/>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="Soi-V6-JJO"/>
                         <menuItem title="Detailed Status" keyEquivalent="d" id="ZUW-Jl-ItH">
+                            <accessibility description="detailed status" identifier="detailed_status"/>
                             <connections>
                                 <segue destination="I4M-tg-MG9" kind="show" id="mIR-cL-7c1"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="XrF-pE-zFv"/>
                         <menuItem title="Start" enabled="NO" keyEquivalent="s" id="8Pp-UF-e91">
+                            <accessibility description="start" identifier="start"/>
                             <connections>
                                 <action selector="startMenuClicked:" target="Voe-Tx-rLC" id="FvU-Cl-Cja"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Stop" enabled="NO" keyEquivalent="x" id="46u-tX-Jvd">
+                            <accessibility description="stop" identifier="stop"/>
                             <connections>
                                 <action selector="stopMenuClicked:" target="Voe-Tx-rLC" id="Nbz-LD-4j8"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Delete" enabled="NO" id="27J-kw-niK">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <accessibility description="delete" identifier="delete"/>
                             <connections>
                                 <action selector="deleteMenuClicked:" target="Voe-Tx-rLC" id="BHM-FP-czF"/>
                             </connections>
@@ -69,6 +74,7 @@
                         <menuItem isSeparatorItem="YES" id="Brf-fx-izl"/>
                         <menuItem title="Launch Web Console" enabled="NO" id="axU-4s-PuY">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <accessibility description="launch console" identifier="web_console"/>
                             <connections>
                                 <action selector="webConsoleMenuClicked:" target="Voe-Tx-rLC" id="HfU-X6-JXD"/>
                             </connections>
@@ -79,21 +85,25 @@
                                 <items>
                                     <menuItem title="Kubeadmin" id="Exy-M6-PZT">
                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                        <accessibility description="copy kubeadmin login" identifier="kubeadmin_login"/>
                                         <connections>
                                             <action selector="copyOcLoginForKubeadminMenuClicked:" target="Voe-Tx-rLC" id="R9B-k6-wTU"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="Developer" id="Yy3-sd-gnX">
                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                        <accessibility description="copy developer login" identifier="developer_login"/>
                                         <connections>
                                             <action selector="copyOcLoginForDeveloperMenuClicked:" target="Voe-Tx-rLC" id="WU3-zm-kwx"/>
                                         </connections>
                                     </menuItem>
                                 </items>
+                                <accessibility description="copy oc login" identifier="copy_login"/>
                             </menu>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="TK2-l1-v4n"/>
                         <menuItem title="Preferences" keyEquivalent="c" id="Qez-dR-sdG">
+                            <accessibility description="preferences" identifier="preferences"/>
                             <connections>
                                 <segue destination="OEv-Wj-D9q" kind="show" id="8Ua-hu-6KF"/>
                             </connections>
@@ -101,17 +111,20 @@
                         <menuItem isSeparatorItem="YES" id="OWD-LW-qoj"/>
                         <menuItem title="About" keyEquivalent="A" id="Bzh-I2-vt6">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <accessibility description="about" identifier="about"/>
                             <connections>
                                 <segue destination="SbK-ai-iAt" kind="show" id="wL6-5z-XHC"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="l7P-bD-F7P"/>
                         <menuItem title="Quit" keyEquivalent="q" id="bNu-ql-bvt">
+                            <accessibility description="quit" identifier="quit"/>
                             <connections>
                                 <action selector="quitTrayMenuClicked:" target="Voe-Tx-rLC" id="V3B-wn-tws"/>
                             </connections>
                         </menuItem>
                     </items>
+                    <accessibility description="main menu" identifier="main_menu"/>
                 </menu>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
