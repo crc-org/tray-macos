@@ -83,14 +83,14 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Copy OC Login Command" id="AWs-xY-Z05">
                                 <items>
-                                    <menuItem title="Kubeadmin" id="Exy-M6-PZT">
+                                    <menuItem title="kubeadmin" id="Exy-M6-PZT">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <accessibility description="copy kubeadmin login" identifier="kubeadmin_login"/>
                                         <connections>
                                             <action selector="copyOcLoginForKubeadminMenuClicked:" target="Voe-Tx-rLC" id="R9B-k6-wTU"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Developer" id="Yy3-sd-gnX">
+                                    <menuItem title="developer" id="Yy3-sd-gnX">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <accessibility description="copy developer login" identifier="developer_login"/>
                                         <connections>
