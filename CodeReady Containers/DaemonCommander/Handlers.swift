@@ -150,7 +150,7 @@ func HandleStop() {
     } catch let error {
         DispatchQueue.main.async {
             let appDelegate = NSApplication.shared.delegate as? AppDelegate
-            appDelegate?.refreshStatusAndMenu()
+            appDelegate?.pollStatus()
             showAlertFailedAndCheckLogs(message: "Failed deleting the CRC cluster", informativeMsg: "Make sure the CRC daemon is running, or check the logs to get more information. Error: \(error)")
         }
         return
@@ -160,7 +160,7 @@ func HandleStop() {
         if stopResult.Success {
             DispatchQueue.main.async {
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.refreshStatusAndMenu()
+                appDelegate?.pollStatus()
                 displayNotification(title: "Successfully Stopped Cluster", body: "The CRC Cluster was successfully stopped")
             }
         }
@@ -168,7 +168,7 @@ func HandleStop() {
             DispatchQueue.main.async {
                 showAlertFailedAndCheckLogs(message: "Failed to stop OpenShift cluster", informativeMsg: "\(stopResult.Error)")
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.refreshStatusAndMenu()
+                appDelegate?.pollStatus()
             }
         }
     } catch let jsonErr {
@@ -194,7 +194,7 @@ func HandleStart(pullSecretPath: String) {
         // Adjust the menus
         DispatchQueue.main.async {
             let appDelegate = NSApplication.shared.delegate as? AppDelegate
-            appDelegate?.refreshStatusAndMenu()
+            appDelegate?.pollStatus()
             showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "CodeReady Containers failed to start the OpenShift cluster, ensure the CRC daemon is running or check the logs to find more information. Error: \(error)")
         }
         return
@@ -204,7 +204,7 @@ func HandleStart(pullSecretPath: String) {
         if startResult.Status == "Running" {
             DispatchQueue.main.async {
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.refreshStatusAndMenu()
+                appDelegate?.pollStatus()
                 displayNotification(title: "CodeReady Containers", body: "OpenShift Cluster is running")
             }
         }
@@ -213,7 +213,7 @@ func HandleStart(pullSecretPath: String) {
                 let errMsg = startResult.Error.split(separator: "\n")
                 showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "\(errMsg[0])")
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.refreshStatusAndMenu()
+                appDelegate?.pollStatus()
             }
         }
     } catch let jsonErr {
@@ -239,7 +239,7 @@ func HandleDelete() {
             // rearrage menus
             DispatchQueue.main.async {
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.refreshStatusAndMenu()
+                appDelegate?.pollStatus()
                 displayNotification(title: "Cluster Deleted", body: "The CRC Cluster is successfully deleted")
             }
         }
@@ -247,13 +247,13 @@ func HandleDelete() {
             DispatchQueue.main.async {
                 showAlertFailedAndCheckLogs(message: "Failed to delete OpenShift cluster", informativeMsg: "\(deleteResult.Error)")
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.refreshStatusAndMenu()
+                appDelegate?.pollStatus()
             }
         }
     } catch let error {
         DispatchQueue.main.async {
             let appDelegate = NSApplication.shared.delegate as? AppDelegate
-            appDelegate?.refreshStatusAndMenu()
+            appDelegate?.pollStatus()
             showAlertFailedAndCheckLogs(message: "Failed to delete cluster", informativeMsg: "CRC failed to delete the OCP cluster, make sure the CRC daemom is running or check the logs to find more information. Error: \(error)")
         }
     }

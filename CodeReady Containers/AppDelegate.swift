@@ -22,6 +22,8 @@ struct MenuStates {
     let copyOcLoginCommand: Bool
 }
 
+let statusNotification = NSNotification.Name(rawValue: "status")
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBOutlet weak var menu: NSMenu!
@@ -38,7 +40,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     let statusRefreshRate: TimeInterval = 5 // seconds
     var kubeadminPass: String!
     var apiEndpoint: String!
-    var status: String = ""
+    
+    var status: ClusterStatus = brokenDaemonClusterStatus
     
     weak var pullSecretWindowController: PullSecretWindowController?
     
@@ -67,10 +70,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         })
         
         DispatchQueue.global(qos: .background).async {
-            self.refreshStatusAndMenu()
+            self.pollStatus()
         }
         
-        Timer.scheduledTimer(timeInterval: statusRefreshRate, target: self, selector: #selector(refreshStatusAndMenu), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: statusRefreshRate, target: self, selector: #selector(pollStatus), userInfo: nil, repeats: true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateViewWithClusterStatus(_:)), name: statusNotification, object: nil)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -90,7 +95,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                                         informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs.\nError: \(error)")
             return
         }
-        if self.status == "Stopped" {
+        if statusLabel(status) == "Stopped" {
             DispatchQueue.global(qos: .userInteractive).async {
                 HandleStart(pullSecretPath: "")
                 DispatchQueue.main.sync {
@@ -191,13 +196,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
     }
     
-    @objc func refreshStatusAndMenu() {
+    @objc func pollStatus() {
         DispatchQueue.global(qos: .background).async {
-            let status = clusterStatus()
-            self.status = status
-            DispatchQueue.main.async {
-                self.initializeMenus(status: status)
+            do {
+                let data = try SendCommandToDaemon(command: Request(command: "status", args: nil))
+                let status = try JSONDecoder().decode(ClusterStatus.self, from: data)
+                NotificationCenter.default.post(name: statusNotification, object: status)
+            } catch let error {
+                print(error.localizedDescription)
+                NotificationCenter.default.post(name: statusNotification, object: brokenDaemonClusterStatus)
             }
+        }
+    }
+    
+    @objc private func updateViewWithClusterStatus(_ notification: Notification) {
+        guard let status = notification.object as? ClusterStatus else {
+            return
+        }
+        self.status = status
+        DispatchQueue.main.async {
+            self.initializeMenus(status: statusLabel(status))
         }
     }
 }
