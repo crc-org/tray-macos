@@ -160,35 +160,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
     func initializeMenus(status: String) {
         self.statusMenuItem.title = status
+        
+        self.startMenuItem.isEnabled = true
+        self.stopMenuItem.isEnabled = true
+        self.deleteMenuItem.isEnabled = true
+        self.webConsoleMenuItem.isEnabled = true
+        self.copyOcLoginCommand.isEnabled = true
+        self.ocLoginForDeveloper.isEnabled = true
+        self.ocLoginForKubeadmin.isEnabled = true
+        
         if status == "Running" {
             self.statusMenuItem.image = NSImage(named:NSImage.statusAvailableName)
-            self.startMenuItem.isEnabled = false
-            self.stopMenuItem.isEnabled = true
-            self.deleteMenuItem.isEnabled = true
-            self.webConsoleMenuItem.isEnabled = true
-            self.copyOcLoginCommand.isEnabled = true
-            self.ocLoginForDeveloper.isEnabled = true
-            self.ocLoginForKubeadmin.isEnabled = true
             self.statusItem.button?.appearsDisabled = false
         } else if status == "Stopped" {
             self.statusMenuItem.image = NSImage(named:NSImage.statusUnavailableName)
-            self.startMenuItem.isEnabled = true
-            self.stopMenuItem.isEnabled = false
-            self.deleteMenuItem.isEnabled = true
-            self.webConsoleMenuItem.isEnabled = false
-            self.copyOcLoginCommand.isEnabled = false
-            self.ocLoginForDeveloper.isEnabled = false
-            self.ocLoginForKubeadmin.isEnabled = false
             self.statusItem.button?.appearsDisabled = true
         } else {
             self.statusMenuItem.image = NSImage(named:NSImage.statusNoneName)
-            self.startMenuItem.isEnabled = true
-            self.stopMenuItem.isEnabled = false
-            self.deleteMenuItem.isEnabled = false
-            self.webConsoleMenuItem.isEnabled = false
-            self.copyOcLoginCommand.isEnabled = false
-            self.ocLoginForDeveloper.isEnabled = false
-            self.ocLoginForKubeadmin.isEnabled = false
             self.statusItem.button?.appearsDisabled = true
         }
     }
