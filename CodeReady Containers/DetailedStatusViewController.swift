@@ -41,14 +41,14 @@ class DetailedStatusViewController: NSViewController {
                 let status = try JSONDecoder().decode(ClusterStatus.self, from: data)
                 if status.Success {
                     DispatchQueue.main.async {
-                        self.vmStatus.stringValue = status.CrcStatus
-                        self.ocpStatus.stringValue = status.OpenshiftStatus
-                        self.diskUsage.stringValue = "\(Units(bytes: status.DiskUse).getReadableUnit()) of \(Units(bytes: status.DiskSize).getReadableUnit()) (Inside the VM)"
+                        self.vmStatus.stringValue = status.CrcStatus!
+                        self.ocpStatus.stringValue = status.OpenshiftStatus!
+                        self.diskUsage.stringValue = "\(Units(bytes: status.DiskUse!).getReadableUnit()) of \(Units(bytes: status.DiskSize!).getReadableUnit()) (Inside the VM)"
                         self.cacheSize.stringValue = Units(bytes: folderSize(folderPath: self.cacheDirPath)).getReadableUnit()
                         self.cacheDirectory.stringValue = self.cacheDirPath.path
                     }
                 } else {
-                    showAlertFailedAndCheckLogs(message: "Failed to get status", informativeMsg: status.Error)
+                    showAlertFailedAndCheckLogs(message: "Failed to get status", informativeMsg: status.Error!)
                 }
             } catch {
                 showAlertFailedAndCheckLogs(message: "Failed to get status", informativeMsg: error.localizedDescription)

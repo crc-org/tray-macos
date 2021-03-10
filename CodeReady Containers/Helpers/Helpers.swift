@@ -70,12 +70,12 @@ func displayNotification(title: String, body: String) {
 }
 
 struct ClusterStatus: Decodable {
-    let Name: String
-    let CrcStatus: String
-    let OpenshiftStatus: String
-    let DiskUse: Int64
-    let DiskSize: Int64
-    let Error: String
+    let Name: String?
+    let CrcStatus: String?
+    let OpenshiftStatus: String?
+    let DiskUse: Int64?
+    let DiskSize: Int64?
+    let Error: String?
     let Success: Bool
 }
 
@@ -84,11 +84,11 @@ func clusterStatus() -> String {
     do {
         let data = try SendCommandToDaemon(command: Request(command: "status", args: nil))
         let st = try JSONDecoder().decode(ClusterStatus.self, from: data)
-        if st.Error != "" {
-            print(st.Error)
+        if !st.Success {
+            print(st.Error!)
             return "Backend error"
         }
-        return st.OpenshiftStatus
+        return st.OpenshiftStatus!
     } catch let error {
         print(error)
         return "Broken daemon?"
