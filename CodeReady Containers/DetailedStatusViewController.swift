@@ -9,7 +9,7 @@
 import Cocoa
 
 class DetailedStatusViewController: NSViewController {
-
+    
     @IBOutlet weak var vmStatus: NSTextField!
     @IBOutlet weak var ocpStatus: NSTextField!
     @IBOutlet weak var diskUsage: NSTextField!
@@ -20,12 +20,22 @@ class DetailedStatusViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateViewWithClusterStatus()
+        
+        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        self.updateViewWithClusterStatus(appDelegate.status)
+        
+        DispatchQueue.main.async {
+            appDelegate.pollStatus()
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateViewWithNotification(_:)), name: statusNotification, object: nil)
     }
     
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
     
@@ -34,26 +44,30 @@ class DetailedStatusViewController: NSViewController {
         view.window?.center()
     }
     
-    func updateViewWithClusterStatus() {
-        DispatchQueue.global(qos: .background).async {
-            do {
-                let data = try SendCommandToDaemon(command: Request(command: "status", args: nil))
-                let status = try JSONDecoder().decode(ClusterStatus.self, from: data)
-                if status.Success {
-                    DispatchQueue.main.async {
-                        self.vmStatus.stringValue = status.CrcStatus!
-                        self.ocpStatus.stringValue = status.OpenshiftStatus!
-                        self.diskUsage.stringValue = "\(Units(bytes: status.DiskUse!).getReadableUnit()) of \(Units(bytes: status.DiskSize!).getReadableUnit()) (Inside the VM)"
-                        self.cacheSize.stringValue = Units(bytes: folderSize(folderPath: self.cacheDirPath)).getReadableUnit()
-                        self.cacheDirectory.stringValue = self.cacheDirPath.path
-                    }
-                } else {
-                    showAlertFailedAndCheckLogs(message: "Failed to get status", informativeMsg: status.Error!)
-                }
-            } catch {
-                showAlertFailedAndCheckLogs(message: "Failed to get status", informativeMsg: error.localizedDescription)
-            }
+    override func viewDidDisappear() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "status"), object: nil)
+    }
+    
+    @objc private func updateViewWithNotification(_ notification: Notification) {
+        guard let status = notification.object as? ClusterStatus else {
+            return
         }
+        DispatchQueue.main.async {
+            self.updateViewWithClusterStatus(status)
+        }
+    }
+    
+    func updateViewWithClusterStatus(_ status: ClusterStatus) {
+        if status.Success {
+            self.vmStatus.stringValue = status.CrcStatus!
+            self.ocpStatus.stringValue = status.OpenshiftStatus!
+        } else {
+            self.vmStatus.stringValue = status.Error!
+            self.ocpStatus.stringValue = "Unknown"
+        }
+        self.diskUsage.stringValue = "\(Units(bytes: status.DiskUse ?? 0).getReadableUnit()) of \(Units(bytes: status.DiskSize ?? 0).getReadableUnit()) (Inside the VM)"
+        self.cacheSize.stringValue = Units(bytes: folderSize(folderPath: self.cacheDirPath)).getReadableUnit()
+        self.cacheDirectory.stringValue = self.cacheDirPath.path
     }
 }
 

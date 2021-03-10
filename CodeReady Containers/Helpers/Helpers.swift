@@ -79,20 +79,25 @@ struct ClusterStatus: Decodable {
     let Success: Bool
 }
 
-// Get the status of the cluster from the daemon
-func clusterStatus() -> String {
-    do {
-        let data = try SendCommandToDaemon(command: Request(command: "status", args: nil))
-        let st = try JSONDecoder().decode(ClusterStatus.self, from: data)
-        if !st.Success {
-            print(st.Error!)
-            return "Backend error"
+let brokenDaemonClusterStatus = ClusterStatus(
+    Name: nil,
+    CrcStatus: nil,
+    OpenshiftStatus: nil,
+    DiskUse: nil,
+    DiskSize: nil,
+    Error: "Broken daemon?",
+    Success: false
+)
+
+func statusLabel(_ status: ClusterStatus) -> String {
+    if !status.Success {
+        let error = status.Error!
+        if error.count > 100 {
+            return String(error.prefix(100)) + "..."
         }
-        return st.OpenshiftStatus!
-    } catch let error {
-        print(error)
-        return "Broken daemon?"
+        return error
     }
+    return status.OpenshiftStatus!
 }
 
 func folderSize(folderPath:URL) -> Int64 {
