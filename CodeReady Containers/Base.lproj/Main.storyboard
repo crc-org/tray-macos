@@ -72,7 +72,7 @@
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="Brf-fx-izl"/>
-                        <menuItem title="Launch Web Console" enabled="NO" id="axU-4s-PuY">
+                        <menuItem title="Open Web Console" enabled="NO" id="axU-4s-PuY">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <accessibility description="launch console" identifier="web_console"/>
                             <connections>
