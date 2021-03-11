@@ -12,26 +12,26 @@ class PullSecretViewController: NSViewController, NSTextFieldDelegate {
 
     @IBOutlet weak var pullSecretFilePath: NSTextField!
     @IBOutlet weak var helpLabel: NSTextField!
-    
+
     let helpString: String = "Please visit cloud.redhat.com to obtain Pull Secret"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        self.preferredContentSize = NSMakeSize(self.view.frame.size.width, self.view.frame.height)
+        self.preferredContentSize = NSSize(width: self.view.frame.size.width, height: self.view.frame.height)
     }
-    
+
     override func viewDidAppear() {
         view.window?.title = self.title!
         view.window?.level = .floating
     }
-    
+
     @IBAction func browseButtonClicked(_ sender: Any) {
         // show the filepicker
         // set the path of the file as filepath in the textfield
         showFilePicker(msg: "Select Pull Secret File", txtField: self.pullSecretFilePath, fileTypes: [])
     }
-    
+
     @IBAction func okButtonClicked(_ sender: Any) {
         // check if the textfield is empty
         // if not communicate the filepath back to app delegate
@@ -51,7 +51,7 @@ class PullSecretViewController: NSViewController, NSTextFieldDelegate {
             }
         }
     }
-    
+
     func controlTextDidBeginEditing(_ obj: Notification) {
         self.helpLabel.attributedStringValue = NSAttributedString(string: "")
     }

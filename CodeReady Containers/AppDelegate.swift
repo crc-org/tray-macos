@@ -36,45 +36,44 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBOutlet weak var ocLoginForDeveloper: NSMenuItem!
     @IBOutlet weak var detailedStatusMenuItem: NSMenuItem!
     @IBOutlet weak var copyOcLoginCommand: NSMenuItem!
-    
+
     let statusRefreshRate: TimeInterval = 5 // seconds
     var kubeadminPass: String!
     var apiEndpoint: String!
-    
+
     var status: ClusterStatus = brokenDaemonClusterStatus
-    
+
     weak var pullSecretWindowController: PullSecretWindowController?
-    
-    let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
-    
+
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let button = statusItem.button {
-            let menubarIcon = NSImage(named:NSImage.Name("TrayIcon"))
+            let menubarIcon = NSImage(named: NSImage.Name("TrayIcon"))
             menubarIcon?.isTemplate = true
             button.image = menubarIcon
         }
         menu.delegate = self
         statusItem.menu = self.menu
-        
+
         let applications = NSWorkspace.shared.runningApplications
-        for app in applications {
-            if app == NSWorkspace.shared.self {
-                NSApplication.shared.terminate(self)
-            }
+
+        for app in applications where app == NSWorkspace.shared.self {
+            NSApplication.shared.terminate(self)
         }
-        
+
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound], completionHandler: { (granted, error) in
             notificationAllowed = granted
             print(error?.localizedDescription ?? "Notification Request: No Error")
         })
-        
+
         DispatchQueue.global(qos: .background).async {
             self.pollStatus()
         }
-        
+
         Timer.scheduledTimer(timeInterval: statusRefreshRate, target: self, selector: #selector(pollStatus), userInfo: nil, repeats: true)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(updateViewWithClusterStatus(_:)), name: statusNotification, object: nil)
     }
 
@@ -87,7 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         // check if pull-secret-file is configured
         // if yes call HadleStart("")
         // otherwise invoke the pullSecretPicker view
-        var response: Dictionary<String, String>
+        var response: [String: String]
         do {
             response = try GetConfigFromDaemon(properties: ["pull-secret-file"])
         } catch let error {
@@ -102,8 +101,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                     self.statusItem.button?.appearsDisabled = false
                 }
             }
-        }
-        else if response["pull-secret-file"] == "" {
+        } else if response["pull-secret-file"] == "" {
             if pullSecretWindowController == nil {
                 pullSecretWindowController = PullSecretWindowController.loadFromStoryBoard()
             }
@@ -117,7 +115,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }
         }
     }
-    
+
     @IBAction func stopMenuClicked(_ sender: Any) {
         DispatchQueue.global(qos: .userInteractive).async {
             HandleStop()
@@ -126,7 +124,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }
         }
     }
-    
+
     @IBAction func deleteMenuClicked(_ sender: Any) {
         DispatchQueue.global(qos: .userInteractive).async {
             HandleDelete()
@@ -135,32 +133,32 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }
         }
     }
-    
+
     @IBAction func webConsoleMenuClicked(_ sender: Any) {
         DispatchQueue.global(qos: .userInteractive).async {
             HandleWebConsoleURL()
         }
     }
-    
+
     @IBAction func copyOcLoginForKubeadminMenuClicked(_ sender: Any) {
         DispatchQueue.global(qos: .userInteractive).async {
             HandleLoginCommandForKubeadmin()
         }
     }
-    
+
     @IBAction func copyOcLoginForDeveloperMenuClicked(_ sender: Any) {
         DispatchQueue.global(qos: .userInteractive).async {
             HandleLoginCommandForDeveloper()
         }
     }
-    
+
     @IBAction func quitTrayMenuClicked(_ sender: Any) {
         NSApplication.shared.terminate(self)
     }
-    
+
     func initializeMenus(status: String) {
         self.statusMenuItem.title = status
-        
+
         self.startMenuItem.isEnabled = true
         self.stopMenuItem.isEnabled = true
         self.deleteMenuItem.isEnabled = true
@@ -168,22 +166,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         self.copyOcLoginCommand.isEnabled = true
         self.ocLoginForDeveloper.isEnabled = true
         self.ocLoginForKubeadmin.isEnabled = true
-        
+
         if status == "Running" {
-            self.statusMenuItem.image = NSImage(named:NSImage.statusAvailableName)
+            self.statusMenuItem.image = NSImage(named: NSImage.statusAvailableName)
             self.statusItem.button?.appearsDisabled = false
         } else if status == "Stopped" {
-            self.statusMenuItem.image = NSImage(named:NSImage.statusUnavailableName)
+            self.statusMenuItem.image = NSImage(named: NSImage.statusUnavailableName)
             self.statusItem.button?.appearsDisabled = true
         } else {
-            self.statusMenuItem.image = NSImage(named:NSImage.statusNoneName)
+            self.statusMenuItem.image = NSImage(named: NSImage.statusNoneName)
             self.statusItem.button?.appearsDisabled = true
         }
     }
-    
+
     func menuWillOpen(_ menu: NSMenu) {
     }
-    
+
     @objc func pollStatus() {
         DispatchQueue.global(qos: .background).async {
             do {
@@ -196,7 +194,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }
         }
     }
-    
+
     @objc private func updateViewWithClusterStatus(_ notification: Notification) {
         guard let status = notification.object as? ClusterStatus else {
             return

@@ -44,7 +44,7 @@ struct ClusterConfigType: Decodable {
 
 struct Request: Encodable {
     let command: String
-    let args: Dictionary<String, String>?
+    let args: [String: String]?
 }
 
 struct ConfigGetRequest: Encodable {
@@ -58,7 +58,7 @@ struct PropertiesArray: Encodable {
 
 struct ConfigGetResult: Decodable {
     let Error: String
-    let Configs: Dictionary<String, String>
+    let Configs: [String: String]
 }
 
 struct WebConsoleResult: Decodable {
@@ -111,7 +111,7 @@ struct CrcConfigs: Codable {
         case cpus
         case memory
         case nameserver
-        
+
         case disableUpdateCheck = "disable-update-check"
         case enableExperimentalFeatures = "enable-experimental-features"
         case httpProxy = "http-proxy"
@@ -186,7 +186,7 @@ func HandleStart(pullSecretPath: String) {
         if pullSecretPath == "" {
             response = try SendCommandToDaemon(command: Request(command: "start", args: nil))
         } else {
-            response = try SendCommandToDaemon(command: Request(command: "start", args: ["pullSecretFile":pullSecretPath]))
+            response = try SendCommandToDaemon(command: Request(command: "start", args: ["pullSecretFile": pullSecretPath]))
         }
         displayNotification(title: "CodeReady Containers", body: "Starting OpenShift Cluster, this could take a few minutes..")
     } catch let error {
@@ -230,7 +230,7 @@ func HandleDelete() {
     if !yes {
         return
     }
-    
+
     do {
         let data = try SendCommandToDaemon(command: Request(command: "delete", args: nil))
         let deleteResult = try JSONDecoder().decode(DeleteResult.self, from: data)
@@ -281,12 +281,12 @@ func HandleLoginCommandForKubeadmin() {
             // form the login command, put in clipboard and show notification
             let apiURL = webConsoleResult.ClusterConfig.ClusterAPI
             let kubeadminPass = webConsoleResult.ClusterConfig.KubeAdminPass
-            
+
             let loginCommand = "oc login -u kubeadmin -p \(kubeadminPass) \(apiURL)"
             let pasteboard = NSPasteboard.general
             pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
             pasteboard.setString(loginCommand, forType: NSPasteboard.PasteboardType.string)
-            
+
             // show notification on main thread
             DispatchQueue.main.async {
                 displayNotification(title: "OC Login with kubeadmin", body: "OC Login command copied to clipboard, go ahead and login to your cluster")
@@ -304,12 +304,12 @@ func HandleLoginCommandForDeveloper() {
         if webConsoleResult.Success {
             // form the login command, put in clipboard and show notification
             let apiURL = webConsoleResult.ClusterConfig.ClusterAPI
-            
+
             let loginCommand = "oc login -u developer -p developer \(apiURL)"
             let pasteboard = NSPasteboard.general
             pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
             pasteboard.setString(loginCommand, forType: NSPasteboard.PasteboardType.string)
-            
+
             // show notification on main thread
             DispatchQueue.main.async {
                 displayNotification(title: "OC Login with developer", body: "OC Login command copied to clipboard, go ahead and login to your cluster")
@@ -330,12 +330,12 @@ func FetchVersionInfoFromDaemon() -> (String, String) {
         }
     } catch let error {
         showAlertFailedAndCheckLogs(message: "Failed to fetch version", informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs. Error: \(error)")
-        return ("","")
+        return ("", "")
     }
-    return ("","")
+    return ("", "")
 }
 
-func GetConfigFromDaemon(properties: [String]) throws -> Dictionary<String, String> {
+func GetConfigFromDaemon(properties: [String]) throws -> [String: String] {
     let data = try SendCommandToDaemon(command: ConfigGetRequest(command: "getconfig", args: PropertiesArray(properties: properties)))
     let configGetResult = try JSONDecoder().decode(ConfigGetResult.self, from: data)
     return configGetResult.Configs

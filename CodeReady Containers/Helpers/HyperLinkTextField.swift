@@ -12,17 +12,17 @@ import Cocoa
 
 @IBDesignable class HyperLinkTextField: NSTextField {
     @IBInspectable var href: String = ""
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         let attributes: [NSAttributedString.Key: AnyObject] = [
             NSAttributedString.Key(rawValue: NSAttributedString.Key.underlineStyle.rawValue): NSUnderlineStyle.single.rawValue as AnyObject,
             NSAttributedString.Key(rawValue: NSAttributedString.Key.link.rawValue): URL(string: self.href) as AnyObject
         ]
         self.attributedStringValue = NSAttributedString(string: self.stringValue, attributes: attributes)
     }
-    
+
     override func mouseDown(with event: NSEvent) {
         NSWorkspace.shared.open(URL(string: self.href)!)
     }
@@ -72,19 +72,19 @@ import Cocoa
             if let range = self.stringValue.range(of: self.linkText) {
                 attributedStr.setAttributes(attributes, range: range.nsRange(in: self.linkText))
             } else {
-                attributedStr.setAttributes(attributes, range: NSMakeRange(0, self.stringValue.count))
+                attributedStr.setAttributes(attributes, range: NSRange(location: 0, length: self.stringValue.count))
             }
         } else {
-            attributedStr.setAttributes(attributes, range: NSMakeRange(0, self.stringValue.count))
+            attributedStr.setAttributes(attributes, range: NSRange(location: 0, length: self.stringValue.count))
         }
         self.attributedStringValue = attributedStr
     }
-    
+
     override func mouseDown(with event: NSEvent) {
         NSWorkspace.shared.open(URL(string: self.link)!)
     }
 }
 
-extension RangeExpression where Bound == String.Index  {
+extension RangeExpression where Bound == String.Index {
     func nsRange<S: StringProtocol>(in string: S) -> NSRange { .init(self, in: string) }
 }

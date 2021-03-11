@@ -12,7 +12,7 @@ class AboutViewController: NSViewController {
     @IBOutlet weak var trayVersionField: NSTextField!
     @IBOutlet weak var openshiftVersionField: NSTextField!
     @IBOutlet weak var crcVersionField: NSTextField!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -22,7 +22,7 @@ class AboutViewController: NSViewController {
         let nsObject: AnyObject? = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as AnyObject?
         trayVersionField.stringValue = nsObject as? String ?? ""
     }
-    
+
     override func viewDidAppear() {
         view.window?.level = .floating
         view.window?.center()
