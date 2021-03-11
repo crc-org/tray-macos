@@ -13,7 +13,7 @@ import Cocoa
 func showAlertFailedAndCheckLogs(message: String, informativeMsg: String) {
     DispatchQueue.main.async {
         NSApplication.shared.activate(ignoringOtherApps: true)
-        
+
         let alert: NSAlert = NSAlert()
         alert.messageText = message
         alert.informativeText = informativeMsg
@@ -33,7 +33,7 @@ func showAlertFailedAndCheckLogs(message: String, informativeMsg: String) {
 
 func promptYesOrNo(message: String, informativeMsg: String) -> Bool {
     NSApplication.shared.activate(ignoringOtherApps: true)
-    
+
     let alert: NSAlert = NSAlert()
     alert.messageText = message
     alert.informativeText = informativeMsg
@@ -100,13 +100,13 @@ func statusLabel(_ status: ClusterStatus) -> String {
     return status.OpenshiftStatus!
 }
 
-func folderSize(folderPath:URL) -> Int64 {
+func folderSize(folderPath: URL) -> Int64 {
     let localFileManager = FileManager()
-    
+
     let resourceKeys = [URLResourceKey.fileAllocatedSizeKey]
     let directoryEnumerator = localFileManager.enumerator(at: folderPath, includingPropertiesForKeys: resourceKeys, options: [.skipsHiddenFiles], errorHandler: nil)!
-    
-    var size:Int64 = 0
+
+    var size: Int64 = 0
     for case let fileURL as NSURL in directoryEnumerator {
         guard let resourceValues = try? fileURL.resourceValues(forKeys: resourceKeys),
             let s = resourceValues[URLResourceKey.fileAllocatedSizeKey] as? Int64
@@ -127,15 +127,15 @@ func showFilePicker(msg: String, txtField: NSTextField, fileTypes: [String]) {
     dialog.canChooseDirectories    = false
     dialog.canCreateDirectories    = false
     dialog.allowsMultipleSelection = false
-    
+
     if fileTypes.count > 0 {
         dialog.allowedFileTypes = fileTypes
     }
 
-    if (dialog.runModal() == NSApplication.ModalResponse.OK) {
+    if dialog.runModal() == NSApplication.ModalResponse.OK {
         let filePath = dialog.url // Pathname of the file
-        
-        if (filePath != nil) {
+
+        if filePath != nil {
             txtField.setValue(filePath?.path, forKey: "stringValue")
             return
         }

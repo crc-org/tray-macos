@@ -9,6 +9,8 @@ if [ ! -f "$BUILD_DIR" ]; then
 	mkdir -p "$BUILD_DIR"
 fi
 
+swiftlint
+
 # Build xcarchive
 xcodebuild -project "$PROJECT" -config Release -scheme "$SCHEME" -derivedDataPath "$BUILD_DIR"
 

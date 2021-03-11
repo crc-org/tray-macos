@@ -12,11 +12,11 @@ import Foundation
 class DaemonCommander {
     let socketPath: String
     static let bufferSize = 1024
-    
+
     init(sockPath: String) {
         self.socketPath = sockPath
     }
-    
+
     public func sendCommand(command: Data) throws -> Data {
         do {
             let daemonSocket = try Socket.create(family: .unix, type: .stream, proto: .unix)
@@ -53,19 +53,19 @@ func SendCommandToDaemon(command: Request) throws -> Data {
 
 struct ConfigsetRequest: Encodable {
     var command: String
-    var args: configset
+    var args: Configset
 }
 
 struct ConfigunsetRequest: Encodable {
     var command: String
-    var args: configunset
+    var args: Configunset
 }
 
-struct configset: Encodable {
+struct Configset: Encodable {
     var properties: CrcConfigs?
 }
 
-struct configunset: Encodable {
+struct Configunset: Encodable {
     var properties: [String]
 }
 

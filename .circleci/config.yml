@@ -10,6 +10,7 @@ jobs:
 ## Build crc
     steps:
     - checkout
+    - run: brew install swiftlint
     - run: sudo defaults write com.apple.dt.Xcode IDEPackageSupportUseBuiltinSCM YES
     - run: rm ~/.ssh/id_rsa || true
     - run: for ip in $(dig @1.1.1.1 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true

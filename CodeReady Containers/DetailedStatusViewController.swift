@@ -9,45 +9,45 @@
 import Cocoa
 
 class DetailedStatusViewController: NSViewController {
-    
+
     @IBOutlet weak var vmStatus: NSTextField!
     @IBOutlet weak var ocpStatus: NSTextField!
     @IBOutlet weak var diskUsage: NSTextField!
     @IBOutlet weak var cacheSize: NSTextField!
     @IBOutlet weak var cacheDirectory: NSTextField!
-    
+
     let cacheDirPath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("cache")
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else {
             return
         }
         self.updateViewWithClusterStatus(appDelegate.status)
-        
+
         DispatchQueue.main.async {
             appDelegate.pollStatus()
         }
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(updateViewWithNotification(_:)), name: statusNotification, object: nil)
     }
-    
+
     override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.
         }
     }
-    
+
     override func viewDidAppear() {
         view.window?.level = .floating
         view.window?.center()
     }
-    
+
     override func viewDidDisappear() {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "status"), object: nil)
     }
-    
+
     @objc private func updateViewWithNotification(_ notification: Notification) {
         guard let status = notification.object as? ClusterStatus else {
             return
@@ -56,7 +56,7 @@ class DetailedStatusViewController: NSViewController {
             self.updateViewWithClusterStatus(status)
         }
     }
-    
+
     func updateViewWithClusterStatus(_ status: ClusterStatus) {
         if status.Success {
             self.vmStatus.stringValue = status.CrcStatus!
@@ -70,4 +70,3 @@ class DetailedStatusViewController: NSViewController {
         self.cacheDirectory.stringValue = self.cacheDirPath.path
     }
 }
-
