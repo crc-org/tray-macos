@@ -19,7 +19,7 @@ func showAlertFailedAndCheckLogs(message: String, informativeMsg: String) {
         alert.informativeText = informativeMsg
         alert.alertStyle = NSAlert.Style.warning
         alert.addButton(withTitle: "Check Logs")
-        alert.addButton(withTitle: "Not now")
+        alert.addButton(withTitle: "Close")
         if alert.runModal() == .alertFirstButtonReturn {
             // Open logs file
             print("Check Logs button clicked")
