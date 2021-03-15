@@ -18,9 +18,9 @@ func showAlertFailedAndCheckLogs(message: String, informativeMsg: String) {
         alert.messageText = message
         alert.informativeText = informativeMsg
         alert.alertStyle = NSAlert.Style.warning
-        alert.addButton(withTitle: "Check Logs")
         alert.addButton(withTitle: "Close")
-        if alert.runModal() == .alertFirstButtonReturn {
+        alert.addButton(withTitle: "Check Logs")
+        if alert.runModal() == .alertSecondButtonReturn {
             // Open logs file
             print("Check Logs button clicked")
             let logFilePath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("crcd").appendingPathExtension("log")
