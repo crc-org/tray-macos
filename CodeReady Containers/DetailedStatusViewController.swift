@@ -58,9 +58,15 @@ class DetailedStatusViewController: NSViewController {
     }
 
     func updateViewWithClusterStatus(_ status: ClusterStatus) {
+        var ocpVersion: String?
+        DispatchQueue.global(qos: .background).sync {
+            let versionInfo = FetchVersionInfoFromDaemon()
+            ocpVersion = versionInfo.1
+        }
+        
         if status.Success {
             self.vmStatus.stringValue = status.CrcStatus!
-            self.ocpStatus.stringValue = status.OpenshiftStatus!
+            self.ocpStatus.stringValue = "\(status.OpenshiftStatus!) (v\(ocpVersion!))"
         } else {
             self.vmStatus.stringValue = status.Error!
             self.ocpStatus.stringValue = "Unknown"
