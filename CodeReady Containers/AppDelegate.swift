@@ -55,6 +55,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         menu.delegate = self
         statusItem.menu = self.menu
+        statusItem.button?.appearsDisabled = true
 
         if NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.bundleIdentifier!).count > 1 {
             print("more than one running")
