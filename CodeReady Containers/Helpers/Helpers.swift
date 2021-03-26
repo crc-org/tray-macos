@@ -31,6 +31,28 @@ func showAlertFailedAndCheckLogs(message: String, informativeMsg: String) {
     }
 }
 
+// Displays an alert and option to check the logs
+func fatal(message: String, informativeMsg: String) {
+    DispatchQueue.main.async {
+        NSApplication.shared.activate(ignoringOtherApps: true)
+
+        let alert: NSAlert = NSAlert()
+        alert.messageText = message
+        alert.informativeText = informativeMsg
+        alert.alertStyle = NSAlert.Style.warning
+        alert.addButton(withTitle: "Close")
+        alert.addButton(withTitle: "Check Logs")
+        if alert.runModal() == .alertSecondButtonReturn {
+            // Open logs file
+            print("Check Logs button clicked")
+            let logFilePath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("crcd").appendingPathExtension("log")
+            NSWorkspace.shared.open(logFilePath)
+        } else {
+            NSApp.terminate(nil)
+        }
+    }
+}
+
 func promptYesOrNo(message: String, informativeMsg: String) -> Bool {
     NSApplication.shared.activate(ignoringOtherApps: true)
 

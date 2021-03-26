@@ -76,6 +76,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         })
 
         DispatchQueue.global(qos: .background).async {
+            let task = Process()
+            let stdin = Pipe()
+            let stderr = Pipe()
+            #if DEBUG
+            task.launchPath = "/usr/local/bin/crc"
+            #else
+            task.launchPath = NSString.path(withComponents: [Bundle.main.bundlePath, "Contents", "Resources", "crc"])
+            #endif
+            task.arguments = ["daemon", "--watchdog"]
+            task.standardInput = stdin
+            task.standardError = stderr
+            do {
+                try task.run()
+            } catch let error {
+                fatal(message: "Cannot start the daemon",
+                      informativeMsg: "Check the logs and restart the application.\nError: \(error.localizedDescription)")
+            }
+            task.waitUntilExit()
+            fatal(message: "Daemon crashed",
+                  informativeMsg: "Check the logs and restart the application")
+        }
+
+        DispatchQueue.global(qos: .background).async {
+            sleep(1) // wait for the daemon to start
             self.pollStatus()
         }
 
