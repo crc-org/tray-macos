@@ -448,7 +448,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="500" height="250"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="II9-rP-SqC">
+                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="II9-rP-SqC" customClass="EditableNSTextView" customModule="CodeReady_Containers" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="500" height="250"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -753,7 +753,7 @@ More details at https://developers.redhat.com/article/tool-data-collection</stri
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ati-fb-pro">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ati-fb-pro" customClass="EditableNSTextField" customModule="CodeReady_Containers" customModuleProvider="target">
                                 <rect key="frame" x="264" y="71" width="340" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="1.1.1.1" bezelStyle="round" id="YdM-qo-88s">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -917,7 +917,7 @@ DQ
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qZJ-ma-wOZ">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qZJ-ma-wOZ" customClass="EditableNSTextField" customModule="CodeReady_Containers" customModuleProvider="target">
                                 <rect key="frame" x="190" y="186" width="200" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="1sP-Fx-mqJ"/>
@@ -954,7 +954,7 @@ DQ
                                     <outlet property="delegate" destination="lNS-OP-hbS" id="kAS-Cc-EhL"/>
                                 </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IeK-xf-zYL">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IeK-xf-zYL" customClass="EditableNSTextField" customModule="CodeReady_Containers" customModuleProvider="target">
                                 <rect key="frame" x="190" y="212" width="200" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="604-M8-oAf"/>
@@ -1021,7 +1021,7 @@ DQ
                                     <action selector="proxyCaFileButtonClicked:" target="lNS-OP-hbS" id="UGj-hH-nFz"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f8t-dX-2hR">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f8t-dX-2hR" customClass="EditableNSTextField" customModule="CodeReady_Containers" customModuleProvider="target">
                                 <rect key="frame" x="190" y="160" width="200" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="kNT-0p-6WK"/>
