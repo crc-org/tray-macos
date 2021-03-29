@@ -15,8 +15,12 @@ class DetailedStatusViewController: NSViewController {
     @IBOutlet weak var diskUsage: NSTextField!
     @IBOutlet weak var cacheSize: NSTextField!
     @IBOutlet weak var cacheDirectory: NSTextField!
+    @IBOutlet weak var logs: NSTextView!
 
     let cacheDirPath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("cache")
+
+    var timer: Timer?
+    var font: NSFont?    = .systemFont(ofSize: 14, weight: .regular)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +28,13 @@ class DetailedStatusViewController: NSViewController {
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else {
             return
         }
+
         self.updateViewWithClusterStatus(appDelegate.status)
+        self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateViewWithLogs), userInfo: nil, repeats: true)
 
         DispatchQueue.main.async {
             appDelegate.pollStatus()
+            self.updateViewWithLogs()
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateViewWithNotification(_:)), name: statusNotification, object: nil)
@@ -40,12 +47,35 @@ class DetailedStatusViewController: NSViewController {
     }
 
     override func viewDidAppear() {
+        self.logs.font = font
+        self.logs.string = "Loading..."
         view.window?.level = .floating
         view.window?.center()
     }
 
     override func viewDidDisappear() {
+        self.timer?.invalidate()
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "status"), object: nil)
+    }
+
+    @objc func updateViewWithLogs() {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let data = try SendCommandToDaemon(command: Request(command: "logs", args: nil))
+                let result = try JSONDecoder().decode(LogsResult.self, from: data)
+                DispatchQueue.main.async {
+                    let lines = result.Messages.joined(separator: "\n")
+                    if lines != self.logs.string {
+                        self.logs.string = lines
+                        self.logs.scrollToEndOfDocument(nil)
+                    }
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    self.logs.string =  "Failed to get logs. Error: \(error)"
+                }
+            }
+        }
     }
 
     @objc private func updateViewWithNotification(_ notification: Notification) {
@@ -63,7 +93,7 @@ class DetailedStatusViewController: NSViewController {
             let versionInfo = FetchVersionInfoFromDaemon()
             ocpVersion = versionInfo.1
         }
-        
+
         if status.Success {
             self.vmStatus.stringValue = status.CrcStatus!
             self.ocpStatus.stringValue = "\(status.OpenshiftStatus!) (v\(ocpVersion!))"

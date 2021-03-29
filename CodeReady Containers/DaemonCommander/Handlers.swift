@@ -143,6 +143,11 @@ enum DaemonError: Error {
     case undefined
 }
 
+struct LogsResult: Decodable {
+    let Success: Bool
+    let Messages: [String]
+}
+
 func HandleStop() {
     var data: Data
     do {
