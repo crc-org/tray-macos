@@ -24,6 +24,7 @@
 		55F8D9162523147F00B5E045 /* PullSecretWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F8D9152523147F00B5E045 /* PullSecretWindowController.swift */; };
 		55F8D91925231C2200B5E045 /* PullSecretViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F8D91825231C2200B5E045 /* PullSecretViewController.swift */; };
 		A3390174251DF71D00415FD9 /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = A3390173251DF71D00415FD9 /* Socket */; };
+		A3AB4D08261228120017E2FF /* Editable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB4D07261228120017E2FF /* Editable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		55F8D912252313A900B5E045 /* pullSecretStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = pullSecretStoryBoard.storyboard; sourceTree = "<group>"; };
 		55F8D9152523147F00B5E045 /* PullSecretWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullSecretWindowController.swift; sourceTree = "<group>"; };
 		55F8D91825231C2200B5E045 /* PullSecretViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullSecretViewController.swift; sourceTree = "<group>"; };
+		A3AB4D07261228120017E2FF /* Editable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				556DAAF4237AB11600885463 /* Assets.xcassets */,
 				556DAAF6237AB11600885463 /* Main.storyboard */,
 				556DAAF9237AB11600885463 /* Info.plist */,
+				A3AB4D07261228120017E2FF /* Editable.swift */,
 			);
 			path = "CodeReady Containers";
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				55F8D91925231C2200B5E045 /* PullSecretViewController.swift in Sources */,
 				55D67AC72385DEE600F56917 /* DaemonCommander.swift in Sources */,
 				55168E1723955F3F005D4232 /* HyperLinkTextField.swift in Sources */,
+				A3AB4D08261228120017E2FF /* Editable.swift in Sources */,
 				556DAAF1237AB11600885463 /* AppDelegate.swift in Sources */,
 				55F8D9162523147F00B5E045 /* PullSecretWindowController.swift in Sources */,
 				5559DE0F24AC55960042E72E /* ConfigViewController.swift in Sources */,
