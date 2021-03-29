@@ -55,7 +55,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         menu.delegate = self
         statusItem.menu = self.menu
-        
+
         if NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.bundleIdentifier!).count > 1 {
             print("more than one running")
             let alert = NSAlert()
@@ -64,10 +64,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             alert.informativeText = "This instance will now terminate."
             alert.alertStyle = .critical
             alert.runModal()
-            
+
             NSApp.terminate(self)
         }
-        
+
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound], completionHandler: { (granted, error) in
             notificationAllowed = granted
