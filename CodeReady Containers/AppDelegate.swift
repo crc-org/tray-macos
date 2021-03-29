@@ -92,10 +92,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             } catch let error {
                 fatal(message: "Cannot start the daemon",
                       informativeMsg: "Check the logs and restart the application.\nError: \(error.localizedDescription)")
+                return
             }
             task.waitUntilExit()
-            fatal(message: "Daemon crashed",
-                  informativeMsg: "Check the logs and restart the application")
+            if task.terminationStatus == 2 {
+                fatal(message: "Setup incomplete",
+                      informativeMsg: "Open a terminal, run 'crc setup', and start again this application.")
+            } else {
+                fatal(message: "Daemon crashed",
+                      informativeMsg: "Check the logs and restart the application")
+            }
         }
 
         DispatchQueue.global(qos: .background).async {
