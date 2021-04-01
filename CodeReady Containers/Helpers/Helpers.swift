@@ -143,3 +143,10 @@ func showFilePicker(msg: String, txtField: NSTextField, fileTypes: [String]) {
     // User clicked cancel
     return
 }
+
+func stoppedIfDoesNotExist(status: String) -> String {
+    if status.contains("machine crc does not exist") {
+        return "Stopped"
+    }
+    return status
+}

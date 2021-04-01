@@ -207,7 +207,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         self.status = status
         DispatchQueue.main.async {
-            self.initializeMenus(status: statusLabel(status))
+            self.initializeMenus(status: stoppedIfDoesNotExist(status: statusLabel(status)))
         }
     }
 }
