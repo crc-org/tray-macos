@@ -32,7 +32,9 @@
         <scene sceneID="JPo-4y-FX3">
             <objects>
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
-                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6"/>
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+                        <accessibility description="The main  application menu of the status icon" identifier="status_icon_menu"/>
+                    </menu>
                     <connections>
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
@@ -240,7 +242,7 @@
                                 </constraints>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RvR-kq-jSc">
-                                <rect key="frame" x="404" y="125" width="28" height="16"/>
+                                <rect key="frame" x="398" y="125" width="34" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="|||||||" id="sE8-Ln-7oD">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -248,7 +250,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bxp-4f-iW9">
-                                <rect key="frame" x="404" y="99" width="28" height="16"/>
+                                <rect key="frame" x="398" y="99" width="34" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="|||||||" id="Ueg-D6-0GC">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -256,7 +258,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KFV-5q-MVW">
-                                <rect key="frame" x="401" y="73" width="31" height="16"/>
+                                <rect key="frame" x="393" y="73" width="39" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="||||||||" id="Tk3-WG-QPA">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -390,6 +392,7 @@
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="Status of the CRC Virtual Machine" identifier="vm_status"/>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RWH-72-OCX">
                                 <rect key="frame" x="161" y="383" width="61" height="16"/>
@@ -398,6 +401,7 @@
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="Status of the OpenShift cluster" identifier="ocp_status"/>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pec-ZB-uFt">
                                 <rect key="frame" x="161" y="359" width="61" height="16"/>
@@ -406,6 +410,7 @@
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="Disk usage inside the CRC Virtual Machine" identifier="disk_usage"/>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AML-Zo-nva">
                                 <rect key="frame" x="161" y="335" width="61" height="16"/>
@@ -414,6 +419,7 @@
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="Size of the CRC Cache folder" identifier="cache_size"/>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="m2B-Bk-rjj">
                                 <rect key="frame" x="161" y="311" width="61" height="16"/>
@@ -422,6 +428,7 @@
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="Location of the CRC Cache store" identifier="cache_dir"/>
                             </textField>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="J5M-V8-RGz">
                                 <rect key="frame" x="20" y="300" width="500" height="5"/>
@@ -445,15 +452,15 @@
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0u-qh-anR">
                                 <rect key="frame" x="20" y="20" width="500" height="250"/>
                                 <clipView key="contentView" drawsBackground="NO" id="3gj-4l-tVy">
-                                    <rect key="frame" x="0.0" y="0.0" width="500" height="250"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="485" height="250"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="II9-rP-SqC" customClass="EditableNSTextView" customModule="CodeReady_Containers" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="500" height="250"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="485" height="250"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="500" height="250"/>
+                                            <size key="minSize" width="485" height="250"/>
                                             <size key="maxSize" width="500" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
@@ -468,9 +475,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="q6U-Me-nRm">
-                                    <rect key="frame" x="484" y="0.0" width="16" height="250"/>
+                                    <rect key="frame" x="485" y="0.0" width="15" height="250"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
+                                <accessibility description="Shows the logs from the daemon" identifier="logs"/>
                             </scrollView>
                         </subviews>
                         <constraints>
@@ -580,11 +588,11 @@
             <objects>
                 <viewController title="General" id="WBr-05-0in" customClass="ConfigViewController" customModule="CodeReady_Containers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="ZEr-oV-ns0">
-                        <rect key="frame" x="0.0" y="0.0" width="634" height="355"/>
+                        <rect key="frame" x="0.0" y="0.0" width="634" height="353"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aRo-aa-y8l">
-                                <rect key="frame" x="28" y="319" width="154" height="16"/>
+                                <rect key="frame" x="28" y="317" width="154" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="5vS-Xs-9mE"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="KwQ-ci-yr6"/>
@@ -596,7 +604,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pmt-N9-qCc">
-                                <rect key="frame" x="28" y="268" width="154" height="16"/>
+                                <rect key="frame" x="28" y="265" width="154" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="RFU-dz-kbd"/>
                                 </constraints>
@@ -607,7 +615,7 @@
                                 </textFieldCell>
                             </textField>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="6i6-8B-hkV">
-                                <rect key="frame" x="20" y="232" width="594" height="5"/>
+                                <rect key="frame" x="20" y="231" width="594" height="5"/>
                             </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RfD-KM-jVo">
                                 <rect key="frame" x="28" y="74" width="78" height="16"/>
@@ -618,27 +626,29 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dPt-iH-El2">
-                                <rect key="frame" x="262" y="311" width="344" height="28"/>
+                                <rect key="frame" x="262" y="312" width="344" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="340" id="o42-a7-coU"/>
                                 </constraints>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="4" maxValue="12" doubleValue="12" tickMarkPosition="above" numberOfTickMarks="9" allowsTickMarkValuesOnly="YES" sliderType="linear" id="nz7-xn-9KO"/>
+                                <accessibility description="Slider to choose the number of CPUs" identifier="num_cpu_slider"/>
                                 <connections>
                                     <action selector="cpuSliderChanged:" target="WBr-05-0in" id="rc0-yk-JoY"/>
                                 </connections>
                             </slider>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NF5-EI-4ky">
-                                <rect key="frame" x="262" y="260" width="344" height="28"/>
+                                <rect key="frame" x="262" y="263" width="344" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="340" id="cU0-ot-NIs"/>
                                 </constraints>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="9000" maxValue="32000" doubleValue="14900.408063616071" tickMarkPosition="above" sliderType="linear" id="oEh-wP-H6O"/>
+                                <accessibility description="Slider to choose the amount of RAM" identifier="num_ram_slider"/>
                                 <connections>
                                     <action selector="memorySliderChanged:" target="WBr-05-0in" id="5iw-Mb-MPS"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="egc-XM-U8b">
-                                <rect key="frame" x="188" y="319" width="44" height="16"/>
+                                <rect key="frame" x="188" y="317" width="44" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="EbV-rj-gDO"/>
                                 </constraints>
@@ -647,9 +657,10 @@
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="Displays the number of CPUs being configured to use" identifier="num_cpu_label"/>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QB6-S4-Tp6">
-                                <rect key="frame" x="211" y="325" width="8" height="10"/>
+                                <rect key="frame" x="211" y="323" width="8" height="10"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="center" allowsEditingTextAttributes="YES" usesSingleLineMode="YES" id="Ufr-gq-erL">
                                     <font key="font" size="8" name="HelveticaNeue"/>
@@ -658,7 +669,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rrI-s8-h96">
-                                <rect key="frame" x="28" y="294" width="279" height="13"/>
+                                <rect key="frame" x="28" y="291" width="276" height="13"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="(Set the number of CPU(s) to use for the OpenShift cluster)" allowsEditingTextAttributes="YES" usesSingleLineMode="YES" id="uk4-0p-QAe">
                                     <font key="font" metaFont="systemUltraLight" size="10"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -666,7 +677,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ikZ-Z3-TW1">
-                                <rect key="frame" x="28" y="243" width="267" height="13"/>
+                                <rect key="frame" x="28" y="242" width="265" height="13"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="(Set the amount of RAM to use for the OpenShift cluster)" id="IfI-dy-FaV">
                                     <font key="font" metaFont="systemUltraLight" size="10"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -677,7 +688,7 @@
                                 <rect key="frame" x="20" y="98" width="594" height="5"/>
                             </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sdk-6F-2MM">
-                                <rect key="frame" x="28" y="210" width="154" height="16"/>
+                                <rect key="frame" x="28" y="208" width="154" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="KQf-Vr-4Jw"/>
                                 </constraints>
@@ -688,7 +699,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bt5-N5-pcm">
-                                <rect key="frame" x="528" y="203" width="82" height="27"/>
+                                <rect key="frame" x="529" y="201" width="80" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="3AW-00-IeF"/>
                                 </constraints>
@@ -696,12 +707,13 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="message" size="11"/>
                                 </buttonCell>
+                                <accessibility description="Select pull secret file" identifier="select_pull_secret"/>
                                 <connections>
                                     <action selector="pullSecretFileButtonClicked:" target="WBr-05-0in" id="5D6-av-673"/>
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="goL-mw-4e9">
-                                <rect key="frame" x="264" y="207" width="260" height="22"/>
+                                <rect key="frame" x="264" y="205" width="260" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="9De-AE-7xi"/>
                                 </constraints>
@@ -710,12 +722,13 @@
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="Pull Secret filepath field" identifier="pull_secret_field"/>
                                 <connections>
                                     <outlet property="delegate" destination="WBr-05-0in" id="g7f-dc-CjQ"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SW0-T3-urh" customClass="SubstringLinkedTextField" customModule="CodeReady_Containers" customModuleProvider="target">
-                                <rect key="frame" x="28" y="171" width="432" height="26"/>
+                                <rect key="frame" x="28" y="169" width="432" height="26"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" id="ZxD-pe-mcX">
                                     <font key="font" metaFont="systemUltraLight" size="10"/>
                                     <string key="title">CodeReady Containers requires a pull secret to download content from Red Hat.
@@ -746,7 +759,7 @@ More details at https://developers.redhat.com/article/tool-data-collection</stri
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Y5-IP-VTO">
-                                <rect key="frame" x="28" y="51" width="212" height="13"/>
+                                <rect key="frame" x="28" y="51" width="210" height="13"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="(Extra DNS server to configure in the cluster)" id="Rtk-ob-KJQ">
                                     <font key="font" metaFont="systemUltraLight" size="10"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -760,12 +773,13 @@ More details at https://developers.redhat.com/article/tool-data-collection</stri
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="The DNS server to be used by the cluster" identifier="dns"/>
                                 <connections>
                                     <outlet property="delegate" destination="WBr-05-0in" id="ija-j9-KCa"/>
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oGq-QM-Pxa">
-                                <rect key="frame" x="542" y="13" width="69" height="32"/>
+                                <rect key="frame" x="535" y="13" width="75" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Lav-xL-cWB"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="55" id="tAQ-yp-rfg"/>
@@ -777,22 +791,24 @@ More details at https://developers.redhat.com/article/tool-data-collection</stri
 DQ
 </string>
                                 </buttonCell>
+                                <accessibility description="Apply general settings" identifier="apply_general"/>
                                 <connections>
                                     <action selector="propertiesApplyClicked:" target="WBr-05-0in" id="8BT-Bs-u85"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2hh-Yt-YEE">
-                                <rect key="frame" x="28" y="144" width="196" height="18"/>
+                                <rect key="frame" x="28" y="143" width="192" height="18"/>
                                 <buttonCell key="cell" type="check" title="Report telemetry to Red Hat" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Fmf-Iw-efs">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <accessibility description="Send anonymous diagnostics data to RedHat" identifier="consent_telemetry"/>
                                 <connections>
                                     <action selector="consentTelemetryClicked:" target="WBr-05-0in" id="MZr-Ug-rxd"/>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rAM-x0-b61">
-                                <rect key="frame" x="188" y="268" width="44" height="16"/>
+                                <rect key="frame" x="188" y="265" width="44" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="oM9-Zw-kWT"/>
                                 </constraints>
@@ -801,6 +817,7 @@ DQ
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="Displays the amount of RAM configured" identifier="num_ram_label"/>
                             </textField>
                         </subviews>
                         <constraints>
@@ -886,11 +903,11 @@ DQ
             <objects>
                 <viewController title="Advanced" id="lNS-OP-hbS" customClass="ConfigViewController" customModule="CodeReady_Containers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" identifier="advancedTab" id="9Q8-aT-KHu">
-                        <rect key="frame" x="0.0" y="0.0" width="634" height="251"/>
+                        <rect key="frame" x="0.0" y="0.0" width="634" height="252"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uR5-SC-IvX">
-                                <rect key="frame" x="28" y="215" width="154" height="16"/>
+                                <rect key="frame" x="28" y="216" width="154" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="NDo-hm-z71"/>
                                     <constraint firstAttribute="height" constant="16" id="dPA-MT-dwx"/>
@@ -902,7 +919,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e3y-s0-p4r">
-                                <rect key="frame" x="28" y="189" width="84" height="16"/>
+                                <rect key="frame" x="28" y="190" width="84" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="HTTPS Proxy" id="7Aw-NU-R3C">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -910,7 +927,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tpQ-cg-7iE">
-                                <rect key="frame" x="28" y="163" width="76" height="16"/>
+                                <rect key="frame" x="28" y="164" width="76" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="No Proxy(s)" id="lhC-22-l1y">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -918,7 +935,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qZJ-ma-wOZ" customClass="EditableNSTextField" customModule="CodeReady_Containers" customModuleProvider="target">
-                                <rect key="frame" x="190" y="186" width="200" height="22"/>
+                                <rect key="frame" x="190" y="187" width="200" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="1sP-Fx-mqJ"/>
                                     <constraint firstAttribute="width" constant="200" id="owr-Tq-NQP"/>
@@ -928,12 +945,13 @@ DQ
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="HTTPS proxy server address" identifier="https_proxy"/>
                                 <connections>
                                     <outlet property="delegate" destination="lNS-OP-hbS" id="Mug-ZC-4DI"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BEl-dp-Vj1">
-                                <rect key="frame" x="28" y="137" width="84" height="16"/>
+                                <rect key="frame" x="28" y="138" width="84" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Proxy CA File" id="zwT-qf-sAK">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -941,7 +959,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wE0-7N-R15">
-                                <rect key="frame" x="190" y="134" width="200" height="22"/>
+                                <rect key="frame" x="190" y="135" width="200" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="czV-v3-bmQ"/>
                                 </constraints>
@@ -950,12 +968,13 @@ DQ
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="The CA file to use while connecting to the proxy server" identifier="proxy_ca_file_field"/>
                                 <connections>
                                     <outlet property="delegate" destination="lNS-OP-hbS" id="kAS-Cc-EhL"/>
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IeK-xf-zYL" customClass="EditableNSTextField" customModule="CodeReady_Containers" customModuleProvider="target">
-                                <rect key="frame" x="190" y="212" width="200" height="22"/>
+                                <rect key="frame" x="190" y="213" width="200" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="604-M8-oAf"/>
                                     <constraint firstAttribute="width" constant="200" id="G4K-PA-YUe"/>
@@ -965,12 +984,13 @@ DQ
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="HTTP Proxy server address" identifier="http_proxy"/>
                                 <connections>
                                     <outlet property="delegate" destination="lNS-OP-hbS" id="SUL-H3-rsV"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qtS-5K-Qlj">
-                                <rect key="frame" x="28" y="111" width="342" height="13"/>
+                                <rect key="frame" x="28" y="112" width="338" height="13"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="(Set the proxy config for the cluster. You can also set a certificate to use)" id="U0Q-SQ-IBn">
                                     <font key="font" metaFont="systemUltraLight" size="10"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -978,7 +998,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yte-wT-knv">
-                                <rect key="frame" x="542" y="13" width="69" height="32"/>
+                                <rect key="frame" x="535" y="13" width="75" height="32"/>
                                 <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SBy-tt-CGM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -986,15 +1006,16 @@ DQ
 DQ
 </string>
                                 </buttonCell>
+                                <accessibility description="Apply advanced settings" identifier="apply_advanced"/>
                                 <connections>
                                     <action selector="AdvancedTabApplyButtonClicked:" target="lNS-OP-hbS" id="Vp8-6x-vMs"/>
                                 </connections>
                             </button>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="RW0-vT-5w6">
-                                <rect key="frame" x="20" y="98" width="594" height="5"/>
+                                <rect key="frame" x="20" y="99" width="594" height="5"/>
                             </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93A-lP-g7W">
-                                <rect key="frame" x="28" y="51" width="308" height="13"/>
+                                <rect key="frame" x="28" y="54" width="305" height="13"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="(Automatically start the tray app after you login to your computer)" id="V9R-i9-oJr">
                                     <font key="font" metaFont="systemUltraLight" size="10"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1002,27 +1023,29 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qvv-Sx-xUU">
-                                <rect key="frame" x="28" y="73" width="192" height="18"/>
+                                <rect key="frame" x="28" y="75" width="188" height="18"/>
                                 <buttonCell key="cell" type="check" title="Automatically start on login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="mAi-29-PW3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <accessibility description="Automatically start the tray app at login" identifier="auto_start"/>
                                 <connections>
                                     <action selector="autostartSwitchClicked:" target="lNS-OP-hbS" id="Hh7-Q6-SAf"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HN0-sD-3lC">
-                                <rect key="frame" x="394" y="130" width="81" height="27"/>
+                                <rect key="frame" x="395" y="131" width="79" height="27"/>
                                 <buttonCell key="cell" type="push" title="Select file" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d3h-YK-WMV">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="message" size="11"/>
                                 </buttonCell>
+                                <accessibility description="Select the proxy CA file" identifier="select_proxy_ca"/>
                                 <connections>
                                     <action selector="proxyCaFileButtonClicked:" target="lNS-OP-hbS" id="UGj-hH-nFz"/>
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f8t-dX-2hR" customClass="EditableNSTextField" customModule="CodeReady_Containers" customModuleProvider="target">
-                                <rect key="frame" x="190" y="160" width="200" height="22"/>
+                                <rect key="frame" x="190" y="161" width="200" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="kNT-0p-6WK"/>
                                     <constraint firstAttribute="width" constant="200" id="mwb-uU-S5U"/>
@@ -1032,6 +1055,7 @@ DQ
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="Adresses to be excluded while using the proxy" identifier="no_proxy"/>
                                 <connections>
                                     <outlet property="delegate" destination="lNS-OP-hbS" id="us6-h8-uAW"/>
                                 </connections>
