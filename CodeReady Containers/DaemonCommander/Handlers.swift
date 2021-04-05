@@ -166,7 +166,7 @@ func HandleStop() {
             DispatchQueue.main.async {
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
                 appDelegate?.pollStatus()
-                displayNotification(title: "Successfully Stopped Cluster", body: "The CRC Cluster was successfully stopped")
+                displayNotification(title: "Successfully Stopped Cluster", body: "The OpenShift Cluster was successfully stopped")
             }
         }
         if stopResult.Error != "" {
@@ -193,7 +193,7 @@ func HandleStart(pullSecretPath: String) {
         } else {
             response = try SendCommandToDaemon(command: Request(command: "start", args: ["pullSecretFile": pullSecretPath]))
         }
-        displayNotification(title: "CodeReady Containers", body: "Starting OpenShift Cluster, this could take a few minutes..")
+        displayNotification(title: "Starting Cluster", body: "Starting OpenShift Cluster, this could take a few minutes..")
     } catch let error {
         // show notification about the failure
         // Adjust the menus
@@ -210,7 +210,7 @@ func HandleStart(pullSecretPath: String) {
             DispatchQueue.main.async {
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
                 appDelegate?.pollStatus()
-                displayNotification(title: "CodeReady Containers", body: "OpenShift Cluster is running")
+                displayNotification(title: "Successfully started Cluster", body: "OpenShift Cluster is running")
             }
         }
         if startResult.Error != "" {
@@ -245,7 +245,7 @@ func HandleDelete() {
             DispatchQueue.main.async {
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
                 appDelegate?.pollStatus()
-                displayNotification(title: "Cluster Deleted", body: "The CRC Cluster is successfully deleted")
+                displayNotification(title: "Cluster Deleted", body: "The OpenShift Cluster is successfully deleted")
             }
         }
         if deleteResult.Error != "" {
