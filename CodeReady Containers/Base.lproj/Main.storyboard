@@ -9,7 +9,7 @@
         <!--Window Controller-->
         <scene sceneID="io9-As-c8Q">
             <objects>
-                <windowController id="I4M-tg-MG9" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="I4M-tg-MG9" sceneMemberID="viewController">
                     <window key="window" title="Status and Logs" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="TEj-ih-NFz">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
@@ -151,7 +151,7 @@
         <scene sceneID="3Mi-dy-arc">
             <objects>
                 <customObject id="pPd-uq-JSt" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <windowController id="SbK-ai-iAt" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="SbK-ai-iAt" sceneMemberID="viewController">
                     <window key="window" title="About" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="hVt-He-jKJ">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
@@ -538,7 +538,7 @@
         <!--Window Controller-->
         <scene sceneID="YQg-7r-0iN">
             <objects>
-                <windowController id="OEv-Wj-D9q" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="OEv-Wj-D9q" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="hTJ-fB-oMW">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
