@@ -102,6 +102,7 @@
                                 </items>
                                 <accessibility description="copy oc login" identifier="copy_login"/>
                             </menu>
+                            <accessibility description="copy oc login menu item" identifier="copy_oc_login"/>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="TK2-l1-v4n"/>
                         <menuItem title="Preferences" keyEquivalent="c" id="Qez-dR-sdG">
