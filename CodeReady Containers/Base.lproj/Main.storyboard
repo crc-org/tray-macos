@@ -206,41 +206,6 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="bd9-0s-O0m">
-                                <rect key="frame" x="272" y="33" width="158" height="20"/>
-                                <subviews>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4TK-OI-SII">
-                                        <rect key="frame" x="3" y="0.0" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="3Hq-pM-BPt"/>
-                                            <constraint firstAttribute="width" constant="20" id="LsF-OA-Dra"/>
-                                        </constraints>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="github" id="xWI-vz-qq1"/>
-                                    </imageView>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-uu-Dow" customClass="HyperLinkTextField" customModule="CodeReady_Containers" customModuleProvider="target">
-                                        <rect key="frame" x="21" y="2" width="139" height="16"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="135" id="BgY-fK-YLR"/>
-                                        </constraints>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Tray Github repository" id="5Qx-Yu-Fqb">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="href" value="https://github.com/code-ready/tray-macos"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="gBO-uu-Dow" secondAttribute="trailing" id="Kw7-CG-5vA"/>
-                                    <constraint firstItem="gBO-uu-Dow" firstAttribute="centerY" secondItem="4TK-OI-SII" secondAttribute="centerY" id="cwF-Sr-VmX"/>
-                                    <constraint firstAttribute="width" constant="158" id="rfv-Ac-rqz"/>
-                                    <constraint firstItem="4TK-OI-SII" firstAttribute="top" secondItem="bd9-0s-O0m" secondAttribute="top" id="sXn-GA-KxE"/>
-                                    <constraint firstAttribute="height" constant="20" id="vLF-Qi-mnz"/>
-                                    <constraint firstItem="gBO-uu-Dow" firstAttribute="leading" secondItem="4TK-OI-SII" secondAttribute="trailing" id="zFo-t9-o6C"/>
-                                </constraints>
-                            </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RvR-kq-jSc">
                                 <rect key="frame" x="398" y="125" width="34" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="|||||||" id="sE8-Ln-7oD">
@@ -304,6 +269,35 @@
                                     <constraint firstAttribute="width" constant="114" id="jDc-36-Vrg"/>
                                 </constraints>
                             </customView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4TK-OI-SII">
+                                <rect key="frame" x="410" y="33" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="nYb-0x-uob"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="external-link-font-awesome" id="xWI-vz-qq1"/>
+                            </imageView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="bd9-0s-O0m">
+                                <rect key="frame" x="320" y="33" width="110" height="20"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-uu-Dow" customClass="HyperLinkTextField" customModule="CodeReady_Containers" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="2" width="91" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Release Notes" id="5Qx-Yu-Fqb">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="href" value="https://access.redhat.com/documentation/en-us/red_hat_codeready_containers"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gBO-uu-Dow" secondAttribute="trailing" constant="20" symbolic="YES" id="Mu2-Ag-twJ"/>
+                                    <constraint firstItem="gBO-uu-Dow" firstAttribute="leading" secondItem="bd9-0s-O0m" secondAttribute="leading" constant="2" id="WLX-xF-ER8"/>
+                                    <constraint firstAttribute="width" constant="110" id="rfv-Ac-rqz"/>
+                                    <constraint firstAttribute="height" constant="20" id="vLF-Qi-mnz"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="UXI-d5-gqr" firstAttribute="top" secondItem="wdl-dT-krA" secondAttribute="bottom" constant="10" id="2OX-t3-On6"/>
@@ -313,18 +307,22 @@
                             <constraint firstItem="bu4-6d-FFx" firstAttribute="leading" secondItem="gzA-fr-McP" secondAttribute="leading" constant="50" id="7QO-j1-nxz"/>
                             <constraint firstAttribute="trailing" secondItem="Bxp-4f-iW9" secondAttribute="trailing" constant="50" id="BZF-68-hF8"/>
                             <constraint firstItem="KFV-5q-MVW" firstAttribute="centerY" secondItem="wVp-2R-VgQ" secondAttribute="centerY" id="Cww-bd-SKx"/>
+                            <constraint firstItem="4TK-OI-SII" firstAttribute="top" secondItem="bd9-0s-O0m" secondAttribute="top" id="D1a-5b-fuq"/>
                             <constraint firstItem="UXI-d5-gqr" firstAttribute="top" secondItem="wdl-dT-krA" secondAttribute="bottom" constant="10" id="EDX-2y-4e0"/>
                             <constraint firstAttribute="trailing" secondItem="KFV-5q-MVW" secondAttribute="trailing" constant="50" id="Exr-SB-hVi"/>
                             <constraint firstItem="RvR-kq-jSc" firstAttribute="centerY" secondItem="UXI-d5-gqr" secondAttribute="centerY" id="Gjz-fq-qmq"/>
                             <constraint firstItem="wdl-dT-krA" firstAttribute="top" secondItem="gzA-fr-McP" secondAttribute="top" constant="10" id="Gze-PG-onR"/>
                             <constraint firstAttribute="trailing" secondItem="RvR-kq-jSc" secondAttribute="trailing" constant="50" id="J1u-2G-yQs"/>
                             <constraint firstItem="wdl-dT-krA" firstAttribute="top" secondItem="gzA-fr-McP" secondAttribute="top" constant="10" id="MHy-uF-Pva"/>
+                            <constraint firstItem="4TK-OI-SII" firstAttribute="bottom" secondItem="bd9-0s-O0m" secondAttribute="bottom" id="NmU-4f-Fhw"/>
                             <constraint firstItem="Nkf-3h-Wyn" firstAttribute="leading" secondItem="UXI-d5-gqr" secondAttribute="leading" id="Pde-zB-RwN"/>
                             <constraint firstItem="Nkf-3h-Wyn" firstAttribute="leading" secondItem="gzA-fr-McP" secondAttribute="leading" constant="50" id="QZS-ef-KYz"/>
                             <constraint firstItem="Nkf-3h-Wyn" firstAttribute="top" secondItem="UXI-d5-gqr" secondAttribute="bottom" constant="10" id="YZZ-ht-FpK"/>
+                            <constraint firstItem="4TK-OI-SII" firstAttribute="trailing" secondItem="bd9-0s-O0m" secondAttribute="trailing" id="e3p-gl-ovF"/>
                             <constraint firstAttribute="trailing" secondItem="bd9-0s-O0m" secondAttribute="trailing" constant="50" id="h7E-S5-aYt"/>
                             <constraint firstItem="bu4-6d-FFx" firstAttribute="top" secondItem="KFV-5q-MVW" secondAttribute="bottom" constant="20" id="hBu-Jh-Bwn"/>
                             <constraint firstItem="Nkf-3h-Wyn" firstAttribute="top" secondItem="UXI-d5-gqr" secondAttribute="bottom" constant="10" id="iRp-6X-wE1"/>
+                            <constraint firstItem="gBO-uu-Dow" firstAttribute="centerY" secondItem="4TK-OI-SII" secondAttribute="centerY" id="nnr-Pf-EOV"/>
                             <constraint firstItem="bd9-0s-O0m" firstAttribute="centerY" secondItem="bu4-6d-FFx" secondAttribute="centerY" id="pVp-g0-ezf"/>
                             <constraint firstItem="wVp-2R-VgQ" firstAttribute="leading" secondItem="UXI-d5-gqr" secondAttribute="leading" id="qik-Gc-vqM"/>
                             <constraint firstItem="Bxp-4f-iW9" firstAttribute="centerY" secondItem="Nkf-3h-Wyn" secondAttribute="centerY" id="qrT-0Y-NlJ"/>
@@ -338,6 +336,7 @@
                     <connections>
                         <outlet property="crcVersionField" destination="RvR-kq-jSc" id="U08-bn-yIN"/>
                         <outlet property="openshiftVersionField" destination="Bxp-4f-iW9" id="xfy-9c-7fj"/>
+                        <outlet property="releaseNotes" destination="gBO-uu-Dow" id="ioa-wU-WYm"/>
                         <outlet property="trayVersionField" destination="KFV-5q-MVW" id="TdR-Ls-sOt"/>
                     </connections>
                 </viewController>
@@ -1122,6 +1121,5 @@ DQ
         <image name="NSStatusNone" width="16" height="16"/>
         <image name="OcpLogo" width="1557" height="700"/>
         <image name="external-link-font-awesome" width="448" height="512"/>
-        <image name="github" width="16" height="16"/>
     </resources>
 </document>
