@@ -44,6 +44,7 @@ class PullSecretViewController: NSViewController, NSTextFieldDelegate {
             let styledString = NSAttributedString(string: self.helpString, attributes: attributes)
             self.helpLabel.attributedStringValue = styledString
         } else {
+            SendTelemetry(Actions.EnterPullSecret)
             self.view.window?.close()
             let path = self.pullSecretFilePath.stringValue
             DispatchQueue.global(qos: .userInteractive).async {

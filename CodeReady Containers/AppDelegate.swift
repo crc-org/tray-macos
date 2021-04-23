@@ -106,6 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
         DispatchQueue.global(qos: .background).async {
             sleep(1) // wait for the daemon to start
+            SendTelemetry(Actions.Start)
             self.pollStatus()
         }
 
@@ -120,6 +121,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     @IBAction func startMenuClicked(_ sender: Any) {
+        SendTelemetry(Actions.ClickStart)
+
         // check if pull-secret-file is configured
         // if yes call HadleStart("")
         // otherwise invoke the pullSecretPicker view
@@ -172,24 +175,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     @IBAction func webConsoleMenuClicked(_ sender: Any) {
+        SendTelemetry(Actions.ClickOpenConsole)
         DispatchQueue.global(qos: .userInteractive).async {
             HandleWebConsoleURL()
         }
     }
 
     @IBAction func copyOcLoginForKubeadminMenuClicked(_ sender: Any) {
+        SendTelemetry(Actions.CopyOCLoginForAdmin)
         DispatchQueue.global(qos: .userInteractive).async {
             HandleLoginCommandForKubeadmin()
         }
     }
 
     @IBAction func copyOcLoginForDeveloperMenuClicked(_ sender: Any) {
+        SendTelemetry(Actions.CopyOCLoginForDeveloper)
         DispatchQueue.global(qos: .userInteractive).async {
             HandleLoginCommandForDeveloper()
         }
     }
 
     @IBAction func quitTrayMenuClicked(_ sender: Any) {
+        SendTelemetry(Actions.Quit)
         NSApplication.shared.terminate(self)
     }
 
@@ -217,6 +224,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     func menuWillOpen(_ menu: NSMenu) {
+        SendTelemetry(Actions.OpenMenu)
     }
 
     @objc func pollStatus() {

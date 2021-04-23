@@ -56,6 +56,8 @@ class ConfigViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SendTelemetry(Actions.OpenPreferences)
+
         // Do view setup here.
         self.preferredContentSize = NSSize(width: self.view.frame.size.width, height: self.view.frame.height)
 
@@ -78,6 +80,7 @@ class ConfigViewController: NSViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
+
         view.window?.level = .floating
         if let v = view.identifier {
             print(v.rawValue)
@@ -258,6 +261,7 @@ class ConfigViewController: NSViewController {
                 } catch let error {
                     showAlertFailedAndCheckLogs(message: "Failed to apply configuration", informativeMsg: error.localizedDescription)
                 }
+                SendTelemetry(Actions.ApplyPreferences)
             }
         }
     }
