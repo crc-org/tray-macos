@@ -24,6 +24,7 @@ class DetailedStatusViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SendTelemetry(Actions.OpenStatus)
 
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else {
             return

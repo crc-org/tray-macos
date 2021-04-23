@@ -149,6 +149,8 @@ struct LogsResult: Decodable {
 }
 
 func HandleStop() {
+    SendTelemetry(Actions.ClickStop)
+
     var data: Data
     do {
         data = try SendCommandToDaemon(command: Request(command: "stop", args: nil))
@@ -235,6 +237,8 @@ func HandleDelete() {
     if !yes {
         return
     }
+
+    SendTelemetry(Actions.ClickDelete)
 
     do {
         let data = try SendCommandToDaemon(command: Request(command: "delete", args: nil))
@@ -354,4 +358,25 @@ func GetAllConfigFromDaemon() throws -> CrcConfigs {
         return configResult.Configs
     }
     throw DaemonError.badResponse
+}
+
+enum Actions: String {
+    case Start = "start application"
+    case OpenMenu = "open menu"
+    case ClickStart = "click start"
+    case EnterPullSecret = "enter pull secret"
+    case ClickStop = "click stop"
+    case ClickDelete = "click delete"
+    case ClickOpenConsole = "click open web console"
+    case OpenPreferences = "open preferences"
+    case ApplyPreferences = "apply new preferences"
+    case OpenStatus = "open status"
+    case OpenAbout = "open about"
+    case CopyOCLoginForDeveloper = "copy oc login for developer"
+    case CopyOCLoginForAdmin = "copy oc login for admin"
+    case Quit = "quit application"
+}
+
+func SendTelemetry(_ action: Actions) {
+    _ = try? SendCommandToDaemon(command: Request(command: "telemetry", args: ["action": action.rawValue, "source": "tray"]))
 }
