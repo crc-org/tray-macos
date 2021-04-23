@@ -78,7 +78,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         DispatchQueue.global(qos: .background).async {
             let task = Process()
             let stdin = Pipe()
-            let stderr = Pipe()
             #if DEBUG
             task.launchPath = "/usr/local/bin/crc"
             #else
@@ -86,7 +85,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             #endif
             task.arguments = ["daemon", "--watchdog"]
             task.standardInput = stdin
-            task.standardError = stderr
             do {
                 try task.run()
             } catch let error {
