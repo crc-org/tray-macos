@@ -76,30 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         })
 
         DispatchQueue.global(qos: .background).async {
-            let task = Process()
-            let stdin = Pipe()
-            #if DEBUG
-            task.launchPath = "/usr/local/bin/crc"
-            #else
-            task.launchPath = NSString.path(withComponents: [Bundle.main.bundlePath, "Contents", "Resources", "crc"])
-            #endif
-            task.arguments = ["daemon", "--watchdog"]
-            task.standardInput = stdin
-            do {
-                try task.run()
-            } catch let error {
-                fatal(message: "Cannot start the daemon",
-                      informativeMsg: "Check the logs and restart the application.\nError: \(error.localizedDescription)")
-                return
-            }
-            task.waitUntilExit()
-            if task.terminationStatus == 2 {
-                fatal(message: "Setup incomplete",
-                      informativeMsg: "Open a terminal, run 'crc setup', and start again this application.")
-            } else {
-                fatal(message: "Daemon crashed",
-                      informativeMsg: "Check the logs and restart the application")
-            }
+            self.startDaemon()
         }
 
         DispatchQueue.global(qos: .background).async {
@@ -111,6 +88,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         Timer.scheduledTimer(timeInterval: statusRefreshRate, target: self, selector: #selector(pollStatus), userInfo: nil, repeats: true)
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateViewWithClusterStatus(_:)), name: statusNotification, object: nil)
+    }
+
+    func startDaemon() {
+        let task = Process()
+        let stdin = Pipe()
+        #if DEBUG
+        task.launchPath = "/usr/local/bin/crc"
+        #else
+        task.launchPath = NSString.path(withComponents: [Bundle.main.bundlePath, "Contents", "Resources", "crc"])
+        #endif
+        task.arguments = ["daemon", "--watchdog"]
+        task.standardInput = stdin
+        do {
+            try task.run()
+        } catch let error {
+            fatal(message: "Cannot start the daemon",
+                  informativeMsg: "Check the logs and restart the application.\nError: \(error.localizedDescription)")
+            return
+        }
+        task.waitUntilExit()
+        if task.terminationStatus == 2 {
+            fatal(message: "Setup incomplete",
+                  informativeMsg: "Open a terminal, run 'crc setup', and start again this application.")
+        } else {
+            fatal(message: "Daemon crashed",
+                  informativeMsg: "Check the logs and restart the application")
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
