@@ -375,6 +375,7 @@ enum Actions: String {
     case CopyOCLoginForDeveloper = "copy oc login for developer"
     case CopyOCLoginForAdmin = "copy oc login for admin"
     case Quit = "quit application"
+    case ChangeKubernetesContext = "change Kubernetes context"
 }
 
 func SendTelemetry(_ action: Actions) {

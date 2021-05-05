@@ -1,4 +1,5 @@
-// Copyright (c) 2019 Sriram Narasimhan
+// Original work Copyright (c) 2019 Sriram Narasimhan
+// Modified work Copyright 2020 Red Hat
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -15,33 +16,32 @@ import Cocoa
 class KubeContextMenu: NSObject {
   var kubeConfigReader: KubeConfigReader
   var yamlReader: YamlReader
-  var statusItem: NSStatusItem
-  var selectedKubeContext: NSMenuItem? = nil
+  var menu: NSMenu
+  var selectedKubeContext: NSMenuItem?
 
-  init(statusItem: NSStatusItem,
+  init(menu: NSMenu,
        yamlReader: YamlReader,
        kubeConfigReader: KubeConfigReader) {
     self.kubeConfigReader = kubeConfigReader
     self.yamlReader = yamlReader
-    self.statusItem = statusItem
+    self.menu = menu
   }
 
   func refresh() {
-    self.statusItem.menu?.removeAllItems()
+    self.menu.removeAllItems()
     self.addContextNames()
     self.addMenuSeparator()
-    self.addExitMenu()
   }
 
   func addContextNames() {
     let config = self.kubeConfigReader.read()
     let kubeConfig = self.yamlReader.loadKubeConfig(yaml: config)
     let contextNames: Array = kubeConfig.contextNames()
-    if (contextNames.count <= 0) {
-      let menuItem = NSMenuItem(title: "Kubernetes Context: None Available",
+    if contextNames.count <= 0 {
+      let menuItem = NSMenuItem(title: "No context",
         action: nil,
         keyEquivalent: "")
-      self.statusItem.menu?.addItem(menuItem)
+      self.menu.addItem(menuItem)
       return
     }
     for contextName in contextNames {
@@ -53,27 +53,17 @@ class KubeContextMenu: NSObject {
         menuItem.state = NSControl.StateValue.on
         self.selectedKubeContext = menuItem
       }
-      self.statusItem.menu?.addItem(menuItem)
+      self.menu.addItem(menuItem)
     }
   }
 
   func addMenuSeparator() {
-    self.statusItem.menu?.addItem(NSMenuItem.separator())
-  }
-
-  @objc func exit() {
-    NSApplication.shared.terminate(statusItem)
-  }
-
-  func addExitMenu() {
-    let menuItem = NSMenuItem(title: "Exit",
-      action: #selector(self.exit),
-      keyEquivalent: "Q")
-    menuItem.target = self
-    statusItem.menu?.addItem(menuItem);
+    self.menu.addItem(NSMenuItem.separator())
   }
 
   @objc func contextSelected(_ sender: NSMenuItem) {
+    SendTelemetry(Actions.ChangeKubernetesContext)
+
     let config = self.kubeConfigReader.read()
     let kubeConfig = self.yamlReader.loadKubeConfig(yaml: config)
     kubeConfig.changeContext(newContext: sender.title)
