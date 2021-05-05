@@ -36,6 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBOutlet weak var ocLoginForDeveloper: NSMenuItem!
     @IBOutlet weak var detailedStatusMenuItem: NSMenuItem!
     @IBOutlet weak var copyOcLoginCommand: NSMenuItem!
+    @IBOutlet weak var k8sContext: NSMenu!
 
     let statusRefreshRate: TimeInterval = 5 // seconds
     var kubeadminPass: String!
@@ -46,6 +47,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     weak var pullSecretWindowController: PullSecretWindowController?
 
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+
+    var kubeContextMenu: KubeContextMenu!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let button = statusItem.button {
@@ -88,6 +91,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         Timer.scheduledTimer(timeInterval: statusRefreshRate, target: self, selector: #selector(pollStatus), userInfo: nil, repeats: true)
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateViewWithClusterStatus(_:)), name: statusNotification, object: nil)
+
+        let kubeConfigReader = KubeConfigReader()
+        let yamlReader = YamlReader()
+        self.kubeContextMenu = KubeContextMenu(
+          menu: self.k8sContext,
+          yamlReader: yamlReader,
+          kubeConfigReader: kubeConfigReader
+        )
     }
 
     func startDaemon() {
@@ -227,6 +238,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func menuWillOpen(_ menu: NSMenu) {
         SendTelemetry(Actions.OpenMenu)
+        self.kubeContextMenu.refresh()
     }
 
     @objc func pollStatus() {

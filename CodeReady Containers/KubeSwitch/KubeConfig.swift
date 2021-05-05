@@ -1,4 +1,5 @@
-// Copyright (c) 2019 Sriram Narasimhan
+// Original work Copyright (c) 2019 Sriram Narasimhan
+// Modified work Copyright 2020 Red Hat
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,12 +27,12 @@ class KubeConfig {
     return otherContextName == self.currentContext()
   }
 
-  func contexts() -> Array<AnyObject> {
+  func contexts() -> [AnyObject] {
     return (self.yamlContent["contexts"] != nil)
       ? self.yamlContent["contexts"] as! [AnyObject] : []
   }
 
-  func contextNames() -> Array<String> {
+  func contextNames() -> [String] {
     return self.contexts()
       .map {
         $0 as! [String: Any]
