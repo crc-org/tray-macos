@@ -8,24 +8,24 @@
 import Cocoa
 
 struct StopResult: Decodable {
-    let Name: String
+    let Name: String?
     let Success: Bool
     let State: Int?
-    let Error: String
+    let Error: String?
 }
 
 struct StartResult: Decodable {
     let Name: String?
     let Status: String?
-    let Error: String
+    let Error: String?
     let ClusterConfig: ClusterConfigType?
     let KubeletStarted: Bool?
 }
 
 struct DeleteResult: Decodable {
-    let Name: String
+    let Name: String?
     let Success: Bool
-    let Error: String
+    let Error: String?
 }
 struct ProxyConfigType: Decodable {
     let HTTPProxy: String
@@ -57,14 +57,14 @@ struct PropertiesArray: Encodable {
 }
 
 struct ConfigGetResult: Decodable {
-    let Error: String
+    let Error: String?
     let Configs: [String: String]
 }
 
 struct WebConsoleResult: Decodable {
     let ClusterConfig: ClusterConfigType
     let Success: Bool
-    let Error: String
+    let Error: String?
 }
 
 struct VersionResult: Decodable {
@@ -75,7 +75,7 @@ struct VersionResult: Decodable {
 }
 
 struct GetconfigResult: Decodable {
-    let Error: String
+    let Error: String?
     let Configs: CrcConfigs
 }
 
@@ -215,9 +215,9 @@ func HandleStart(pullSecretPath: String) {
                 displayNotification(title: "Successfully started Cluster", body: "OpenShift Cluster is running")
             }
         }
-        if startResult.Error != "" {
+        if let error = startResult.Error {
             DispatchQueue.main.async {
-                let errMsg = startResult.Error.split(separator: "\n")
+                let errMsg = error.split(separator: "\n")
                 showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "\(errMsg[0])")
                 let appDelegate = NSApplication.shared.delegate as? AppDelegate
                 appDelegate?.pollStatus()
