@@ -1,4 +1,5 @@
-// Copyright (c) 2019 Sriram Narasimhan
+// Original work Copyright (c) 2019 Sriram Narasimhan
+// Modified work Copyright 2020 Red Hat
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -16,7 +17,7 @@ import os.log
 class YamlReader {
   func loadKubeConfig(yaml: String) -> KubeConfig {
     do {
-      let readYaml = try Yams.load(yaml: yaml, .basic)
+      let readYaml = try Yams.load(yaml: yaml)
       let yamlContent = readYaml != nil ? readYaml as! [String: Any] : [:]
       return KubeConfig(yamlContent: yamlContent)
     } catch {
