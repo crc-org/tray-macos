@@ -6,8 +6,11 @@
 //  Copyright © 2019 Red Hat. All rights reserved.
 //
 
-import Socket
 import Foundation
+import AsyncHTTPClient
+import NIOHTTP1
+
+let httpClient = HTTPClient(eventLoopGroupProvider: .createNew)
 
 class DaemonCommander {
     let socketPath: String
@@ -17,77 +20,83 @@ class DaemonCommander {
         self.socketPath = sockPath
     }
 
-    public func sendCommand(command: Data) throws -> Data {
-        do {
-            let daemonSocket = try Socket.create(family: .unix, type: .stream, proto: .unix)
-            defer {
-                daemonSocket.close()
-            }
-            try daemonSocket.connect(to: self.socketPath)
-            try daemonSocket.write(from: command)
-            var readData = Data(capacity: DaemonCommander.bufferSize)
-            let bytesRead = try daemonSocket.read(into: &readData)
-            if bytesRead > 1 {
-                return readData
-            }
-            throw DaemonError.badResponse
-        } catch let error {
-            guard error is Socket.Error else {
-                print(error.localizedDescription)
-                throw DaemonError.io
-            }
-            throw error
+    public func sendCommand(_ verb: HTTPMethod, _ path: String, _ command: Data?) throws -> Data {
+        let socketPathBasedURL = URL(
+            httpURLWithSocketPath: self.socketPath,
+            uri: path
+        )
+        var request = try HTTPClient.Request(url: socketPathBasedURL!, method: verb)
+        if let body = command {
+            request.body = .data(body)
         }
+
+        let sem = DispatchSemaphore(value: 0)
+        var resultData: Data?
+        var error: Data?
+
+        httpClient.execute(request: request).whenComplete { result in
+            switch result {
+            case .failure(let err):
+                error = Data(err.localizedDescription.utf8)
+            case .success(let response):
+                if response.status == .ok {
+                    response.body?.withUnsafeReadableBytes {
+                        resultData = Data($0)
+                    }
+                } else {
+                    response.body?.withUnsafeReadableBytes {
+                        error = Data($0)
+                    }
+                }
+            }
+
+            sem.signal()
+        }
+
+        sem.wait()
+        if let data = resultData {
+            return data
+        }
+        if let data = error {
+            throw DaemonError.internalServerError(message: String(decoding: data, as: UTF8.self))
+        }
+        throw DaemonError.io
     }
 }
 
 let userHomePath: URL = FileManager.default.homeDirectoryForCurrentUser
-let socketPath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("crc.sock")
+let socketPath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("crc-http.sock")
 
-func SendCommandToDaemon(command: Request) throws -> Data {
-    let req = try JSONEncoder().encode(command)
-    print(String(data: req, encoding: .utf8)!)
+func SendCommandToDaemon<T>(_ verb: HTTPMethod, _ path: String, _ payload: T) throws -> Data where T: Encodable {
+    let req = try JSONEncoder().encode(payload)
     let daemonConnection = DaemonCommander(sockPath: socketPath.path)
-    return try daemonConnection.sendCommand(command: req)
+    return try daemonConnection.sendCommand(verb, path, req)
 }
 
-struct ConfigsetRequest: Encodable {
-    var command: String
-    var args: Configset
-}
-
-struct ConfigunsetRequest: Encodable {
-    var command: String
-    var args: Configunset
-}
-
-struct Configset: Encodable {
-    var properties: CrcConfigs?
-}
-
-struct Configunset: Encodable {
-    var properties: [String]
+func SendCommandToDaemon(_ verb: HTTPMethod, _ path: String) throws -> Data {
+    let daemonConnection = DaemonCommander(sockPath: socketPath.path)
+    return try daemonConnection.sendCommand(verb, path, nil)
 }
 
 func SendCommandToDaemon(command: ConfigsetRequest) throws -> Data {
-    let req = try JSONEncoder().encode(command)
-    return try sendToDaemonAndReadResponse(payload: req)
+    let req = try JSONEncoder().encode(command.args)
+    return try sendToDaemonAndReadResponse(HTTPMethod.POST, "/api/config/set", req)
 }
 
 func SendCommandToDaemon(command: ConfigunsetRequest) throws -> Data {
-    let req = try JSONEncoder().encode(command)
-    return try sendToDaemonAndReadResponse(payload: req)
+    let req = try JSONEncoder().encode(command.args)
+    return try sendToDaemonAndReadResponse(HTTPMethod.POST, "/api/config/unset", req)
 }
 
 func SendCommandToDaemon(command: ConfigGetRequest) throws -> Data {
-    let req = try JSONEncoder().encode(command)
+    let req = try JSONEncoder().encode(command.args)
     let daemonConnection = DaemonCommander(sockPath: socketPath.path)
-    return try daemonConnection.sendCommand(command: req)
+    return try daemonConnection.sendCommand(HTTPMethod.GET, "/api/config/get", req)
 }
 
-func sendToDaemonAndReadResponse(payload: Data) throws -> Data {
+func sendToDaemonAndReadResponse(_ verb: HTTPMethod, _ path: String, _ payload: Data) throws -> Data {
     let daemonConnection = DaemonCommander(sockPath: socketPath.path)
-    let reply = try daemonConnection.sendCommand(command: payload)
+    let reply = try daemonConnection.sendCommand(verb, path, payload)
     if reply.count > 0 {
         return reply
     }

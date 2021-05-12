@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import NIOHTTP1
 
 class DetailedStatusViewController: NSViewController {
 
@@ -62,7 +63,7 @@ class DetailedStatusViewController: NSViewController {
     @objc func updateViewWithLogs() {
         DispatchQueue.global(qos: .background).async {
             do {
-                let data = try SendCommandToDaemon(command: Request(command: "logs", args: nil))
+                let data = try SendCommandToDaemon(HTTPMethod.GET, "/api/logs")
                 let result = try JSONDecoder().decode(LogsResult.self, from: data)
                 DispatchQueue.main.async {
                     let lines = result.Messages.joined(separator: "\n")
@@ -95,12 +96,12 @@ class DetailedStatusViewController: NSViewController {
             ocpVersion = versionInfo.1
         }
 
-        if status.Success {
+        if let error = status.Error, error != "" {
+            self.vmStatus.stringValue = error
+            self.ocpStatus.stringValue = "Unknown"
+        } else {
             self.vmStatus.stringValue = status.CrcStatus!
             self.ocpStatus.stringValue = "\(status.OpenshiftStatus!) (v\(ocpVersion!))"
-        } else {
-            self.vmStatus.stringValue = status.Error!
-            self.ocpStatus.stringValue = "Unknown"
         }
         self.diskUsage.stringValue = "\(Units(bytes: status.DiskUse ?? 0).getReadableUnit()) of \(Units(bytes: status.DiskSize ?? 0).getReadableUnit()) (Inside the VM)"
         self.cacheSize.stringValue = Units(bytes: folderSize(folderPath: self.cacheDirPath)).getReadableUnit()

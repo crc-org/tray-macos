@@ -8,6 +8,7 @@
 
 import Cocoa
 import UserNotifications
+import NIOHTTP1
 
 var notificationAllowed: Bool = false
 
@@ -244,9 +245,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @objc func pollStatus() {
         DispatchQueue.global(qos: .background).async {
             do {
-                let data = try SendCommandToDaemon(command: Request(command: "status", args: nil))
+                let data = try SendCommandToDaemon(HTTPMethod.GET, "/api/status")
                 let status = try JSONDecoder().decode(ClusterStatus.self, from: data)
                 NotificationCenter.default.post(name: statusNotification, object: status)
+            } catch let error as DaemonError {
+                switch error {
+                case DaemonError.internalServerError(let message):
+                    NotificationCenter.default.post(name: statusNotification, object:clusterStatusWithError(message))
+                default:
+                    print(error.localizedDescription)
+                    NotificationCenter.default.post(name: statusNotification, object: brokenDaemonClusterStatus)
+                }
             } catch let error {
                 print(error.localizedDescription)
                 NotificationCenter.default.post(name: statusNotification, object: brokenDaemonClusterStatus)

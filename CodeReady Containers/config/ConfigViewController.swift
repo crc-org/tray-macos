@@ -97,9 +97,6 @@ class ConfigViewController: NSViewController {
             var configs: CrcConfigs
             do {
                 configs = try GetAllConfigFromDaemon()
-            } catch DaemonError.noResponse {
-                showAlertFailedAndCheckLogs(message: "Did not receive any response from the daemon", informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs")
-                return
             } catch {
                 showAlertFailedAndCheckLogs(message: "Bad response", informativeMsg: "Undefined error")
                 return

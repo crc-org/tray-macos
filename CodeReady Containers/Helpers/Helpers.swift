@@ -98,26 +98,26 @@ struct ClusterStatus: Decodable {
     let DiskUse: Int64?
     let DiskSize: Int64?
     let Error: String?
-    let Success: Bool
 }
 
-let brokenDaemonClusterStatus = ClusterStatus(
-    Name: nil,
-    CrcStatus: nil,
-    OpenshiftStatus: nil,
-    DiskUse: nil,
-    DiskSize: nil,
-    Error: "Broken daemon?",
-    Success: false
-)
+func clusterStatusWithError(_ message: String) -> ClusterStatus {
+    return ClusterStatus(
+        Name: nil,
+        CrcStatus: nil,
+        OpenshiftStatus: nil,
+        DiskUse: nil,
+        DiskSize: nil,
+        Error: message
+    )
+}
+
+let brokenDaemonClusterStatus = clusterStatusWithError("Broken daemon?")
 
 func statusLabel(_ status: ClusterStatus) -> String {
-    if !status.Success {
-        let error = status.Error!
-        if error.count > 100 {
-            return String(error.prefix(100)) + "..."
+    if let error = status.Error {
+        if error != "" {
+            return error
         }
-        return error
     }
     return status.OpenshiftStatus!
 }
