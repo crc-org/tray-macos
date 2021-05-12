@@ -23,13 +23,13 @@
 		55F8D913252313A900B5E045 /* pullSecretStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55F8D912252313A900B5E045 /* pullSecretStoryBoard.storyboard */; };
 		55F8D9162523147F00B5E045 /* PullSecretWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F8D9152523147F00B5E045 /* PullSecretWindowController.swift */; };
 		55F8D91925231C2200B5E045 /* PullSecretViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F8D91825231C2200B5E045 /* PullSecretViewController.swift */; };
-		A3390174251DF71D00415FD9 /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = A3390173251DF71D00415FD9 /* Socket */; };
 		A357BBB7264297E6006F0C74 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = A357BBB6264297E6006F0C74 /* Yams */; };
 		A357BBBB26429B1C006F0C74 /* YamlReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357BBBA26429B1C006F0C74 /* YamlReader.swift */; };
 		A357BBBE26429B38006F0C74 /* KubeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357BBBD26429B38006F0C74 /* KubeConfig.swift */; };
 		A357BBC126429B5A006F0C74 /* KubeConfigReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357BBC026429B5A006F0C74 /* KubeConfigReader.swift */; };
 		A357BBC426429B80006F0C74 /* KubeContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357BBC326429B80006F0C74 /* KubeContextMenu.swift */; };
 		A3AB4D08261228120017E2FF /* Editable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB4D07261228120017E2FF /* Editable.swift */; };
+		A3BAE7EE264BB36900F7F558 /* AsyncHTTPClient in Frameworks */ = {isa = PBXBuildFile; productRef = A3BAE7ED264BB36900F7F558 /* AsyncHTTPClient */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,9 +64,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3BAE7EE264BB36900F7F558 /* AsyncHTTPClient in Frameworks */,
 				55946441238D332600BC99CA /* UserNotifications.framework in Frameworks */,
 				A357BBB7264297E6006F0C74 /* Yams in Frameworks */,
-				A3390174251DF71D00415FD9 /* Socket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,8 +184,8 @@
 			);
 			name = "CodeReady Containers";
 			packageProductDependencies = (
-				A3390173251DF71D00415FD9 /* Socket */,
 				A357BBB6264297E6006F0C74 /* Yams */,
+				A3BAE7ED264BB36900F7F558 /* AsyncHTTPClient */,
 			);
 			productName = "CodeReady Containers";
 			productReference = 556DAAED237AB11600885463 /* CodeReady Containers.app */;
@@ -221,8 +221,8 @@
 			);
 			mainGroup = 556DAAE4237AB11600885463;
 			packageReferences = (
-				A3390172251DF71D00415FD9 /* XCRemoteSwiftPackageReference "BlueSocket" */,
 				A357BBB5264297E6006F0C74 /* XCRemoteSwiftPackageReference "Yams" */,
+				A3BAE7EC264BB36900F7F558 /* XCRemoteSwiftPackageReference "async-http-client" */,
 			);
 			productRefGroup = 556DAAEE237AB11600885463 /* Products */;
 			projectDirPath = "";
@@ -466,14 +466,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A3390172251DF71D00415FD9 /* XCRemoteSwiftPackageReference "BlueSocket" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Kitura/BlueSocket";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.52;
-			};
-		};
 		A357BBB5264297E6006F0C74 /* XCRemoteSwiftPackageReference "Yams" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jpsim/Yams";
@@ -482,18 +474,26 @@
 				minimumVersion = 4.0.6;
 			};
 		};
+		A3BAE7EC264BB36900F7F558 /* XCRemoteSwiftPackageReference "async-http-client" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swift-server/async-http-client.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A3390173251DF71D00415FD9 /* Socket */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A3390172251DF71D00415FD9 /* XCRemoteSwiftPackageReference "BlueSocket" */;
-			productName = Socket;
-		};
 		A357BBB6264297E6006F0C74 /* Yams */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A357BBB5264297E6006F0C74 /* XCRemoteSwiftPackageReference "Yams" */;
 			productName = Yams;
+		};
+		A3BAE7ED264BB36900F7F558 /* AsyncHTTPClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A3BAE7EC264BB36900F7F558 /* XCRemoteSwiftPackageReference "async-http-client" */;
+			productName = AsyncHTTPClient;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
