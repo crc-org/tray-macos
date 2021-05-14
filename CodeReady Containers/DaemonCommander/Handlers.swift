@@ -184,29 +184,12 @@ func HandleStart() {
         let appDelegate = NSApplication.shared.delegate as? AppDelegate
         appDelegate?.initializeMenus(status: "Starting")
     }
-    var response: Data
     do {
-        response = try SendCommandToDaemon(HTTPMethod.GET, "/api/start")
         displayNotification(title: "Starting Cluster", body: "Starting OpenShift Cluster, this could take a few minutes..")
+        _ = try SendCommandToDaemon(HTTPMethod.GET, "/api/start")
+        displayNotification(title: "Successfully started cluster", body: "OpenShift cluster is running")
     } catch let error {
-        DispatchQueue.main.async {
-            showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "\(error)")
-            let appDelegate = NSApplication.shared.delegate as? AppDelegate
-            appDelegate?.pollStatus()
-        }
-        return
-    }
-    do {
-        let startResult = try JSONDecoder().decode(StartResult.self, from: response)
-        if startResult.Status == "Running" {
-            DispatchQueue.main.async {
-                let appDelegate = NSApplication.shared.delegate as? AppDelegate
-                appDelegate?.pollStatus()
-                displayNotification(title: "Successfully started Cluster", body: "OpenShift Cluster is running")
-            }
-        }
-    } catch let jsonErr {
-        displayNotification(title: "Cannot parse daemon answer", body: jsonErr.localizedDescription)
+        showAlertFailedAndCheckLogs(message: "Failed to start OpenShift cluster", informativeMsg: "\(error)")
     }
 }
 
