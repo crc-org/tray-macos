@@ -39,9 +39,13 @@ class DaemonCommander {
             case .failure(let err):
                 error = Data(err.localizedDescription.utf8)
             case .success(let response):
-                if response.status == .ok {
-                    response.body?.withUnsafeReadableBytes {
-                        resultData = Data($0)
+                if response.status == .ok || response.status == .created {
+                    if let body = response.body {
+                        body.withUnsafeReadableBytes {
+                            resultData = Data($0)
+                        }
+                    } else {
+                        resultData = Data("no content".utf8)
                     }
                 } else {
                     response.body?.withUnsafeReadableBytes {
@@ -66,6 +70,11 @@ class DaemonCommander {
 
 let userHomePath: URL = FileManager.default.homeDirectoryForCurrentUser
 let socketPath: URL = userHomePath.appendingPathComponent(".crc").appendingPathComponent("crc-http.sock")
+
+func SendRawCommandToDaemon(_ verb: HTTPMethod, _ path: String, _ payload: Data?) throws -> Data {
+    let daemonConnection = DaemonCommander(sockPath: socketPath.path)
+    return try daemonConnection.sendCommand(verb, path, payload)
+}
 
 func SendCommandToDaemon<T>(_ verb: HTTPMethod, _ path: String, _ payload: T) throws -> Data where T: Encodable {
     let req = try JSONEncoder().encode(payload)

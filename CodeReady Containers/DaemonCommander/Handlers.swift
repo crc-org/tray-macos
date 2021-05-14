@@ -179,18 +179,14 @@ func HandleStop() {
     }
 }
 
-func HandleStart(pullSecretPath: String) {
+func HandleStart() {
     DispatchQueue.main.async {
         let appDelegate = NSApplication.shared.delegate as? AppDelegate
         appDelegate?.initializeMenus(status: "Starting")
     }
     var response: Data
     do {
-        if pullSecretPath == "" {
-            response = try SendCommandToDaemon(HTTPMethod.GET, "/api/start")
-        } else {
-            response = try SendCommandToDaemon(HTTPMethod.GET, "/api/start", ["pullSecretFile": pullSecretPath])
-        }
+        response = try SendCommandToDaemon(HTTPMethod.GET, "/api/start")
         displayNotification(title: "Starting Cluster", body: "Starting OpenShift Cluster, this could take a few minutes..")
     } catch let error {
         DispatchQueue.main.async {
@@ -346,4 +342,13 @@ enum Actions: String {
 
 func SendTelemetry(_ action: Actions) {
     _ = try? SendCommandToDaemon(HTTPMethod.POST, "/api/telemetry", ["action": action.rawValue, "source": "tray"])
+}
+
+func IsPullSecretDefined() -> Bool {
+    do {
+        _ = try SendCommandToDaemon(HTTPMethod.GET, "/api/pull-secret")
+        return true
+    } catch {
+        return false
+    }
 }
