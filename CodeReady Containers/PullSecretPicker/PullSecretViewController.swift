@@ -7,13 +7,15 @@
 //
 
 import Cocoa
+import NIOHTTP1
 
 class PullSecretViewController: NSViewController, NSTextFieldDelegate {
 
-    @IBOutlet weak var pullSecretFilePath: NSTextField!
+    @IBOutlet weak var pullSecret: NSTextView!
     @IBOutlet weak var helpLabel: NSTextField!
 
     let helpString: String = "Please visit cloud.redhat.com to obtain Pull Secret"
+    var font: NSFont?    = .systemFont(ofSize: 14, weight: .regular)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,34 +28,27 @@ class PullSecretViewController: NSViewController, NSTextFieldDelegate {
         view.window?.level = .floating
     }
 
-    @IBAction func browseButtonClicked(_ sender: Any) {
-        // show the filepicker
-        // set the path of the file as filepath in the textfield
-        showFilePicker(msg: "Select Pull Secret File", txtField: self.pullSecretFilePath, fileTypes: [])
-    }
-
     @IBAction func okButtonClicked(_ sender: Any) {
-        // check if the textfield is empty
-        // if not communicate the filepath back to app delegate
-        if self.pullSecretFilePath.stringValue == "" {
-            // show help string to get pull secret
-            let attributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: NSColor.red,
-                .font: NSFont(name: "Helvetica Neue Italic", size: 12) as Any
-            ]
-            let styledString = NSAttributedString(string: self.helpString, attributes: attributes)
-            self.helpLabel.attributedStringValue = styledString
-        } else {
-            SendTelemetry(Actions.EnterPullSecret)
+        SendTelemetry(Actions.EnterPullSecret)
+        do {
+            _ = try SendRawCommandToDaemon(HTTPMethod.POST, "/api/pull-secret", self.pullSecret.string.data(using: .utf8))
             self.view.window?.close()
-            let path = self.pullSecretFilePath.stringValue
             DispatchQueue.global(qos: .userInteractive).async {
-                HandleStart(pullSecretPath: path)
+                HandleStart()
+            }
+        } catch let error {
+            switch error {
+            case DaemonError.internalServerError(let message):
+                self.helpLabel.attributedStringValue = NSAttributedString(string: message, attributes: [
+                    .foregroundColor: NSColor.red,
+                    .font: font as Any
+                ])
+            default:
+                self.helpLabel.attributedStringValue = NSAttributedString(string: error.localizedDescription, attributes: [
+                    .foregroundColor: NSColor.red,
+                    .font: font as Any
+                ])
             }
         }
-    }
-
-    func controlTextDidBeginEditing(_ obj: Notification) {
-        self.helpLabel.attributedStringValue = NSAttributedString(string: "")
     }
 }

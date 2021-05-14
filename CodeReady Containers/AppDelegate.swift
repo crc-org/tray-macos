@@ -137,32 +137,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBAction func startMenuClicked(_ sender: Any) {
         SendTelemetry(Actions.ClickStart)
 
-        // check if pull-secret-file is configured
-        // if yes call HadleStart("")
-        // otherwise invoke the pullSecretPicker view
-        var response: [String: String]
-        do {
-            response = try GetConfigFromDaemon(properties: ["pull-secret-file"])
-        } catch let error {
-            showAlertFailedAndCheckLogs(message: "Failed to Check if Pull Secret is configured",
-                                        informativeMsg: "Ensure the CRC daemon is running, for more information please check the logs.\nError: \(error)")
-            return
-        }
-        if statusLabel(status) == "Stopped" {
-            DispatchQueue.global(qos: .userInteractive).async {
-                HandleStart(pullSecretPath: "")
-                DispatchQueue.main.sync {
-                    self.statusItem.button?.appearsDisabled = false
-                }
-            }
-        } else if response["pull-secret-file"] == "" {
+        if !IsPullSecretDefined() {
             if pullSecretWindowController == nil {
                 pullSecretWindowController = PullSecretWindowController.loadFromStoryBoard()
             }
             pullSecretWindowController?.showWindow(self)
         } else {
             DispatchQueue.global(qos: .userInteractive).async {
-                HandleStart(pullSecretPath: "")
+                HandleStart()
                 DispatchQueue.main.sync {
                     self.statusItem.button?.appearsDisabled = false
                 }
@@ -251,7 +233,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             } catch let error as DaemonError {
                 switch error {
                 case DaemonError.internalServerError(let message):
-                    NotificationCenter.default.post(name: statusNotification, object:clusterStatusWithError(message))
+                    NotificationCenter.default.post(name: statusNotification, object: clusterStatusWithError(message))
                 default:
                     print(error.localizedDescription)
                     NotificationCenter.default.post(name: statusNotification, object: brokenDaemonClusterStatus)
