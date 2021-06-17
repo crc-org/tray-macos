@@ -18,8 +18,11 @@ class YamlReader {
   func loadKubeConfig(yaml: String) -> KubeConfig {
     do {
       let readYaml = try Yams.load(yaml: yaml)
-      let yamlContent = readYaml != nil ? readYaml as! [String: Any] : [:]
-      return KubeConfig(yamlContent: yamlContent)
+      if let ret = readYaml as? [String: Any] {
+        return KubeConfig(yamlContent: ret)
+      } else {
+        return KubeConfig(yamlContent: [:])
+      }
     } catch {
       os_log("Could not load yaml string as dictionary", type: .error)
       let errorDetails = "\(error)"
