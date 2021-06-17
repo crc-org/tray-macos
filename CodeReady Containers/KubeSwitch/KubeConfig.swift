@@ -19,8 +19,11 @@ class KubeConfig {
   }
 
   func currentContext() -> String {
-    return (self.yamlContent["current-context"] != nil)
-      ? self.yamlContent["current-context"] as! String : ""
+    if let ret =  self.yamlContent["current-context"] as? String {
+        return ret
+    } else {
+        return ""
+    }
   }
 
   func isCurrentContext(otherContextName: String) -> Bool {
@@ -28,18 +31,23 @@ class KubeConfig {
   }
 
   func contexts() -> [AnyObject] {
-    return (self.yamlContent["contexts"] != nil)
-      ? self.yamlContent["contexts"] as! [AnyObject] : []
+    if let ret =  self.yamlContent["contexts"] as? [AnyObject] {
+        return ret
+    } else {
+        return []
+    }
   }
 
   func contextNames() -> [String] {
     return self.contexts()
       .map {
-        $0 as! [String: Any]
+        $0 as? [String: Any]
       }
+      .compactMap { $0 }
       .map {
-        $0["name"] as! String
+        $0["name"] as? String
       }
+      .compactMap { $0 }
   }
 
   func changeContext(newContext: String) {
