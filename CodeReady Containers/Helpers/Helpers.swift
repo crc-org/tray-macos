@@ -172,3 +172,19 @@ func stoppedIfDoesNotExist(status: String) -> String {
     }
     return status
 }
+
+func getFreeSpace() -> Double {
+    let fileURL = URL(fileURLWithPath:"/")
+    do {
+        let values = try fileURL.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
+        if let capacity = values.volumeAvailableCapacityForImportantUsage {
+            return Double(capacity/(1024 * 1024 * 1024))
+        } else {
+            print("Capacity is unavailable")
+            return 0
+        }
+    } catch {
+        print("Error retrieving available free space: \(error.localizedDescription)")
+        return 0
+    }
+}

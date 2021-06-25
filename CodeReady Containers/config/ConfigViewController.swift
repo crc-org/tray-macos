@@ -21,8 +21,8 @@ class ConfigViewController: NSViewController {
     @IBOutlet weak var cpusLabel: NSTextField!
     @IBOutlet weak var memorySlider: NSSlider!
     @IBOutlet weak var memoryLabel: NSTextField!
-    @IBOutlet weak var diskSizeTextField: NSTextField!
-    @IBOutlet weak var diskSizeStepper: NSStepper!
+    @IBOutlet weak var diskSizeSlider: NSSlider!
+    @IBOutlet weak var diskSizeLabel: NSTextField!
     @IBOutlet weak var enableTelemetrySwitch: NSButton!
     @IBOutlet weak var nameservers: NSTextField!
 
@@ -61,17 +61,13 @@ class ConfigViewController: NSViewController {
         // Do view setup here.
         self.preferredContentSize = NSSize(width: self.view.frame.size.width, height: self.view.frame.height)
 
-        // adjust memory and cpu sliders
+        // adjust memory, disk size and cpu sliders
         self.cpuSlider?.minValue = self.minimumCpus
         self.cpuSlider?.maxValue = Double(ProcessInfo().processorCount)
         self.cpuSlider?.numberOfTickMarks = ProcessInfo().processorCount - Int(minimumCpus) + 1
         self.memorySlider?.minValue = self.minimumMemory
         self.memorySlider?.maxValue = Double(ProcessInfo().physicalMemory/1048576)
-
-        // disk size stepper adjustments
-        self.diskSizeStepper?.minValue = self.minimumDiskSize
-        self.diskSizeStepper?.maxValue = self.minimumDiskSize + 30
-        self.diskSizeStepper?.increment = 1
+        self.diskSizeSlider?.minValue = self.minimumDiskSize
 
         self.newVersionDownloadButton?.keyEquivalent = "\r"
         self.newVersionDownloadButton?.isHighlighted = true
@@ -114,9 +110,11 @@ class ConfigViewController: NSViewController {
 
                 self.memorySlider?.doubleValue = Float64(configs.memory ?? 0)
                 self.memoryLabel?.doubleValue = Float64(configs.memory ?? 0)
+                self.diskSizeSlider?.doubleValue = Float64(configs.diskSize ?? 0)
+                self.diskSizeSlider?.maxValue = Double(configs.diskSize ?? Int(self.minimumDiskSize)) + getFreeSpace()
+                self.diskSizeLabel?.doubleValue = Float64(configs.diskSize ?? 0)
                 self.nameservers?.stringValue = configs.nameserver ?? "Unset"
-                self.diskSizeTextField?.doubleValue = Float64(configs.diskSize ?? 0)
-                self.diskSizeStepper?.intValue = Int32(configs.diskSize ?? 0)
+                
                 self.pullSecretFilePathTextField?.stringValue = configs.pullSecretFile ?? "Unset"
 
                 if configs.consentTelemetry == "" {
@@ -288,12 +286,11 @@ class ConfigViewController: NSViewController {
         self.memory = Int(sender.intValue)
 
     }
-    @IBAction func diskSizeStepperClicked(_ sender: NSStepper) {
-        print(sender.intValue)
+    @IBAction func diskSliderChanged(_ sender: NSSlider) {
+        self.diskSizeLabel.intValue = sender.intValue
         self.diskSize = Int(sender.intValue)
-        self.diskSizeTextField.intValue = sender.intValue
     }
-
+    
     func clearChangeTrackers() {
         self.consentTelemetry = ""
         self.autostart = nil
