@@ -293,16 +293,28 @@ func FetchVersionInfoFromDaemon() -> (String, String) {
 }
 
 func GetConfigFromDaemon(properties: [String]) throws -> [String: String] {
-    let data = try SendCommandToDaemon(HTTPMethod.GET, "/api/config/get", PropertiesArray(properties: properties))
+    let data = try SendCommandToDaemon(HTTPMethod.GET, "/api/config", PropertiesArray(properties: properties))
     let configGetResult = try JSONDecoder().decode(ConfigGetResult.self, from: data)
     return configGetResult.Configs
 }
 
 func GetAllConfigFromDaemon() throws -> CrcConfigs {
-    let data = try SendCommandToDaemon(HTTPMethod.GET, "/api/config/get")
+    let data = try SendCommandToDaemon(HTTPMethod.GET, "/api/config")
     let decoder = JSONDecoder()
     let configResult = try decoder.decode(GetconfigResult.self, from: data)
     return configResult.Configs
+}
+
+func SetConfigFromDaemon(config: ConfigsetRequest) throws -> ConfigResult {
+    let data = try SendCommandToDaemon(HTTPMethod.POST, "/api/config", config.args)
+    let result = try JSONDecoder().decode(ConfigResult.self, from: data)
+    return result
+}
+
+func UnsetConfigFromDaemon(config: ConfigunsetRequest) throws -> ConfigResult {
+    let data = try SendCommandToDaemon(HTTPMethod.DELETE, "/api/config", config.args)
+    let result = try JSONDecoder().decode(ConfigResult.self, from: data)
+    return result
 }
 
 enum Actions: String {

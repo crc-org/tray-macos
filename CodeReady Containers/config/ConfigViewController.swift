@@ -236,8 +236,7 @@ class ConfigViewController: NSViewController {
                 // encode the json for configset and send it to the daemon
                 do {
                     let configsJson = Configset(properties: self.changedConfigs ?? CrcConfigs())
-                    let res = try SendCommandToDaemon(command: ConfigsetRequest(command: "setconfig", args: configsJson))
-                    let result = try JSONDecoder().decode(ConfigResult.self, from: res)
+                    let result = try SetConfigFromDaemon(config: ConfigsetRequest(command: "setconfig", args: configsJson))
                     if !result.Error.isEmpty {
                         let alert = NSAlert()
                         alert.informativeText = "\(result.Error)"
@@ -247,8 +246,8 @@ class ConfigViewController: NSViewController {
                     }
                     if self.configsNeedingUnset.count > 0 {
                         print(self.configsNeedingUnset)
-                        let res = try SendCommandToDaemon(command: ConfigunsetRequest(command: "unsetconfig", args: Configunset(properties: self.configsNeedingUnset)))
-                        print(String(data: res, encoding: .utf8) ?? "Nothing")
+                        let res = try UnsetConfigFromDaemon(config: ConfigunsetRequest(command: "unsetconfig", args: Configunset(properties: self.configsNeedingUnset)))
+                        print(res.Properties ?? "Nothing")
                         self.configsNeedingUnset = []
                     }
                     self.LoadConfigs()
